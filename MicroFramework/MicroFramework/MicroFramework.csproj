@@ -36,6 +36,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="TemperatureI2CDriver.cs" />
     <Compile Include="WebServer.cs" />
+    <Compile Include="WebServerClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SPOT.Hardware" />

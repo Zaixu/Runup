@@ -22,19 +22,10 @@ namespace MicroFramework
             // Setup I2C for temperature measuring.
             TemperatureI2CDriver tempDriver = new TemperatureI2CDriver(72, 100);
 
-            string response;
-
             while (true)
             {
-                if (webServer.ListenForRequest())
-                {
-                    response = webServer.ReceiveData();
-                    Debug.Print(response);
-                }
-                Debug.Print("Check1");
-                //webServer.SendData(tempDriver.GetData());
-                webServer.SendData("HTTP/1.1 200 OK\r\n" + "Content-Type: text/html; charset=utf-8\r\n\r\n" + "<html><head><title>Netduino Plus LED Sample</title></head>" + "<body>" + "Mooo" + "</body></html>");
-                webServer.EndRequest();
+                webServer.HandleConnection(webServer.WaitForConnection(), tempDriver.GetData());
+
             }
         }
 

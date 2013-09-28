@@ -15,7 +15,6 @@ namespace MicroFramework
         private Microsoft.SPOT.Net.NetworkInformation.NetworkInterface networkInterface;
         private Socket listenerSocket;
         private IPEndPoint listenerEndPoint;
-        private Socket clientSocket;
 
         public WebServer(int port)
         {
@@ -29,43 +28,20 @@ namespace MicroFramework
             listenerEndPoint = new IPEndPoint(IPAddress.Any, endpointPort);
 
             listenerSocket.Bind(listenerEndPoint);
-            listenerSocket.Listen(1);
+            listenerSocket.Listen(Int32.MaxValue);
         }
 
-        public bool ListenForRequest()
+        public Socket WaitForConnection()
         {
-            // Wait for client to connect.
-            clientSocket = listenerSocket.Accept();
-            // Wait for data to arrive
-            bool dataReady = clientSocket.Poll(5000000, SelectMode.SelectRead);
-
-            return dataReady;
+            Socket clientSocket = listenerSocket.Accept();
+            return clientSocket;
         }
 
-        public string ReceiveData()
+        public void HandleConnection(Socket clientSocket, string response)
         {
-            if (clientSocket.Available > 0)
-            {
-                byte[] buffer = new byte[clientSocket.Available];
-                int bytesRead = clientSocket.Receive(buffer);
-
-                string request = new string(System.Text.Encoding.UTF8.GetChars(buffer));
-
-                return request;
-            }
-
-            return null;
+            new WebServerClient(clientSocket, response, true);
         }
 
-        public void SendData(string response)
-        {
-            clientSocket.Send(System.Text.Encoding.UTF8.GetBytes(response));
-        }
-
-        public void EndRequest()
-        {
-            clientSocket.Close();
-        }
 
     }
 }
