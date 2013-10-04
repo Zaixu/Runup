@@ -11,7 +11,7 @@ namespace MicroFramework
         private I2CDevice device;
 
         private static I2C instance = null;
-        private static object sync = new Object();
+        private static readonly object sync = new Object();
 
         private I2C()
         {

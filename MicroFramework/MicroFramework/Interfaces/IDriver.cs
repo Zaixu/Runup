@@ -5,6 +5,6 @@ namespace MicroFramework
 {
     interface IDriver
     {
-        string GetData();
+        object GetData();
     }
 }

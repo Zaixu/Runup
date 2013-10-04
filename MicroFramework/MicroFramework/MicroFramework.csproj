@@ -36,6 +36,7 @@
     <Compile Include="I2C.cs" />
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Interfaces\IDriver.cs" />
+    <Compile Include="ManagedQueue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="LM75Driver.cs" />
