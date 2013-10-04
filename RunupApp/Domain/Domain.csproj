@@ -84,6 +84,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Implementations\Exercise.cs" />
+    <Compile Include="Implementations\GPSService.cs" />
     <Compile Include="Implementations\Route.cs" />
     <Compile Include="Implementations\RoutePoint.cs" />
     <Compile Include="Implementations\User.cs" />

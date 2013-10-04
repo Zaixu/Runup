@@ -8,6 +8,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using RunupApp.Resources;
 using Windows.Devices.Geolocation;
+using Domain.Interfaces;
 
 namespace RunupApp
 {
@@ -17,7 +18,8 @@ namespace RunupApp
         /// <summary>
         /// Geolocator object for getting GPS information.
         /// </summary>
-        public static Geolocator Geolocator { get; set; }
+        //public static Geolocator Geolocator { get; set; }
+        public static IGPSService GPSserv { get; set; }
 
         /// <summary>
         /// To indicate if running in back so can shutoff unnecessary features like UI updating.

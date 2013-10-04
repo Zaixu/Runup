@@ -14,14 +14,8 @@ namespace Domain.Implementations
         // :IRoute
         ICollection<IRoutePoint> IRoute.Points
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         double IRoute.DistanceRun
