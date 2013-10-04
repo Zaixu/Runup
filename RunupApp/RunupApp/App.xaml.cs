@@ -16,10 +16,9 @@ namespace RunupApp
     {
         // Properties
         /// <summary>
-        /// Geolocator object for getting GPS information.
+        /// For getting info about GPS location and changes.
         /// </summary>
-        //public static Geolocator Geolocator { get; set; }
-        public static IGPSService GPSserv { get; set; }
+        public static IGPSService LocationService { get; set; }
 
         /// <summary>
         /// To indicate if running in back so can shutoff unnecessary features like UI updating.

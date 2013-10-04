@@ -32,11 +32,12 @@ namespace RunupApp
                 App.Geolocator.MovementThreshold = 100; // The units are meters.
                 App.Geolocator.PositionChanged += geolocator_PositionChanged;
             }*/
-            if (App.GPSserv == null)
+            // Later should only be running when exercise in progress.
+            /*if (App.LocationService == null)
             {
-                App.GPSserv = new GPSService(PositionAccuracy.High, 50);
-                App.GPSserv.GPSLocationChanged += GPSChange;
-            }
+                App.LocationService = new GPSService(PositionAccuracy.High, 50);
+                App.LocationService.GPSLocationChanged += GPSChange;
+            }*/
         }
 
         void GPSChange(double latitude, double longitude)
@@ -53,22 +54,11 @@ namespace RunupApp
                 toast.Show();
             }
         }
-
-        void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
-        {
-
-            if (!App.RunningInBackground)
-            {
-                Console.WriteLine("Not in background");
-            }
-            else
-            {
-                Microsoft.Phone.Shell.ShellToast toast = new Microsoft.Phone.Shell.ShellToast();
-                toast.Content = args.Position.Coordinate.Latitude.ToString("0.00");
-                toast.Title = "Location: ";
-                toast.Show();
-            }
-        }
         #endregion
+
+        private void btnStartExercise_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/ExercisePage.xaml", UriKind.Relative));
+        }
     }
 }

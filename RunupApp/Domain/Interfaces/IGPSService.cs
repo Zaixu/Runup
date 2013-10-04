@@ -20,6 +20,18 @@ namespace Domain.Interfaces
             get;
             set;
         }
+
+        /// <summary>
+        /// Should be called to properly stop the GPS.
+        /// 
+        /// It also removes event handlers attached to the service.
+        /// </summary>
+        void StopService();
+
+        /// <summary>
+        /// Begins GPS tracking and 'readies' the service.
+        /// </summary>
+        void StartService();
     }
 
     // Helper types
