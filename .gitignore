@@ -13,9 +13,6 @@ MicroFramework/MicroFramework.v11.suo
 RunupApp/RunupApp.v11.suo
 RunupApp/RunupApp/bin
 RunupApp/RunupApp/obj
-RunupApp/BackgroundTasks/Bin #For some reason with big 'B'
-RunupApp/BackgroundTasks/Bin/debug/*
-RunupApp/BackgroundTasks/obj
 RunupApp/Domain/Bin #For some reason with big 'B'
 RunupApp/Domain/Bin/debug/*
 RunupApp/Domain/obj
