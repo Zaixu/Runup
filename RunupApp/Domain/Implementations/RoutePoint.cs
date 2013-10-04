@@ -1,4 +1,5 @@
-﻿using System;
+﻿/// \file RoutePoint.cs
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +10,30 @@ namespace Domain.Implementations
 {
     public class RoutePoint : IRoutePoint
     {
+        // Properties
+        // :RoutePoint
+        int IRoutePoint.X
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        int IRoutePoint.Y
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
