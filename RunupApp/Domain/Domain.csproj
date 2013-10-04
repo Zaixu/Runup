@@ -83,8 +83,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Exercise.cs" />
+    <Compile Include="Implementations\GPSService.cs" />
+    <Compile Include="Implementations\Route.cs" />
+    <Compile Include="Implementations\RoutePoint.cs" />
+    <Compile Include="Implementations\User.cs" />
+    <Compile Include="Interfaces\IExercise.cs" />
+    <Compile Include="Interfaces\IGPSService.cs" />
+    <Compile Include="Interfaces\IRoute.cs" />
+    <Compile Include="Interfaces\IRoutePoint.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
   <ProjectExtensions />

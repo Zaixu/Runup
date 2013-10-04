@@ -8,6 +8,8 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using RunupApp.Resources;
+using Windows.Devices.Geolocation;
+using Domain.Implementations;
 
 namespace RunupApp
 {
@@ -17,25 +19,46 @@ namespace RunupApp
         public MainPage()
         {
             InitializeComponent();
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
 
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
+        // Events
+        #region TEST
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            /*if (App.Geolocator == null)
+            {
+                App.Geolocator = new Geolocator();
+                App.Geolocator.DesiredAccuracy = PositionAccuracy.High;
+                App.Geolocator.MovementThreshold = 100; // The units are meters.
+                App.Geolocator.PositionChanged += geolocator_PositionChanged;
+            }*/
+            // Later should only be running when exercise in progress.
+            /*if (App.LocationService == null)
+            {
+                App.LocationService = new GPSService(PositionAccuracy.High, 50);
+                App.LocationService.GPSLocationChanged += GPSChange;
+            }*/
+        }
 
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
+        void GPSChange(double latitude, double longitude)
+        {
+            if (!App.RunningInBackground)
+            {
+                Console.WriteLine("Not in background");
+            }
+            else
+            {
+                Microsoft.Phone.Shell.ShellToast toast = new Microsoft.Phone.Shell.ShellToast();
+                toast.Content = "Latitude: " + latitude.ToString("0.00") + " Longitude: " + longitude.ToString("0:00");
+                toast.Title = "Location: ";
+                toast.Show();
+            }
+        }
+        #endregion
 
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+        private void btnStartExercise_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/ExercisePage.xaml", UriKind.Relative));
+        }
     }
 }
