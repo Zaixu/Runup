@@ -36,8 +36,8 @@ namespace MicroFramework
                         readBuffer[0] readBuffer[1]
                         XX XX XX XX    Y0 00 00 00
 
-                        con(9bit):
-                        XX XX XX XX Y
+                        con(8bit):
+                     (X)XX XX XX XY
                 */
                 byte con;
                 con = (byte)(((readBuffer[1] & 0x80) >> 7) & 0xFF);
@@ -50,7 +50,7 @@ namespace MicroFramework
                 else
                     temperature = (float)con / 2;*/
 		// 2's complement conversion
-                if(con & 0x80) // 9th bit set means negativ
+                if(readBuffer[0] & 0x80) // 8th bit set means negativ
                     temperature = -((~con) + 1)/2;
                 else
                     temperature = con/2
