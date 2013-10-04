@@ -7,11 +7,23 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using RunupApp.Resources;
+using Windows.Devices.Geolocation;
 
 namespace RunupApp
 {
     public partial class App : Application
     {
+        // Properties
+        /// <summary>
+        /// Geolocator object for getting GPS information.
+        /// </summary>
+        public static Geolocator Geolocator { get; set; }
+
+        /// <summary>
+        /// To indicate if running in back so can shutoff unnecessary features like UI updating.
+        /// </summary>
+        public static bool RunningInBackground { get; set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -57,6 +69,7 @@ namespace RunupApp
 
         }
 
+        /// Event handlers
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
@@ -67,6 +80,7 @@ namespace RunupApp
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            RunningInBackground = false;
         }
 
         // Code to execute when the application is deactivated (sent to background)
@@ -99,6 +113,17 @@ namespace RunupApp
                 // An unhandled exception has occurred; break into the debugger
                 Debugger.Break();
             }
+        }
+
+        /// <summary>
+        /// To indicate the application has been suspended.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private void Application_RunningInBackground(object sender, RunningInBackgroundEventArgs args)
+        {
+            RunningInBackground = true;
+            // Suspend all unnecessary processing such as UI updates
         }
 
         #region Phone application initialization

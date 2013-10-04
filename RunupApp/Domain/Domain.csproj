@@ -88,6 +88,7 @@
     <Compile Include="Implementations\RoutePoint.cs" />
     <Compile Include="Implementations\User.cs" />
     <Compile Include="Interfaces\IExercise.cs" />
+    <Compile Include="Interfaces\IGPSService.cs" />
     <Compile Include="Interfaces\IRoute.cs" />
     <Compile Include="Interfaces\IRoutePoint.cs" />
     <Compile Include="Interfaces\IUser.cs" />
