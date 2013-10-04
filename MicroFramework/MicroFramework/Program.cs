@@ -17,15 +17,18 @@ namespace MicroFramework
             // Let network get setup.
             Thread.Sleep(5000);
 
-            // Setup Netduino to listen on port 80 with sockets.
-            WebServer webServer = new WebServer(80);
             // Setup I2C for temperature measuring.
-            TemperatureI2CDriver tempDriver = new TemperatureI2CDriver(72, 100);
+            LM75Driver tempDriver = new LM75Driver(72, 300);
 
+            // Setup controller for webserver
+            IController control = (IController) new Controller(tempDriver);
+
+            // Setup Netduino to listen on port 80 with sockets.
+            WebServer webServer = new WebServer(80, control);
+            
             while (true)
             {
-                webServer.HandleConnection(webServer.WaitForConnection(), tempDriver.GetData());
-
+                webServer.HandleConnection(webServer.WaitForConnection());
             }
         }
 

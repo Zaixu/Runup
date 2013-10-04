@@ -11,18 +11,20 @@ namespace MicroFramework
 {
     class WebServer
     {
-        private int endpointPort = 80;
+        private Int32 endpointPort = 80;
         private Microsoft.SPOT.Net.NetworkInformation.NetworkInterface networkInterface;
         private Socket listenerSocket;
         private IPEndPoint listenerEndPoint;
+        private IController controller;
 
-        public WebServer(int port)
+        public WebServer(int port, IController control)
         {
             endpointPort = port;
+            controller = control;
+
             // Display IP Address
             networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
             Debug.Print("IP Address: " + networkInterface.IPAddress.ToString());
-            //networkInterface.EnableDhcp();
 
             listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             listenerEndPoint = new IPEndPoint(IPAddress.Any, endpointPort);
@@ -32,14 +34,16 @@ namespace MicroFramework
         }
 
         public Socket WaitForConnection()
-        {
+        { 
             Socket clientSocket = listenerSocket.Accept();
+            Debug.Print(clientSocket.RemoteEndPoint.ToString());
+            Thread.Sleep(500);
             return clientSocket;
         }
 
-        public void HandleConnection(Socket clientSocket, string response)
+        public void HandleConnection(Socket clientSocket)
         {
-            new WebServerClient(clientSocket, response, true);
+            new WebServerClient(clientSocket, controller, true);
         }
 
 

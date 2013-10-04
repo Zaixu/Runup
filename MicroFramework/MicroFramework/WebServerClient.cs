@@ -9,12 +9,12 @@ namespace MicroFramework
     class WebServerClient
     {
         private Socket clientSocket;
-        private string response;
+        private IController controller;
 
-        public WebServerClient(Socket cSocket, string responseString, Boolean async)
+        public WebServerClient(Socket cSocket, IController control, Boolean async)
         {
+            controller = control;
             clientSocket = cSocket;
-            response = responseString;
 
             if (async)
                 new Thread(ProcessRequest).Start();
@@ -33,8 +33,8 @@ namespace MicroFramework
                 int bytesRead = clientSocket.Receive(buffer);
 
                 string request = new string(System.Text.Encoding.UTF8.GetChars(buffer));
-
-                String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<html><head><title>WebServer</title></head><body>" + response + "</body></html>";
+                String fullResponse = controller.Handler(request);
+                //String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<html><head><title>WebServer</title></head><body>" + response + "</body></html>";
 
                 clientSocket.Send(System.Text.Encoding.UTF8.GetBytes(fullResponse));
             }
