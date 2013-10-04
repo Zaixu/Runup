@@ -1,6 +1,0 @@
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\obj\Debug\CloudService.csprojResolveAssemblyReference.cache
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\bin\Debug\CloudService.dll.config
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\bin\Debug\CloudService.dll
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\bin\Debug\CloudService.pdb
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\obj\Debug\CloudService.dll
-C:\Users\Blom\Documents\GitHub\Runup\CloudService\CloudService\obj\Debug\CloudService.pdb

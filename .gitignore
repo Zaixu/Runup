@@ -1,0 +1,19 @@
+# Solution files
+# :Cloud Service
+CloudService/CloudService/bin
+CloudService/CloudService/obj
+CloudService/CloudService.v11.suo
+
+# :Micro Framework
+MicroFramework/MicroFramework/bin
+MicroFramework/MicroFramework/obj
+MicroFramework/MicroFramework.v11.suo
+
+# :Runup App
+RunupApp/RunupApp.v11.suo
+RunupApp/RunupApp/bin
+RunupApp/RunupApp/obj
+RunupApp/BackgroundTasks/Bin #For some reason with big 'B'
+RunupApp/BackgroundTasks/obj
+RunupApp/Domain/Bin #For some reason with big 'B'
+RunupApp/Domain/obj
