@@ -31,16 +31,29 @@ namespace MicroFramework
                 i2c.Read(config, readBuffer, 1000);
 
                 //MSB First
+                /*
+                    A reading:
+                        readBuffer[0] readBuffer[1]
+                        XX XX XX XX    Y0 00 00 00
+
+                        con(9bit):
+                        XX XX XX XX Y
+                */
                 byte con;
                 con = (byte)(((readBuffer[1] & 0x80) >> 7) & 0xFF);
                 con = (byte)(con | (byte)((readBuffer[0] << 1) & 0xFF));
 
                 float temperature = 0;
 
-                if ((readBuffer[0] & 0x80) > 0)
+                /*if ((readBuffer[0] & 0x80) > 0)
                     temperature = ((float)con - 512) / 2;
                 else
-                    temperature = (float)con / 2;
+                    temperature = (float)con / 2;*/
+		// 2's complement conversion
+                if(con & 0x80) // 9th bit set means negativ
+                    temperature = -((~con) + 1)/2;
+                else
+                    temperature = con/2
 
                 queue.Add(new QueueClass(temperature));
 
