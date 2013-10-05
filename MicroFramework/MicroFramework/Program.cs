@@ -37,7 +37,7 @@ namespace MicroFramework
             
             while (true)
             {
-                webServer.HandleConnection(webServer.WaitForConnection());
+                Thread.Sleep(5000);
             }
         }
 
