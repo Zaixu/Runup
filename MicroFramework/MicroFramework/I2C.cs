@@ -1,8 +1,6 @@
 using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware;
-using SecretLabs.NETMF.Hardware.Netduino;
 
 namespace MicroFramework
 {
@@ -50,7 +48,7 @@ namespace MicroFramework
 
                 if (transferred != buffer.Length)
                     Debug.Print("Error writing to device.");
-
+                
                 return transferred;
             }
         }

@@ -34,7 +34,6 @@ namespace MicroFramework
 
                 string request = new string(System.Text.Encoding.UTF8.GetChars(buffer));
                 String fullResponse = controller.Handler(request);
-                //String fullResponse = "HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=utf-8\r\n\r\n<html><head><title>WebServer</title></head><body>" + response + "</body></html>";
 
                 clientSocket.Send(System.Text.Encoding.UTF8.GetBytes(fullResponse));
             }

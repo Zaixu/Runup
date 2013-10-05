@@ -2,10 +2,8 @@ using System;
 using System.Net;
 using System.Net.Sockets;
 using Microsoft.SPOT;
-using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware;
-using SecretLabs.NETMF.Hardware.Netduino;
 using System.Threading;
+
 
 namespace MicroFramework
 {
@@ -22,10 +20,28 @@ namespace MicroFramework
             endpointPort = port;
             controller = control;
 
-            // Display IP Address
+            Microsoft.SPOT.Net.NetworkInformation.NetworkChange.NetworkAddressChanged += NetworkChange_NetworkAddressChanged;
+            Microsoft.SPOT.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
+
+            Setup();
+            
+        }
+
+        void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
+        {
+            Debug.Print("Available");
+        }
+
+        void NetworkChange_NetworkAddressChanged(object sender, EventArgs e)
+        {
+            Debug.Print("Address Change");
+        }
+
+        public void Setup()
+        {
             networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
             Debug.Print("IP Address: " + networkInterface.IPAddress.ToString());
-
+            
             listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             listenerEndPoint = new IPEndPoint(IPAddress.Any, endpointPort);
 
@@ -34,16 +50,23 @@ namespace MicroFramework
         }
 
         public Socket WaitForConnection()
-        { 
-            Socket clientSocket = listenerSocket.Accept();
-            Debug.Print(clientSocket.RemoteEndPoint.ToString());
-            Thread.Sleep(500);
+        {
+            Socket clientSocket;
+            try
+            {
+                clientSocket = listenerSocket.Accept();
+            }
+            catch(Exception e)
+            {
+                clientSocket = null;
+            }
             return clientSocket;
         }
 
         public void HandleConnection(Socket clientSocket)
         {
-            new WebServerClient(clientSocket, controller, true);
+            if(clientSocket != null)
+                new WebServerClient(clientSocket, controller, true);
         }
 
 

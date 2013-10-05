@@ -15,10 +15,12 @@ namespace MicroFramework
 
         public string Handler(string request)
         {
-            Debug.Print(request);
             int getIndex = request.IndexOf("GET");
             int httpIndex = request.IndexOf("HTTP");
-            string completeRequest = request.Substring(getIndex + 4, httpIndex-(getIndex+5));
+
+            string completeRequest = "";
+            if (getIndex != -1 && httpIndex != -1)
+                completeRequest = request.Substring(getIndex + 4, httpIndex - (getIndex + 5));
 
             string response = "";
             if (completeRequest == "/List")

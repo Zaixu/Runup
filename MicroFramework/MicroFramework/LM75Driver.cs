@@ -1,8 +1,6 @@
 using System;
 using Microsoft.SPOT;
 using Microsoft.SPOT.Hardware;
-using SecretLabs.NETMF.Hardware;
-using SecretLabs.NETMF.Hardware.Netduino;
 using System.Threading;
 
 namespace MicroFramework
@@ -25,10 +23,10 @@ namespace MicroFramework
             while (true)
             {
                 byte[] writeBuffer = new byte[1] { 0x00 };
-                i2c.Write(config, writeBuffer, 1000);
+                i2c.Write(config, writeBuffer, 100);
 
                 byte[] readBuffer = new byte[2];
-                i2c.Read(config, readBuffer, 1000);
+                i2c.Read(config, readBuffer, 100);
 
                 //MSB First
                 /*
