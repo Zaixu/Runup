@@ -48,10 +48,10 @@ namespace MicroFramework
                 else
                     temperature = (float)con / 2;*/
 		// 2's complement conversion
-                if(readBuffer[0] & 0x80) // 8th bit set means negativ
-                    temperature = -((~con) + 1)/2;
+                if ((readBuffer[0] & 0x80) > 0) // 8th bit set means negativ
+                    temperature = -((float)(~con) + 1) / 2;
                 else
-                    temperature = con/2
+                    temperature = (float)con / 2;
 
                 queue.Add(new QueueClass(temperature));
 
