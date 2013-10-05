@@ -34,7 +34,6 @@
   <Import Project="$(NetMfTargetsBaseDir)$(TargetFrameworkVersion)\CSharp.Targets" />
   <ItemGroup>
     <Compile Include="I2C.cs" />
-    <Compile Include="Initiator.cs" />
     <Compile Include="Interfaces\IController.cs" />
     <Compile Include="Interfaces\IDriver.cs" />
     <Compile Include="ManagedQueue.cs" />
