@@ -30,14 +30,14 @@ namespace MicroFramework
             IController control = (IController) new Controller(tempDriver);
 
             // Setup Netduino to listen on port 80 with sockets.
-            WebServer webServer = new WebServer(80, control);
+            WebServer webServer = new WebServer(80, control, true);
 
             // Device ready
             onboardLED.Write(true);
             
             while (true)
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(500);
             }
         }
 

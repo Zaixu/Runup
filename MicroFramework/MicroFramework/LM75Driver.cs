@@ -10,17 +10,42 @@ namespace MicroFramework
         private I2C i2c = I2C.Instance;
         private I2CDevice.Configuration config;
         private ManagedQueue queue = new ManagedQueue();
+        private Thread thread = null;
+        private bool running = false;
 
         public LM75Driver(ushort address, int clockRateKhz)
         {
             config = new I2CDevice.Configuration(address, clockRateKhz);
 
-            new Thread(Pull).Start();
+            thread = new Thread(Pull);
+            Start();
+        }
+
+        public void Start()
+        {
+            if (!thread.IsAlive)
+            {
+                running = true;
+                thread.Start();
+            }
+        }
+
+        public void Stop()
+        {
+            if (thread.IsAlive)
+            {
+                running = false;
+
+                while (thread.IsAlive)
+                {
+                    Thread.Sleep(500);
+                }
+            }
         }
 
         private void Pull()
         {
-            while (true)
+            while (running)
             {
                 byte[] writeBuffer = new byte[1] { 0x00 };
                 i2c.Write(config, writeBuffer, 100);
@@ -47,7 +72,7 @@ namespace MicroFramework
                     temperature = ((float)con - 512) / 2;
                 else
                     temperature = (float)con / 2;*/
-		// 2's complement conversion
+                // 2's complement conversion
                 if ((readBuffer[0] & 0x80) > 0) // 8th bit set means negativ
                     temperature = -((float)(~con) + 1) / 2;
                 else

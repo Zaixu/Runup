@@ -8,25 +8,26 @@ namespace MicroFramework
 {
     class NTP
     {
-        IPHostEntry ipHostPrimary = null;
-        IPHostEntry ipHostSecondary = null;
-        IPAddress primaryAddress = null;
-        IPAddress secondaryAddress = null;
-        string primaryHost;
-        string secondaryHost;
+        private IPHostEntry ipHostPrimary = null;
+        private IPHostEntry ipHostSecondary = null;
+        private IPAddress primaryAddress = null;
+        private IPAddress secondaryAddress = null;
+        private string primaryHost;
+        private string secondaryHost;
 
-        int TimeZoneMinutes = 60;
-        int DaylightSavingTime = 60;
+        private int TimeZoneMinutes = 60;
+        private int DaylightSavingTime = 60;
 
         public NTP(string primary, string secondary)
         {
+            primaryHost = primary;
+            secondaryHost = secondary;
             // Setup events to handle system
             Microsoft.SPOT.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
             TimeService.SystemTimeChanged += TimeService_SystemTimeChanged;
             TimeService.TimeSyncFailed += TimeService_TimeSyncFailed;
 
-            // Setup class
-            Setup(primary, secondary);
+            Start();
         }
 
         void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
@@ -34,7 +35,7 @@ namespace MicroFramework
             if (e.IsAvailable)
             {
                 // Must have lost connection, reset everything incase of startup without ethernet
-                Setup(primaryHost, secondaryHost);
+                Start();
             }
             else
             {
@@ -45,7 +46,16 @@ namespace MicroFramework
 
         public void Start()
         {
-            TimeService.Start();
+            try
+            {
+                Setup();
+                TimeService.Start();
+            }
+            catch
+            {
+                // Catch Connection Problem
+                // Do nothing, SocketException, bad ethernet, event will reinitiate when its ready - Counting on Exception so TimeService.Start wont run if theres no ethernet
+            }
         }
 
         public void Stop()
@@ -53,20 +63,12 @@ namespace MicroFramework
             TimeService.Stop();
         }
 
-        public void Setup(string primary, string secondary)
+        private void Setup()
         {
-            try
-            {
-                // Stopping, new setup
-                Stop();
-
-                primaryHost = primary;
-                secondaryHost = secondary;
-
-                ipHostPrimary = Dns.GetHostEntry(primary);
+                ipHostPrimary = Dns.GetHostEntry(primaryHost);
                 primaryAddress = ipHostPrimary.AddressList[0];
 
-                ipHostSecondary = Dns.GetHostEntry(secondary);
+                ipHostSecondary = Dns.GetHostEntry(secondaryHost);
                 secondaryAddress = ipHostSecondary.AddressList[0];
 
                 TimeServiceSettings settings = new TimeServiceSettings();
@@ -74,16 +76,9 @@ namespace MicroFramework
                 settings.AlternateServer = secondaryAddress.GetAddressBytes();
                 settings.AutoDayLightSavings = true; // Does nothing
                 settings.ForceSyncAtWakeUp = true;
-                settings.RefreshTime = 5;
+                settings.RefreshTime = 3600;
 
                 TimeService.Settings = settings;
-
-                Start();
-            }
-            catch (SocketException e)
-            {
-                // Do nothing, SocketException, bad ethernet, event will reinitiate when its ready
-            }
         }
 
         void TimeService_TimeSyncFailed(object sender, TimeSyncFailedEventArgs e)
@@ -104,7 +99,7 @@ namespace MicroFramework
                 TimeService.SetTimeZoneOffset(TimeZoneMinutes);
         }
 
-        public DateTime LastSundayInMonth(DateTime time, DayOfWeek day)
+        private DateTime LastSundayInMonth(DateTime time, DayOfWeek day)
         {
             DateTime lastDay = new DateTime(time.Year, time.Month+1, 1).AddDays(-1);
             int wDay = (int)day;

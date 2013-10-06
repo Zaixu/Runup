@@ -16,25 +16,28 @@ namespace MicroFramework
         private IController controller = null;
         // Everything is treated as volatile in micro framework
         private bool running = false;
-        Thread thread = null;
+        private bool async = true;
+        private Thread thread = null;
+        
 
-        public WebServer(int port, IController control)
+        public WebServer(int port, IController control, bool asyncronious)
         {
             endpointPort = port;
             controller = control;
+            async = asyncronious;
 
             Microsoft.SPOT.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
 
-            thread = new Thread(new ThreadStart(Run));
+            thread = new Thread(Run);
 
-            Setup();
-            
+            Start();
         }
 
         public void Start()
         {
             if (!thread.IsAlive)
             {
+                Setup();
                 running = true;
                 thread.Start();
             }
@@ -42,53 +45,52 @@ namespace MicroFramework
 
         public void Stop()
         {
-            if(thread.IsAlive)
+            if (thread.IsAlive)
             {
                 running = false;
-                thread.Join();
+                listenerSocket.Close();
+
+                while (thread.IsAlive)
+                {
+                    Thread.Sleep(500);
+                }
             }
         }
 
-        public void Run()
+        private void Run()
         {
             while (running)
             {
                 try
                 {
                     Socket clientSocket = listenerSocket.Accept();
-                    new WebServerClient(clientSocket, controller, true);
+                    new WebServerClient(clientSocket, controller, async);
                 }
                 catch
                 {
-                    running = false;
+                    // Ignore
                 }
-            }
+           }
         }
 
         void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
         {
             if (e.IsAvailable)
             {
-                // Must have lost connection, reset everything incase of startup without ethernet
-                Setup();
-                networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
-                Debug.Print(networkInterface.IPAddress);
+                // Start incase its stopped
+                Start();
             }
             else
             {
                 Stop();
-                networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
-                Debug.Print(networkInterface.IPAddress);
             }
         }
 
-        public void Setup()
+        private void Setup()
         {
-            Stop();
-
             networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
             Debug.Print(networkInterface.IPAddress);
-            
+
             if(listenerSocket != null)
                 listenerSocket.Close();
             
@@ -97,8 +99,6 @@ namespace MicroFramework
 
             listenerSocket.Bind(listenerEndPoint);
             listenerSocket.Listen(Int32.MaxValue);
-
-            Start();
         }
     }
 }
