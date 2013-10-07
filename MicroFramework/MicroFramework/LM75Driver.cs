@@ -17,15 +17,19 @@ namespace MicroFramework
         {
             config = new I2CDevice.Configuration(address, clockRateKhz);
 
+            // Initial, not being used, but then thread wont be null used throughout to check status.
             thread = new Thread(Pull);
             Start();
         }
 
         public void Start()
         {
+            Stop();
             if (!thread.IsAlive)
             {
+                Debug.Print("Starting LM75Driver");
                 running = true;
+                thread = new Thread(Pull);
                 thread.Start();
             }
         }
@@ -34,6 +38,7 @@ namespace MicroFramework
         {
             if (thread.IsAlive)
             {
+                Debug.Print("Stopping LM75Driver");
                 running = false;
 
                 while (thread.IsAlive)

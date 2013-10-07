@@ -28,6 +28,7 @@ namespace MicroFramework
 
             Microsoft.SPOT.Net.NetworkInformation.NetworkChange.NetworkAvailabilityChanged += NetworkChange_NetworkAvailabilityChanged;
 
+            // Initial, not being used, but then thread wont be null used throughout to check status.
             thread = new Thread(Run);
 
             Start();
@@ -35,10 +36,13 @@ namespace MicroFramework
 
         public void Start()
         {
+            Stop();
             if (!thread.IsAlive)
             {
+                Debug.Print("Starting WebServer");
                 Setup();
                 running = true;
+                thread = new Thread(Run);
                 thread.Start();
             }
         }
@@ -47,7 +51,9 @@ namespace MicroFramework
         {
             if (thread.IsAlive)
             {
+                Debug.Print("Stopping WebServer");
                 running = false;
+                // Release from hold.
                 listenerSocket.Close();
 
                 while (thread.IsAlive)
@@ -68,7 +74,10 @@ namespace MicroFramework
                 }
                 catch
                 {
-                    // Ignore
+                    running = false;
+                    // Decouple.
+                    listenerSocket.Close();
+                    Debug.Print("Stopping WebServer - Socket Error");
                 }
            }
         }
@@ -91,9 +100,6 @@ namespace MicroFramework
             networkInterface = Microsoft.SPOT.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces()[0];
             Debug.Print(networkInterface.IPAddress);
 
-            if(listenerSocket != null)
-                listenerSocket.Close();
-            
             listenerSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             listenerEndPoint = new IPEndPoint(IPAddress.Any, endpointPort);
 

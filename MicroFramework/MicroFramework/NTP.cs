@@ -14,7 +14,7 @@ namespace MicroFramework
         private IPAddress secondaryAddress = null;
         private string primaryHost;
         private string secondaryHost;
-
+        private bool running = false;
         private int TimeZoneMinutes = 60;
         private int DaylightSavingTime = 60;
 
@@ -48,23 +48,33 @@ namespace MicroFramework
         {
             try
             {
+                Debug.Print("Starting NTP");
+                Stop();
                 Setup();
+                running = true;
                 TimeService.Start();
             }
             catch
             {
                 // Catch Connection Problem
                 // Do nothing, SocketException, bad ethernet, event will reinitiate when its ready - Counting on Exception so TimeService.Start wont run if theres no ethernet
+                Debug.Print("Stopping NTP - Unable to start up");
             }
         }
 
         public void Stop()
         {
-            TimeService.Stop();
+            if (running)
+            {
+                Debug.Print("Stopping NTP");
+                TimeService.Stop();
+                running = false;
+            }
         }
 
         private void Setup()
         {
+                
                 ipHostPrimary = Dns.GetHostEntry(primaryHost);
                 primaryAddress = ipHostPrimary.AddressList[0];
 
