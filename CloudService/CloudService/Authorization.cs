@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using CloudService.Database;
 
 namespace CloudService
 {
@@ -11,6 +12,7 @@ namespace CloudService
     {
         public bool Login(User user)
         {
+            runupEntities ent = new runupEntities();
             return false;
         }
 

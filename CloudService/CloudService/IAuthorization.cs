@@ -13,7 +13,7 @@ namespace CloudService
     {
         [OperationContract]
         bool Login(User user);
-
+        
     }
 
     [DataContract]
