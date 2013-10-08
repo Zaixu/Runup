@@ -38,6 +38,12 @@
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.7.4\lib\net40\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity, Version=6.7.4.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySQL.Data.Entities.6.7.4.1\lib\net45\MySql.Data.Entity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -50,23 +56,23 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\Runup.Context.cs">
+    <Compile Include="Database\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Runup.Context.tt</DependentUpon>
+      <DependentUpon>Database.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\Runup.cs">
+    <Compile Include="Database\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Runup.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\Runup.Designer.cs">
+    <Compile Include="Database\Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Runup.edmx</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="Database\Users.cs">
-      <DependentUpon>Runup.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,22 +80,22 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="Database\Runup.edmx">
+    <EntityDeploy Include="Database\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Runup.Designer.cs</LastGenOutput>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Database\Runup.Context.tt">
+    <None Include="Database\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Runup.edmx</DependentUpon>
-      <LastGenOutput>Runup.Context.cs</LastGenOutput>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
-    <None Include="Database\Runup.edmx.diagram">
-      <DependentUpon>Runup.edmx</DependentUpon>
+    <None Include="Database\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
-    <None Include="Database\Runup.tt">
+    <None Include="Database\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Runup.edmx</DependentUpon>
-      <LastGenOutput>Runup.cs</LastGenOutput>
+      <LastGenOutput>Database.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

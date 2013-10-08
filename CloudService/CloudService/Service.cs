@@ -7,25 +7,26 @@ using System.Text;
 
 namespace CloudService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class Service : IService
     {
-        public string GetData(int value)
+        public bool Login(Database.Users user)
         {
-            return string.Format("You entered: {0}", value);
+            throw new NotImplementedException();
         }
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
+        public bool Register(Database.Users user)
         {
-            if (composite == null)
-            {
-                throw new ArgumentNullException("composite");
-            }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
+            throw new NotImplementedException();
+        }
+
+        public bool SaveData(Database.Users user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool LoadData(Database.Users user)
+        {
+            throw new NotImplementedException();
         }
     }
 }

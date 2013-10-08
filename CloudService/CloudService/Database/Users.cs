@@ -11,10 +11,14 @@ namespace CloudService.Database
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.Serialization;
     
+    [DataContract(IsReference = true)]
     public partial class Users
     {
+        [DataMember]
         public string Email { get; set; }
+        [DataMember]
         public string Password { get; set; }
     }
 }
