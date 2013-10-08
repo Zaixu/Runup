@@ -1,0 +1,13 @@
+﻿Installing assembly 'C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.InstallLog
+   assemblypath = C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.exe
+Installing service CloudService...
+Service CloudService has been successfully installed.
+Creating EventLog source CloudService in log Application...
+Committing assembly 'C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.InstallLog
+   assemblypath = C:\Users\Blom\Documents\GitHub\Runup\CloudService\WindowsCloudService\bin\Debug\WindowsCloudService.exe
