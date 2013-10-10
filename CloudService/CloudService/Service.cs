@@ -13,9 +13,9 @@ namespace CloudService
         public bool Login(Users user)
         {
             DatabaseEntities db = new DatabaseEntities();
-            var eu = db.Users.Find(user.Email);
+            var existUser = db.Users.Find(user.Email);
 
-            if (eu != null && eu.Password == user.Password)
+            if (existUser != null && existUser.Password == user.Password)
                 return true;
             else
                 return false;
@@ -23,7 +23,19 @@ namespace CloudService
 
         public bool Register(Users user)
         {
-            throw new NotImplementedException();
+            DatabaseEntities db = new DatabaseEntities();
+            var existUser = db.Users.Find(user.Email);
+
+            if(existUser == null)
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool SaveData(Users user)
