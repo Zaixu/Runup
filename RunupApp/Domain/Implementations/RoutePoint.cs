@@ -12,13 +12,19 @@ namespace Domain.Implementations
     {
         // Properties
         // :RoutePoint
-        int IRoutePoint.X
+        public double Longitude
         {
             get;
             set;
         }
 
-        int IRoutePoint.Y
+        public double Latitude
+        {
+            get;
+            set;
+        }
+
+        public DateTime Time
         {
             get;
             set;

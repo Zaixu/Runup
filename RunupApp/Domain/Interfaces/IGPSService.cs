@@ -35,5 +35,5 @@ namespace Domain.Interfaces
     }
 
     // Helper types
-    public delegate void HandleGPSLocationChanged(double latitude, double longitude);
+    public delegate void HandleGPSLocationChanged(double latitude, double longitude, DateTime time);
 }

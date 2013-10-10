@@ -1,11 +1,12 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="RunupApp.ExercisePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="clr-namespace:RunupApp.ViewModels"
+    x:Class="RunupApp.ExercisePage"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -22,21 +23,39 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Runup" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock  Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding LocalizedResources.ApplicationTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
             <TextBlock Text="Exercise" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock>
-                See this page when exercise has started.
+				<Run Text="Exercise in progress."/>
             </TextBlock>
-            <TextBlock>
-                Will then have things like statistic here.
+            <TextBlock Name="textCurrentSpeed" HorizontalAlignment="Center" FontSize="36">
+                <Run Text="Current speed: " />
+                <Run Text="{Binding CurrentSpeed}" />
+                <Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <Button x:Name="btnStopExercise" Click="btnStopExercise_Click">
-                Stop Exercise
-            </Button>
+            <TextBlock Name="textAverageSpeed" HorizontalAlignment="Center" FontSize="36">
+                <Run Text="Average speed: " />
+                <Run Text="{Binding AverageSpeed}" />
+                <Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
+            <TextBlock Name="textCurrentDistance" HorizontalAlignment="Center" FontSize="36">
+                <Run Text="Current distance: " />
+                <Run Text="{Binding CurrentDistance}" />
+                <Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0">Login</Button>
+                <Button Grid.Column="1">Register</Button>
+            </Grid>
+            <Button x:Name="btnStopExercise" Click="btnStopExercise_Click" Content="Stop Exercise"/>
         </StackPanel>
     </Grid>
 

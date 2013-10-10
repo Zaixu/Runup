@@ -80,12 +80,11 @@ namespace Domain.Implementations
         // :GPS events
         void GPSPositionChanged(Geolocator sender, PositionChangedEventArgs args)
         {
-            // Own
-            // Nothing here
+            DateTime currentTime = DateTime.Now;
 
             // Extern
             if (GPSLocationChanged != null)
-                GPSLocationChanged(args.Position.Coordinate.Latitude, args.Position.Coordinate.Longitude);
+                GPSLocationChanged(args.Position.Coordinate.Latitude, args.Position.Coordinate.Longitude, currentTime);
         }
     }
 

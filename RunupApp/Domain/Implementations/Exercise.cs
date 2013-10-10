@@ -12,22 +12,29 @@ namespace Domain.Implementations
     {
         // Properties
         // :IExercise
-        DateTime IExercise.ExerciseStart
+        public DateTime ExerciseStart
         {
             get;
             set;
         }
 
-        DateTime IExercise.ExerciseEnd
+        public DateTime ExerciseEnd
         {
             get;
             set;
         }
 
-        IRoute IExercise.RouteRun
+        public IRoute RouteRun
         {
             get;
             set;
+        }
+
+        // Functions
+        public Exercise()
+        {
+            // Setup
+            RouteRun = new Route();
         }
     }
 }

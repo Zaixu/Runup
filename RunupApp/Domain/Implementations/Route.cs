@@ -10,27 +10,107 @@ namespace Domain.Implementations
 {
     public class Route : IRoute
     {
+        // Members
+        private double _latestDistance;
+
         // Properties
         // :IRoute
-        ICollection<IRoutePoint> IRoute.Points
+        public List<IRoutePoint> Points
         {
             get;
             set;
         }
 
-        double IRoute.DistanceRun
+        public double DistanceRun
         {
-            get { throw new NotImplementedException(); }
+            get 
+            {
+                if (Points.Count < 2)
+                    return (0);
+                else
+                {
+                    // Get newest distance
+                    IRoutePoint latestPoint = Points[Points.Count - 1];
+                    IRoutePoint secondPoint = Points[Points.Count - 2];
+                    double distance = DistancePointToPoint(secondPoint, latestPoint);
+
+                    _latestDistance += distance;
+
+                    return (_latestDistance);
+                }
+            }
         }
 
-        double IRoute.AverageSpeed
+        public double AverageSpeed
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                if (Points.Count < 2)
+                    return (0);
+                else
+                {
+                    TimeSpan timeDiffStartEnd = Points[Points.Count - 1].Time.Subtract(Points[0].Time);
+                    double speed = _latestDistance / timeDiffStartEnd.TotalSeconds; // km/s
+                    speed = speed * 3600; // km/h
+
+                    return (speed);
+                }
+            }
         }
 
-        double IRoute.NewestSpeed
+        public double NewestSpeed
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                if (Points.Count < 2)
+                    return (0);
+                else
+                {
+                    // Get from 2 newest points
+                    IRoutePoint latestPoint = Points[Points.Count - 1];
+                    IRoutePoint secondPoint = Points[Points.Count - 2];
+                    double distance = DistancePointToPoint(secondPoint, latestPoint);
+
+                    TimeSpan timeDiff = latestPoint.Time - secondPoint.Time;
+
+                    double speed = distance / timeDiff.TotalSeconds; // km/s
+                    speed = speed * 3600; // km/h
+
+                    return (speed);
+                }
+            }
+        }
+
+        // Functions
+        public Route()
+        {
+            // Setup
+            Points = new List<IRoutePoint>();
+            _latestDistance = 0;
+        }
+
+        // :Helper functions
+        // Calculate distance between 2 points.
+        // Returns in unit 'km'.
+        // Source: http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points/27943#27943
+        private double DistancePointToPoint(IRoutePoint start, IRoutePoint end)
+        {
+            var R = 6371; // Radius of the earth in km
+            var dLat = DegreesToRadian(end.Latitude - start.Latitude);
+            var dLon = DegreesToRadian(end.Longitude - start.Longitude);
+            var a =
+              Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
+              Math.Cos(DegreesToRadian(start.Latitude)) * Math.Sin(DegreesToRadian(end.Latitude)) *
+              Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
+              ;
+            var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
+        }
+
+        private double DegreesToRadian(double degress)
+        {
+            return degress * (Math.PI/180);
         }
     }
 }

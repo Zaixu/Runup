@@ -16,7 +16,7 @@ namespace Domain.Interfaces
         /// <summary>
         /// List of points that make up the running/walking route.
         /// </summary>
-        ICollection<IRoutePoint> Points
+        List<IRoutePoint> Points
         {
             get;
             set;

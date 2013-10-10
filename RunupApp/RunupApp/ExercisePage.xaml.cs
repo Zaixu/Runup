@@ -8,14 +8,27 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Domain.Implementations;
+using Domain.Interfaces;
+using RunupApp.ViewModels;
 
 namespace RunupApp
 {
+    /// <summary>
+    /// For information and operation for currently running exercise.
+    /// </summary>
     public partial class ExercisePage : PhoneApplicationPage
     {
+        // Properties
+        private static IGPSService _locationService;
+        private RunningExerciseViewModel _viewModel;
+
+        // Functions
         public ExercisePage()
         {
+            // Setup
             InitializeComponent();
+            _viewModel = new RunningExerciseViewModel();
+            this.DataContext = _viewModel;
         }
 
         // Events
@@ -23,13 +36,14 @@ namespace RunupApp
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // Turn on GPS service... Lingerie or whatever helps.
-            if (App.LocationService == null)
+            if (_locationService == null)
             {
-                App.LocationService = new GPSService(GPS_ACCURACY.HIGH, 50);
-                App.LocationService.GPSLocationChanged += GPSLocationChanged;
+                _locationService = new GPSService(GPS_ACCURACY.HIGH, 50);
+                _locationService.GPSLocationChanged += GPSLocationChanged;
+                _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
             }
 
-            App.LocationService.StartService();
+            _locationService.StartService();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -40,11 +54,11 @@ namespace RunupApp
         protected override void OnRemovedFromJournal(System.Windows.Navigation.JournalEntryRemovedEventArgs e)
         {
             // Set GPS service off
-            App.LocationService.StopService();
+            _locationService.StopService();
         }
 
         // :GPS
-        private void GPSLocationChanged(double latitude, double longitude)
+        private void GPSLocationChanged(double latitude, double longitude, DateTime time)
         {
             // Update exercise info(route)
             
@@ -62,7 +76,7 @@ namespace RunupApp
              */
 
             // Stop
-            App.LocationService.StopService();
+            _locationService.StopService();
 
             // Go to main page
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));

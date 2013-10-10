@@ -14,18 +14,27 @@ namespace Domain.Interfaces
     {
         // Properties
         /// <summary>
-        /// X location.
+        /// Longitude location.
         /// </summary>
-        int X
+        double Longitude
         {
             get;
             set;
         }
 
         /// <summary>
-        /// Y location.
+        /// Latitude location.
         /// </summary>
-        int Y
+        double Latitude
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// When the point was made.
+        /// </summary>
+        DateTime Time
         {
             get;
             set;

@@ -14,12 +14,6 @@ namespace RunupApp
 {
     public partial class App : Application
     {
-        // Properties
-        /// <summary>
-        /// For getting info about GPS location and changes.
-        /// </summary>
-        public static IGPSService LocationService { get; set; }
-
         /// <summary>
         /// To indicate if running in back so can shutoff unnecessary features like UI updating.
         /// </summary>
