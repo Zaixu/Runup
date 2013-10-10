@@ -9,7 +9,7 @@ using RunupApp.CloudService;
 using System.Windows.Input;
 using System.Windows;
 
-namespace RunupApp.ViewModel
+namespace RunupApp.ViewModels
 {
     class LoginViewModel : ViewModelBase
     {
