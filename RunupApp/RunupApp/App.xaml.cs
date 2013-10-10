@@ -9,12 +9,29 @@ using Microsoft.Phone.Shell;
 using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Interfaces;
+using RunupApp.CloudService;
 
 namespace RunupApp
 {
     public partial class App : Application
     {
         // Properties
+        /// <summary>
+        /// Connection to cloud
+        /// </summary>
+        private ServiceClient cloudService;
+        public ServiceClient CloudService 
+        {
+            get
+            {
+                return cloudService;
+            }
+            private set
+            {
+                cloudService = value;
+            }
+        }
+
         /// <summary>
         /// For getting info about GPS location and changes.
         /// </summary>
@@ -36,6 +53,9 @@ namespace RunupApp
         /// </summary>
         public App()
         {
+            // Couple on cloud
+            CloudService = new ServiceClient();
+
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
