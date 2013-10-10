@@ -32,29 +32,21 @@
             <TextBlock>
 				<Run Text="Exercise in progress."/>
             </TextBlock>
-            <TextBlock Name="textCurrentSpeed" HorizontalAlignment="Center" FontSize="36">
+            <TextBlock Name="textCurrentSpeed" HorizontalAlignment="Center" FontSize="28">
                 <Run Text="Current speed: " />
                 <Run Text="{Binding CurrentSpeed}" />
                 <Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <TextBlock Name="textAverageSpeed" HorizontalAlignment="Center" FontSize="36">
+            <TextBlock Name="textAverageSpeed" HorizontalAlignment="Center" FontSize="28">
                 <Run Text="Average speed: " />
                 <Run Text="{Binding AverageSpeed}" />
                 <Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <TextBlock Name="textCurrentDistance" HorizontalAlignment="Center" FontSize="36">
+            <TextBlock Name="textCurrentDistance" HorizontalAlignment="Center" FontSize="28">
                 <Run Text="Current distance: " />
                 <Run Text="{Binding CurrentDistance}" />
                 <Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0">Login</Button>
-                <Button Grid.Column="1">Register</Button>
-            </Grid>
             <Button x:Name="btnStopExercise" Click="btnStopExercise_Click" Content="Stop Exercise"/>
         </StackPanel>
     </Grid>

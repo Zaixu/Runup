@@ -9,11 +9,18 @@ using Microsoft.Phone.Shell;
 using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Interfaces;
+using RunupApp.CloudService;
 
 namespace RunupApp
 {
     public partial class App : Application
     {
+        // Properties
+        /// <summary>
+        /// Connection to cloud
+        /// </summary>
+        public ServiceClient CloudService { get; private set; }
+
         /// <summary>
         /// To indicate if running in back so can shutoff unnecessary features like UI updating.
         /// </summary>
@@ -30,6 +37,9 @@ namespace RunupApp
         /// </summary>
         public App()
         {
+            // Couple on cloud
+            //CloudService = new ServiceClient();
+
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 

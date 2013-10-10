@@ -38,7 +38,7 @@ namespace RunupApp
             // Turn on GPS service... Lingerie or whatever helps.
             if (_locationService == null)
             {
-                _locationService = new GPSService(GPS_ACCURACY.HIGH, 50);
+                _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
                 _locationService.GPSLocationChanged += GPSLocationChanged;
                 _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
             }

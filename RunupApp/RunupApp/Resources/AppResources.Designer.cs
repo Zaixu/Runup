@@ -72,16 +72,18 @@ namespace RunupApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Menu Item.
         /// </summary>
-        public static string AppBarMenuItemText {
+        public static string AppBarMenuItemText
+        {
             get {
                 return ResourceManager.GetString("AppBarMenuItemText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MY APPLICATION.
+        ///   Looks up a localized string similar to Runup.
         /// </summary>
-        public static string ApplicationTitle {
+        public static string ApplicationTitle
+        {
             get {
                 return ResourceManager.GetString("ApplicationTitle", resourceCulture);
             }
@@ -91,7 +93,8 @@ namespace RunupApp.Resources {
         ///   Looks up a localized string similar to km.
         /// </summary>
         public static string DistanceUnit {
-            get {
+            get
+            {
                 return ResourceManager.GetString("DistanceUnit", resourceCulture);
             }
         }
@@ -117,8 +120,10 @@ namespace RunupApp.Resources {
         /// <summary>
         ///   Looks up a localized string similar to km/s.
         /// </summary>
-        public static string SpeedUnit {
-            get {
+        public static string SpeedUnit
+        {
+            get
+            {
                 return ResourceManager.GetString("SpeedUnit", resourceCulture);
             }
         }
