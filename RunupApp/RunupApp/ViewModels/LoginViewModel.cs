@@ -4,16 +4,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using RunupApp.CloudService;
 using RunupApp.ViewModels;
+using RunupApp.CloudService;
 using System.Windows.Input;
+using System.Windows;
 
 namespace RunupApp.ViewModel
 {
     class LoginViewModel : ViewModelBase
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private Users user = new Users();
 
         public string Email
@@ -22,10 +21,7 @@ namespace RunupApp.ViewModel
             set
             {
                 user.Email = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Email"));
-                }
+                NotifyPropertyChanged("Email");
             }
         }
 
@@ -35,10 +31,7 @@ namespace RunupApp.ViewModel
             set
             {
                 user.Password = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("Password"));
-                }
+                NotifyPropertyChanged("Password");
             }
         }
 
@@ -49,8 +42,8 @@ namespace RunupApp.ViewModel
 
         private void Login()
         {
-            
-            
+            App thisApp = Application.Current as App;
+            thisApp.CloudService.LoginAsync(user);
         }
     }   
 }

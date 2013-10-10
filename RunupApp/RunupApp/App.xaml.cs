@@ -19,18 +19,7 @@ namespace RunupApp
         /// <summary>
         /// Connection to cloud
         /// </summary>
-        private ServiceClient cloudService;
-        public ServiceClient CloudService 
-        {
-            get
-            {
-                return cloudService;
-            }
-            private set
-            {
-                cloudService = value;
-            }
-        }
+        public ServiceClient CloudService { get; private set; }
 
         /// <summary>
         /// For getting info about GPS location and changes.
