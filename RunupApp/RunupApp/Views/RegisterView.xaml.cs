@@ -10,16 +10,16 @@ using Microsoft.Phone.Shell;
 
 namespace RunupApp.Views
 {
-    public partial class LoginView : PhoneApplicationPage
+    public partial class RegisterView : PhoneApplicationPage
     {
-        public LoginView()
+        public RegisterView()
         {
             InitializeComponent();
         }
 
-        private void GoRegisterButton_Click(object sender, RoutedEventArgs e)
+        private void GoLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("../ViewModels/RegisterView.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("../ViewModels/LoginView.xaml", UriKind.Relative));
         }
 
     }

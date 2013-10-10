@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ViewModels="clr-namespace:RunupApp.ViewModels"
-    x:Class="RunupApp.Views.LoginView"
+    x:Class="RunupApp.Views.RegisterView"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -26,7 +26,7 @@
         <!--ContentPanel - place additional content here-->
         <StackPanel Margin="12,0,12,0" >
             <StackPanel.DataContext>
-                <ViewModels:LoginViewModel/>
+                <ViewModels:RegisterViewModel/>
             </StackPanel.DataContext>
             <TextBlock Text="Email:" />
             <TextBox Text="{Binding Email, Mode=TwoWay}" />
@@ -37,13 +37,12 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Login" Command="{Binding LoginCommand, Mode=OneWay}" />
-                <Button x:Name="GoRegisterButton" Grid.Column="1" Content="Go Register" Click="GoRegisterButton_Click"  />
+                <Button Grid.Column="0" Content="Register" Command="{Binding RegisterCommand, Mode=OneWay}"  />
+                <Button x:Name="GoLoginButton" Grid.Column="1" Content="Go Login" Click="GoLoginButton_Click"  />
             </Grid>
 
         </StackPanel>
 
     </StackPanel>
-
 
 </phone:PhoneApplicationPage>
