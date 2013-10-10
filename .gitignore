@@ -3,6 +3,8 @@
 CloudService/CloudService/bin
 CloudService/CloudService/obj
 CloudService/CloudService.v11.suo
+CloudService/WindowsCloudService/bin
+CloudService/WindowsCloudService/obj
 
 # :Micro Framework
 MicroFramework/MicroFramework/bin
