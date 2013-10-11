@@ -39,22 +39,30 @@ namespace RunupApp
             if (_locationService == null)
             {
                 _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
-                _locationService.GPSLocationChanged += GPSLocationChanged;
-                _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
             }
+
+            // Add handlers
+            _locationService.GPSLocationChanged += GPSLocationChanged;
+            _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
 
             _locationService.StartService();
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            // Nothing here
+            // We don't want the page saved
+            NavigationService.RemoveBackEntry();
         }
 
         protected override void OnRemovedFromJournal(System.Windows.Navigation.JournalEntryRemovedEventArgs e)
         {
             // Set GPS service off
             _locationService.StopService();
+
+            // Remove handlers
+            _locationService.GPSLocationChanged += GPSLocationChanged;
+            _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
+            this.DataContext = null;
         }
 
         // :GPS
