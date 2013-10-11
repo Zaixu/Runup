@@ -12,6 +12,7 @@ namespace Domain.Implementations
     {
         // Members
         private double _latestDistance;
+        private int _latestCount = 0; // For not updating _latestDistance twice
 
         // Properties
         // :IRoute
@@ -29,12 +30,16 @@ namespace Domain.Implementations
                     return (0);
                 else
                 {
-                    // Get newest distance
-                    IRoutePoint latestPoint = Points[Points.Count - 1];
-                    IRoutePoint secondPoint = Points[Points.Count - 2];
-                    double distance = DistancePointToPoint(secondPoint, latestPoint);
+                    if (Points.Count > _latestCount)
+                    {
+                        // Get newest distance and add to total
+                        IRoutePoint latestPoint = Points[Points.Count - 1];
+                        IRoutePoint secondPoint = Points[Points.Count - 2];
+                        double distance = DistancePointToPoint(secondPoint, latestPoint);
 
-                    _latestDistance += distance;
+                        _latestDistance += distance;
+                        _latestCount = Points.Count;
+                    }
 
                     return (_latestDistance);
                 }
@@ -50,7 +55,7 @@ namespace Domain.Implementations
                 else
                 {
                     TimeSpan timeDiffStartEnd = Points[Points.Count - 1].Time.Subtract(Points[0].Time);
-                    double speed = _latestDistance / timeDiffStartEnd.TotalSeconds; // km/s
+                    double speed = DistanceRun / timeDiffStartEnd.TotalSeconds; // km/s
                     speed = speed * 3600; // km/h
 
                     return (speed);
@@ -92,7 +97,7 @@ namespace Domain.Implementations
         // :Helper functions
         // Calculate distance between 2 points.
         // Returns in unit 'km'.
-        // Source: http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points/27943#27943
+        // Source for Haversine formula used: http://stackoverflow.com/questions/27928/how-do-i-calculate-distance-between-two-latitude-longitude-points/27943#27943
         private double DistancePointToPoint(IRoutePoint start, IRoutePoint end)
         {
             var R = 6371; // Radius of the earth in km
