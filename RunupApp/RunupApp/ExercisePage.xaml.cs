@@ -35,9 +35,9 @@ namespace RunupApp
         {
             // Setup
             InitializeComponent();
-            _viewModel = new RunningExerciseViewModel();
-            this.DataContext = _viewModel;
             _taskFactory = new TaskFactory(TaskScheduler.FromCurrentSynchronizationContext());
+            _viewModel = new RunningExerciseViewModel(_taskFactory);
+            this.DataContext = _viewModel;
 
             // Add GPS service if is first use
             if (_locationService == null)

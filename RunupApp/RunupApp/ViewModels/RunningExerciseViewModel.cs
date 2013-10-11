@@ -108,19 +108,23 @@ namespace RunupApp.ViewModels
                 }
                 else
                 {
-                    return new GeoCoordinate(56.14, 9.98);
+                    return new GeoCoordinate(57.74, 9.99);
                 }
                     
+            }
+            set
+            {
+                // Nothing
             }
         }
         // \TEST
 
         // Functions
-        public RunningExerciseViewModel()
+        public RunningExerciseViewModel(TaskFactory taskFactory)
         {
             // Setup
             _exercise = new Exercise();
-            _taskFactory = new TaskFactory(TaskScheduler.FromCurrentSynchronizationContext());
+            _taskFactory = taskFactory;
         }
 
         // Events
@@ -149,7 +153,8 @@ namespace RunupApp.ViewModels
                         NotifyPropertyChanged("CurrentDistance");
                         NotifyPropertyChanged("RunningTime");
                         // TEST
-                        NotifyPropertyChanged("CenterPoint");
+                        if(_exercise.RouteRun.Points.Count == 1)
+                            NotifyPropertyChanged("CenterPoint");
                         // \TEST
                     }
                     );
