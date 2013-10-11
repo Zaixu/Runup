@@ -16,7 +16,7 @@ namespace Domain.Implementations
 
         // Properties
         // :IRoute
-        public List<IRoutePoint> Points
+        private List<IRoutePoint> Points
         {
             get;
             set;
@@ -83,6 +83,14 @@ namespace Domain.Implementations
 
                     return (speed);
                 }
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return (Points.Count);
             }
         }
 

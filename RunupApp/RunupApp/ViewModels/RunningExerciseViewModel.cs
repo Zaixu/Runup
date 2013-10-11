@@ -21,31 +21,10 @@ namespace RunupApp.ViewModels
         private TaskFactory _taskFactory;
 
         // Properties
-        public DateTime ExerciseStartTime
-        {
-            get
-            {
-                return (_exercise.ExerciseStart);
-            }
-            set
-            {
-                _exercise.ExerciseStart = value;
-            }
-        }
-
-        public DateTime ExerciseEndTime
-        {
-            get
-            {
-                return (_exercise.ExerciseEnd);
-            }
-            set
-            {
-                _exercise.ExerciseEnd = value;
-            }
-        }
-
-        // Meta info
+        // :Meta info
+        /// <summary>
+        /// When the exercise was started.
+        /// </summary>
         public string StartTime
         {
             get
@@ -54,6 +33,9 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// How long the exercise has been running.
+        /// </summary>
         public string RunningTime
         {
             get
@@ -63,7 +45,12 @@ namespace RunupApp.ViewModels
             }
         }
 
-        // Statistics
+        // :Statistics
+        /// <summary>
+        /// Current speed on the route.
+        /// 
+        /// Unit: km/h
+        /// </summary>
         public string CurrentSpeed
         {
             get
@@ -74,6 +61,11 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Average speed over the route so far.
+        /// 
+        /// Unit: km/h
+        /// </summary>
         public string AverageSpeed
         {
             get
@@ -84,6 +76,11 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Current length of the route.
+        /// 
+        /// Unit: km.
+        /// </summary>
         public string CurrentDistance
         {
             get
@@ -93,31 +90,6 @@ namespace RunupApp.ViewModels
                 return (speed);
             }
         }
-
-        // Map
-        // TEST
-        public GeoCoordinate CenterPoint
-        {
-            get
-            {
-                if (_exercise.RouteRun.Points.Count > 0)
-                {
-                    double latitude = _exercise.RouteRun.Points[_exercise.RouteRun.Points.Count - 1].Latitude;
-                    double longitude = _exercise.RouteRun.Points[_exercise.RouteRun.Points.Count - 1].Longitude;
-                    return new GeoCoordinate(latitude, longitude);
-                }
-                else
-                {
-                    return new GeoCoordinate(57.74, 9.99);
-                }
-                    
-            }
-            set
-            {
-                // Nothing
-            }
-        }
-        // \TEST
 
         // Functions
         public RunningExerciseViewModel(TaskFactory taskFactory)
@@ -152,10 +124,6 @@ namespace RunupApp.ViewModels
                         NotifyPropertyChanged("AverageSpeed");
                         NotifyPropertyChanged("CurrentDistance");
                         NotifyPropertyChanged("RunningTime");
-                        // TEST
-                        if(_exercise.RouteRun.Points.Count == 1)
-                            NotifyPropertyChanged("CenterPoint");
-                        // \TEST
                     }
                     );
             }

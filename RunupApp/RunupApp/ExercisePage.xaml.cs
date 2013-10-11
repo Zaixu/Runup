@@ -29,6 +29,7 @@ namespace RunupApp
         private RunningExerciseViewModel _viewModel;
         private DispatcherTimer _runUpdater;
         private TaskFactory _taskFactory;
+        private bool _hasCenteredMap = false;
 
         // Functions
         public ExercisePage()
@@ -93,16 +94,22 @@ namespace RunupApp
             {
                 _viewModel.GPSLocationChanged(latitude, longitude, time, true);
 
-                // TEST
+                // Map
+                // :Center
+                if (!_hasCenteredMap)
+                {
+                    _hasCenteredMap = true;
+                    _taskFactory.StartNew(() => mapOfRunningRoute.Center = new GeoCoordinate(latitude, longitude));
+                }
+
+                // :Draw point
                 _taskFactory.StartNew(() => _DrawPoint(latitude, longitude));
-                // \TEST
             }
         }
 
         // ::Draw map point
         private void _DrawPoint(double latitude, double longitude)
         {
-            // TEST
             Ellipse myCircle = new Ellipse();
             myCircle.Fill = new SolidColorBrush(Colors.Blue);
             myCircle.Height = 20;
@@ -117,9 +124,8 @@ namespace RunupApp
             // Create a MapLayer to contain the MapOverlay.
             MapLayer myLocationLayer = new MapLayer();
             myLocationLayer.Add(myLocationOverlay);
-
+            
             mapOfRunningRoute.Layers.Add(myLocationLayer);
-            // \TEST
         }
 
         // :Timer

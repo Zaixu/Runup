@@ -12,16 +12,6 @@ namespace Domain.Interfaces
     /// </summary>
     public interface IRoute
     {
-        // Properties
-        /// <summary>
-        /// List of points that make up the running/walking route.
-        /// </summary>
-        List<IRoutePoint> Points
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         /// How far was the route.
         /// </summary>
@@ -46,6 +36,14 @@ namespace Domain.Interfaces
         double NewestSpeed
         {
             get; /// \note: Can be implemented as function so doesn't have to keep track variable.
+        }
+
+        /// <summary>
+        /// How many points in the route.
+        /// </summary>
+        int Count
+        {
+            get;
         }
 
         // Functions

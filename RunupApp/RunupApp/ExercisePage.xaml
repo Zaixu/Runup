@@ -78,7 +78,7 @@
             <Button x:Name="btnStopExercise" Click="btnStopExercise_Click" Content="Stop Exercise"/>
         </StackPanel>
         <!-- Map -->
-        <maps:Map x:Name="mapOfRunningRoute" Grid.Row="2" Center="{Binding CenterPoint, Mode=TwoWay}" ColorMode="Dark">
+        <maps:Map x:Name="mapOfRunningRoute" Grid.Row="2" Center="57.74, 10.65" ColorMode="Dark">
             <maps:Map.ZoomLevel>
                 <System:Double>15</System:Double>
             </maps:Map.ZoomLevel>
