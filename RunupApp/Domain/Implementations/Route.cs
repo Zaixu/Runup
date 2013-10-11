@@ -12,7 +12,7 @@ namespace Domain.Implementations
     {
         // Members
         private double _latestDistance;
-        private int _latestCount = 0; // For not updating _latestDistance twice
+        private int _latestIndex = 0; // For not updating _latestDistance twice
 
         // Properties
         // :IRoute
@@ -30,15 +30,18 @@ namespace Domain.Implementations
                     return (0);
                 else
                 {
-                    if (Points.Count > _latestCount)
+                    if ((Points.Count - 1) > _latestIndex)
                     {
-                        // Get newest distance and add to total
-                        IRoutePoint latestPoint = Points[Points.Count - 1];
-                        IRoutePoint secondPoint = Points[Points.Count - 2];
-                        double distance = DistancePointToPoint(secondPoint, latestPoint);
-
-                        _latestDistance += distance;
-                        _latestCount = Points.Count;
+                        for (int i = _latestIndex; i < (Points.Count - 1); i++)
+                        {
+                            // Get newest distance and add to total
+                            IRoutePoint latestPoint = Points[i];
+                            IRoutePoint secondPoint = Points[i + 1];
+                            double distance = DistancePointToPoint(secondPoint, latestPoint);
+                            _latestDistance += distance;
+                        }
+                        
+                        _latestIndex = Points.Count - 1;
                     }
 
                     return (_latestDistance);
