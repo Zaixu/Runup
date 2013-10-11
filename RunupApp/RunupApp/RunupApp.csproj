@@ -160,6 +160,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\CloudService\Service.wsdl" />
+    <Content Include="logoEye2.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
   <ItemGroup>

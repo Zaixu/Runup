@@ -101,10 +101,10 @@ namespace RunupApp
                     _hasCenteredMap = true;
                     _taskFactory.StartNew(() => mapOfRunningRoute.Center = new GeoCoordinate(latitude, longitude));
                 }
-
-                // :Draw point
-                _taskFactory.StartNew(() => _DrawPoint(latitude, longitude));
             }
+
+            // :Draw point
+            _taskFactory.StartNew(() => _DrawPoint(latitude, longitude));
         }
 
         // ::Draw map point
