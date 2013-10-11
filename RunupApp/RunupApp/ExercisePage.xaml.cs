@@ -33,7 +33,7 @@ namespace RunupApp
             // Add GPS service if is first use
             if (_locationService == null)
             {
-                _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
+                _locationService = new GPSService(GPS_ACCURACY.HIGH, 20);
             }
 
             // Add handlers
@@ -47,16 +47,7 @@ namespace RunupApp
         // :Navigation
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // Turn on GPS service... Lingerie or whatever helps.
-            /*if (_locationService == null)
-            {
-                _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
-            }
-
-            // Add handlers
-            _locationService.GPSLocationChanged += GPSLocationChanged;
-
-            _locationService.StartService();*/
+            // Nothing
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)

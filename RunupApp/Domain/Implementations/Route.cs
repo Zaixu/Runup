@@ -87,11 +87,23 @@ namespace Domain.Implementations
         }
 
         // Functions
+        // :Constructors
         public Route()
         {
             // Setup
             Points = new List<IRoutePoint>();
             _latestDistance = 0;
+        }
+
+        // :IRoute
+        public void AddPoint(double latitude, double longitude, DateTime time)
+        {
+            IRoutePoint point = new RoutePoint();
+            point.Latitude = latitude;
+            point.Longitude = longitude;
+            point.Time = time;
+
+            Points.Add(point);
         }
 
         // :Helper functions

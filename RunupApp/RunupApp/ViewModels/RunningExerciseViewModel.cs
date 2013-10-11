@@ -44,6 +44,24 @@ namespace RunupApp.ViewModels
             }
         }
 
+        // Meta info
+        public string StartTime
+        {
+            get
+            {
+                return (_exercise.ExerciseStart.ToString("H:mm:ss"));
+            }
+        }
+
+        public string RunningTime
+        {
+            get
+            {
+                TimeSpan runningTime = _exercise.ExerciseEnd.Subtract(_exercise.ExerciseStart);
+                return (string.Format("{0:hh\\:mm\\:ss}", runningTime));
+            }
+        }
+
         // Statistics
         public string CurrentSpeed
         {
@@ -96,12 +114,9 @@ namespace RunupApp.ViewModels
         /// <param name="notify">Set true if want binded objects to get events.</param>
         public void GPSLocationChanged(double latitude, double longitude, DateTime time, bool notify)
         {
-            // Add to route
-            IRoutePoint point = new RoutePoint();
-            point.Latitude = latitude;
-            point.Longitude = longitude;
-            point.Time = time;
-            _exercise.RouteRun.Points.Add(point);
+            // Update route info
+            _exercise.RouteRun.AddPoint(latitude, longitude, time);
+            _exercise.ExerciseEnd = time;
 
             // Notify properties
             if (notify)
@@ -111,6 +126,7 @@ namespace RunupApp.ViewModels
                         NotifyPropertyChanged("CurrentSpeed");
                         NotifyPropertyChanged("AverageSpeed");
                         NotifyPropertyChanged("CurrentDistance");
+                        NotifyPropertyChanged("RunningTime");
                     }
                     );
             }

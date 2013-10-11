@@ -35,6 +35,8 @@ namespace Domain.Implementations
         {
             // Setup
             RouteRun = new Route();
+            ExerciseStart = DateTime.Now;
+            ExerciseEnd = DateTime.Now;
         }
     }
 }

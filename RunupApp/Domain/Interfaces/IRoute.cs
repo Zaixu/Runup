@@ -47,5 +47,8 @@ namespace Domain.Interfaces
         {
             get; /// \note: Can be implemented as function so doesn't have to keep track variable.
         }
+
+        // Functions
+        void AddPoint(double latitude, double longitude, DateTime time);
     }
 }
