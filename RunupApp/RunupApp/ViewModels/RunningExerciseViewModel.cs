@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Implementations;
+using System.Device.Location;
 
 namespace RunupApp.ViewModels
 {
@@ -93,6 +94,26 @@ namespace RunupApp.ViewModels
             }
         }
 
+        // Map
+        // TEST
+        public GeoCoordinate CenterPoint
+        {
+            get
+            {
+                if (_exercise.RouteRun.Points.Count > 0)
+                {
+                    double latitude = _exercise.RouteRun.Points[_exercise.RouteRun.Points.Count - 1].Latitude;
+                    double longitude = _exercise.RouteRun.Points[_exercise.RouteRun.Points.Count - 1].Longitude;
+                    return new GeoCoordinate(latitude, longitude);
+                }
+                else
+                {
+                    return new GeoCoordinate(56.14, 9.98);
+                }
+                    
+            }
+        }
+        // \TEST
 
         // Functions
         public RunningExerciseViewModel()
@@ -127,6 +148,9 @@ namespace RunupApp.ViewModels
                         NotifyPropertyChanged("AverageSpeed");
                         NotifyPropertyChanged("CurrentDistance");
                         NotifyPropertyChanged("RunningTime");
+                        // TEST
+                        NotifyPropertyChanged("CenterPoint");
+                        // \TEST
                     }
                     );
             }

@@ -11,6 +11,11 @@ using Domain.Implementations;
 using Domain.Interfaces;
 using RunupApp.ViewModels;
 using System.Windows.Threading;
+using System.Windows.Shapes;
+using Microsoft.Phone.Maps.Controls;
+using System.Windows.Media;
+using System.Device.Location;
+using System.Threading.Tasks;
 
 namespace RunupApp
 {
@@ -23,6 +28,7 @@ namespace RunupApp
         private static IGPSService _locationService;
         private RunningExerciseViewModel _viewModel;
         private DispatcherTimer _runUpdater;
+        private TaskFactory _taskFactory;
 
         // Functions
         public ExercisePage()
@@ -31,6 +37,7 @@ namespace RunupApp
             InitializeComponent();
             _viewModel = new RunningExerciseViewModel();
             this.DataContext = _viewModel;
+            _taskFactory = new TaskFactory(TaskScheduler.FromCurrentSynchronizationContext());
 
             // Add GPS service if is first use
             if (_locationService == null)
@@ -83,7 +90,36 @@ namespace RunupApp
                 _viewModel.GPSLocationChanged(latitude, longitude, time, false);
             }
             else
+            {
                 _viewModel.GPSLocationChanged(latitude, longitude, time, true);
+
+                // TEST
+                _taskFactory.StartNew(() => _DrawPoint(latitude, longitude));
+                // \TEST
+            }
+        }
+
+        // ::Draw map point
+        private void _DrawPoint(double latitude, double longitude)
+        {
+            // TEST
+            Ellipse myCircle = new Ellipse();
+            myCircle.Fill = new SolidColorBrush(Colors.Blue);
+            myCircle.Height = 20;
+            myCircle.Width = 20;
+            myCircle.Opacity = 50;
+
+            MapOverlay myLocationOverlay = new MapOverlay();
+            myLocationOverlay.Content = myCircle;
+            myLocationOverlay.PositionOrigin = new Point(0.5, 0.5);
+            myLocationOverlay.GeoCoordinate = new GeoCoordinate(latitude, longitude);
+
+            // Create a MapLayer to contain the MapOverlay.
+            MapLayer myLocationLayer = new MapLayer();
+            myLocationLayer.Add(myLocationOverlay);
+
+            mapOfRunningRoute.Layers.Add(myLocationLayer);
+            // \TEST
         }
 
         // :Timer
