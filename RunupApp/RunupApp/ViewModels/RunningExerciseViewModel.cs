@@ -85,7 +85,16 @@ namespace RunupApp.ViewModels
         }
 
         // Events
-        public void GPSLocationChanged(double latitude, double longitude, DateTime time)
+        /// <summary>
+        /// Call function to set new point.
+        /// 
+        /// Note: Notifies binded objects about update.
+        /// </summary>
+        /// <param name="latitude">Latitude of current location.</param>
+        /// <param name="longitude">Longitude of current location.</param>
+        /// <param name="time">Current time.</param>
+        /// <param name="notify">Set true if want binded objects to get events.</param>
+        public void GPSLocationChanged(double latitude, double longitude, DateTime time, bool notify)
         {
             // Add to route
             IRoutePoint point = new RoutePoint();
@@ -95,13 +104,16 @@ namespace RunupApp.ViewModels
             _exercise.RouteRun.Points.Add(point);
 
             // Notify properties
-            _taskFactory.StartNew(() => 
-                {
-                    NotifyPropertyChanged("CurrentSpeed");
-                    NotifyPropertyChanged("AverageSpeed");
-                    NotifyPropertyChanged("CurrentDistance");
-                }
-                );
+            if (notify)
+            {
+                _taskFactory.StartNew(() =>
+                    {
+                        NotifyPropertyChanged("CurrentSpeed");
+                        NotifyPropertyChanged("AverageSpeed");
+                        NotifyPropertyChanged("CurrentDistance");
+                    }
+                    );
+            }
         }
     }
 }

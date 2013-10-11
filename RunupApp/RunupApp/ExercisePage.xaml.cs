@@ -29,13 +29,8 @@ namespace RunupApp
             InitializeComponent();
             _viewModel = new RunningExerciseViewModel();
             this.DataContext = _viewModel;
-        }
 
-        // Events
-        // :Navigation
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            // Turn on GPS service... Lingerie or whatever helps.
+            // Add GPS service if is first use
             if (_locationService == null)
             {
                 _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
@@ -43,9 +38,25 @@ namespace RunupApp
 
             // Add handlers
             _locationService.GPSLocationChanged += GPSLocationChanged;
-            _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
 
+            // Turn on GPS
             _locationService.StartService();
+        }
+
+        // Events
+        // :Navigation
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Turn on GPS service... Lingerie or whatever helps.
+            /*if (_locationService == null)
+            {
+                _locationService = new GPSService(GPS_ACCURACY.HIGH, 2);
+            }
+
+            // Add handlers
+            _locationService.GPSLocationChanged += GPSLocationChanged;
+
+            _locationService.StartService();*/
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
@@ -60,20 +71,19 @@ namespace RunupApp
             _locationService.StopService();
 
             // Remove handlers
-            _locationService.GPSLocationChanged += GPSLocationChanged;
-            _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
+            _locationService.GPSLocationChanged -= GPSLocationChanged;
             this.DataContext = null;
         }
 
         // :GPS
         private void GPSLocationChanged(double latitude, double longitude, DateTime time)
         {
-            // Update exercise info(route)
-            
             if (App.RunningInBackground == true)
             {
-                // Update UI
+                _viewModel.GPSLocationChanged(latitude, longitude, time, false);
             }
+            else
+                _viewModel.GPSLocationChanged(latitude, longitude, time, true);
         }
 
         private void btnStopExercise_Click(object sender, RoutedEventArgs e)
