@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Domain.Implementations;
 using Domain.Interfaces;
 using RunupApp.ViewModels;
+using System.Windows.Threading;
 
 namespace RunupApp
 {
@@ -21,6 +22,7 @@ namespace RunupApp
         // Properties
         private static IGPSService _locationService;
         private RunningExerciseViewModel _viewModel;
+        private DispatcherTimer _runUpdater;
 
         // Functions
         public ExercisePage()
@@ -41,6 +43,12 @@ namespace RunupApp
 
             // Turn on GPS
             _locationService.StartService();
+
+            // Set timer for updating running time
+            _runUpdater = new DispatcherTimer();
+            _runUpdater.Interval = TimeSpan.FromSeconds(1);
+            _runUpdater.Tick += TimerTick;
+            _runUpdater.Start();
         }
 
         // Events
@@ -64,6 +72,7 @@ namespace RunupApp
             // Remove handlers
             _locationService.GPSLocationChanged -= GPSLocationChanged;
             this.DataContext = null;
+            _runUpdater.Tick -= TimerTick;
         }
 
         // :GPS
@@ -77,6 +86,15 @@ namespace RunupApp
                 _viewModel.GPSLocationChanged(latitude, longitude, time, true);
         }
 
+        // :Timer
+        void TimerTick(Object sender, EventArgs args)
+        {
+            // Update running time
+            if(!App.RunningInBackground)
+                _viewModel.UpdateRunningTime();
+        }
+
+        // :Other
         private void btnStopExercise_Click(object sender, RoutedEventArgs e)
         {
             /* Save exercise info.
