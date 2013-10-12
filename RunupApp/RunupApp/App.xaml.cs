@@ -15,7 +15,13 @@ namespace RunupApp
 {
     public partial class App : Application
     {
-        // Properties
+
+
+        /// <summary>
+        /// Current user
+        /// </summary>
+        public Users user = null;
+
         /// <summary>
         /// Connection to cloud
         /// </summary>

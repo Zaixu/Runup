@@ -41,8 +41,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Login" Command="{Binding LoginCommand, Mode=OneWay}" />
-                <Button x:Name="GoRegisterButton" Grid.Column="1" Content="Go Register" Click="GoRegisterButton_Click"  />
+                <Button Grid.Column="0" Content="Login" Command="{Binding LoginButtonCommand, Mode=OneWay}" />
+                <Button Grid.Column="1" Content="Go Register" Command="{Binding RegisterButtonCommand, Mode=OneWay}"  />
             </Grid>
         </StackPanel>
 

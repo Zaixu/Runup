@@ -24,7 +24,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <StackPanel Margin="12,0,12,0" >
+        <StackPanel x:Name="ContentStackPanel" Margin="12,0,12,0" >
             <StackPanel.DataContext>
                 <ViewModels:RegisterViewModel/>
             </StackPanel.DataContext>
@@ -39,8 +39,8 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="Register" Command="{Binding RegisterCommand, Mode=OneWay}"  />
-                <Button x:Name="GoLoginButton" Grid.Column="1" Content="Go Login" Click="GoLoginButton_Click"  />
+                <Button Grid.Column="0" Content="Register" Command="{Binding RegisterButtonCommand, Mode=OneWay}"  />
+                <Button Grid.Column="1" Content="Go Login" Command="{Binding LoginButtonCommand, Mode=OneWay}" />
             </Grid>
 
         </StackPanel>

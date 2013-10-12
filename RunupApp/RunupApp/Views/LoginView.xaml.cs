@@ -14,33 +14,26 @@ namespace RunupApp.Views
     public partial class LoginView : PhoneApplicationPage
     {
         private LoginViewModel viewModel;
+        private App application;
 
         public LoginView()
         {
             InitializeComponent();
-            viewModel = (ContentStackPanel.DataContext as LoginViewModel);
-        }
-
-        private void GoRegisterButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Views/RegisterView.xaml", UriKind.Relative));
+            viewModel = ContentStackPanel.DataContext as LoginViewModel;
+            application = Application.Current as App;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //App thisApp = Application.Current as App;
-            //thisApp.CloudService.LoginCompleted += CloudService_LoginCompleted;
-            CloudService.ServiceClient sc = new CloudService.ServiceClient();
-        }
+            if (application.user != null)
+                NavigationService.Navigate(new Uri("/MainPage", UriKind.Relative));
 
-        void CloudService_LoginCompleted(object sender, CloudService.LoginCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
+            application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            
+            application.CloudService.LoginCompleted -= viewModel.CloudService_LoginCompleted;
         }
 
     }

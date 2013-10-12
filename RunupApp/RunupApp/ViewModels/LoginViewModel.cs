@@ -8,18 +8,14 @@ using RunupApp.ViewModels;
 using RunupApp.CloudService;
 using System.Windows.Input;
 using System.Windows;
+using Microsoft.Phone.Controls;
 
 namespace RunupApp.ViewModels
 {
     public class LoginViewModel : ViewModelBase
     {
-        
         private Users user = new Users();
-
-        public LoginViewModel()
-        {
-
-        }
+        private App application = Application.Current as App;
 
         public string Email
         {
@@ -74,19 +70,51 @@ namespace RunupApp.ViewModels
                 NotifyPropertyChanged("Progress");
             }
         }
-        
-        public ICommand LoginCommand
+
+        public ICommand RegisterButtonCommand
         {
-            get 
-            { 
-                return new DelegateCommand(Login); 
+            get
+            {
+                return new DelegateCommand(RegisterButton);
             }
         }
 
-        private void Login()
+        private void RegisterButton()
         {
-            App thisApp = Application.Current as App;
-            thisApp.CloudService.LoginAsync(user);
+            PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
+            frame.Navigate(new Uri("/Views/RegisterView.xaml", UriKind.Relative));
+        }
+
+        public ICommand LoginButtonCommand
+        {
+            get 
+            {
+                return new DelegateCommand(LoginButton); 
+            }
+        }
+
+        private void LoginButton()
+        {
+            Progress = Visibility.Visible;
+            Message = "";
+            application.CloudService.LoginAsync(user);
+        }
+
+        public void CloudService_LoginCompleted(object sender, CloudService.LoginCompletedEventArgs e)
+        {
+
+            Progress = Visibility.Collapsed;
+
+            if (e.Result.ToString() == "Success")
+            {
+                application.user = user;
+                PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
+                frame.Navigate(new Uri("/MainPage", UriKind.Relative));
+            }
+            else
+            {
+                Message = e.Result.ToString();
+            }
         }
     }   
 }

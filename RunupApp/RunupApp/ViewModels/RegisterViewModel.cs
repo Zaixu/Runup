@@ -7,12 +7,14 @@ using RunupApp.ViewModels;
 using RunupApp.CloudService;
 using System.Windows.Input;
 using System.Windows;
+using Microsoft.Phone.Controls;
 
 namespace RunupApp.ViewModels
 {
     public class RegisterViewModel : ViewModelBase
     {
         private Users user = new Users();
+        private App application = Application.Current as App;
 
         public string Email
         {
@@ -62,15 +64,49 @@ namespace RunupApp.ViewModels
             }
         }
 
-        public ICommand RegisterCommand
+
+        public ICommand RegisterButtonCommand
         {
-            get { return new DelegateCommand(Register); }
+            get
+            {
+                return new DelegateCommand(RegisterButton);
+            }
         }
 
-        private void Register()
+        private void RegisterButton()
         {
-            App thisApp = Application.Current as App;
-            thisApp.CloudService.RegisterAsync(user);
+            Progress = Visibility.Visible;
+            Message = "";
+            application.CloudService.RegisterAsync(user);
+        }
+
+        public ICommand LoginButtonCommand
+        {
+            get
+            {
+                return new DelegateCommand(LoginButton);
+            }
+        }
+
+        private void LoginButton()
+        {
+            PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
+            frame.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+        }
+
+        public void CloudService_RegisterCompleted(object sender, CloudService.RegisterCompletedEventArgs e)
+        {
+            Progress = Visibility.Collapsed;
+
+            if (e.Result.ToString() == "Success")
+            {
+                PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
+                frame.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+            }
+            else
+            {
+                Message = e.Result.ToString();
+            }
         }
     }
 }
