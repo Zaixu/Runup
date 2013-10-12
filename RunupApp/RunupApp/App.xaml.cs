@@ -96,6 +96,7 @@ namespace RunupApp
             if(isolatedStore.Contains("User"))
             {
                 tempUser = (Users)isolatedStore["User"];
+                User = tempUser;
             }
         }
 
