@@ -13,7 +13,9 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
-
+    
+    
+    
     <!--LayoutRoot is the root grid where all page content is placed-->
     <StackPanel>
 
@@ -24,14 +26,16 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <StackPanel Margin="12,0,12,0" >
+        <StackPanel x:Name="ContentStackPanel" Margin="12,0,12,0" >
             <StackPanel.DataContext>
                 <ViewModels:LoginViewModel/>
             </StackPanel.DataContext>
+            <ProgressBar Visibility="{Binding Progress}" IsIndeterminate="True" />
             <TextBlock Text="Email:" />
             <TextBox Text="{Binding Email, Mode=TwoWay}" />
             <TextBlock Text="Password:" />
-            <TextBox Text="{Binding Password, Mode=TwoWay}" />
+            <PasswordBox Password="{Binding Password, Mode=TwoWay}" />
+            <TextBlock TextAlignment="Center" Text="{Binding Message}" Foreground="Red" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -40,7 +44,6 @@
                 <Button Grid.Column="0" Content="Login" Command="{Binding LoginCommand, Mode=OneWay}" />
                 <Button x:Name="GoRegisterButton" Grid.Column="1" Content="Go Register" Click="GoRegisterButton_Click"  />
             </Grid>
-
         </StackPanel>
 
     </StackPanel>

@@ -11,13 +11,22 @@ using System.Windows;
 
 namespace RunupApp.ViewModels
 {
-    class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
+        
         private Users user = new Users();
+
+        public LoginViewModel()
+        {
+
+        }
 
         public string Email
         {
-            get { return user.Email; }
+            get 
+            {
+                return user.Email; 
+            }
             set
             {
                 user.Email = value;
@@ -27,7 +36,10 @@ namespace RunupApp.ViewModels
 
         public string Password
         {
-            get { return user.Password; }
+            get 
+            {
+                return user.Password; 
+            }
             set
             {
                 user.Password = value;
@@ -35,9 +47,40 @@ namespace RunupApp.ViewModels
             }
         }
 
+        private string message;
+        public string Message
+        {
+            get
+            {
+                return message;
+            }
+            set
+            {
+                message = value;
+                NotifyPropertyChanged("Message");
+            }
+        }
+
+        private Visibility progress = Visibility.Collapsed;
+        public Visibility Progress
+        {
+            get 
+            {
+                return progress; 
+            }
+            set
+            {
+                progress = value;
+                NotifyPropertyChanged("Progress");
+            }
+        }
+        
         public ICommand LoginCommand
         {
-            get { return new DelegateCommand(Login); }
+            get 
+            { 
+                return new DelegateCommand(Login); 
+            }
         }
 
         private void Login()

@@ -48,6 +48,7 @@
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Button x:Name="btnStartExercise" Click="btnStartExercise_Click">Start Exercise</Button>
+            <Button x:Name="btnlog" Click="btnlog_Click" >Login</Button>
         </StackPanel>
 
         <!--Uncomment to see an alignment grid to help ensure your controls are

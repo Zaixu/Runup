@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace RunupApp.ViewModels
 {
-    class RegisterViewModel : ViewModelBase
+    public class RegisterViewModel : ViewModelBase
     {
         private Users user = new Users();
 
@@ -31,6 +31,34 @@ namespace RunupApp.ViewModels
             {
                 user.Password = value;
                 NotifyPropertyChanged("Password");
+            }
+        }
+
+        private string message;
+        public string Message
+        {
+            get
+            {
+                return message;
+            }
+            set
+            {
+                message = value;
+                NotifyPropertyChanged("Message");
+            }
+        }
+
+        private Visibility progress = Visibility.Collapsed;
+        public Visibility Progress
+        {
+            get
+            {
+                return progress;
+            }
+            set
+            {
+                progress = value;
+                NotifyPropertyChanged("Progress");
             }
         }
 

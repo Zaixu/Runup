@@ -19,7 +19,7 @@ namespace RunupApp.Views
 
         private void GoLoginButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("../ViewModels/LoginView.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
         }
 
     }
