@@ -29,9 +29,6 @@ namespace RunupApp.Views
                 NavigationService.RemoveBackEntry();
 
             application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
-
-            if (application.User != null)
-                NavigationService.Navigate(new Uri("/MainPage", UriKind.Relative));
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
