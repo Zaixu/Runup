@@ -47,5 +47,15 @@ namespace CloudService
         {
             throw new NotImplementedException();
         }
+
+        public bool SaveExercise(Users user, Routes route)
+        {
+            DatabaseEntities db = new DatabaseEntities();
+            Users dbUser = db.Users.Find(user.Email);
+            dbUser.Routes.Add(route);
+            db.SaveChanges();
+
+            return (false);
+        }
     }
 }

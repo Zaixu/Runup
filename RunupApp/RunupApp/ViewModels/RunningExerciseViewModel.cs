@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Domain.Interfaces;
 using Domain.Implementations;
 using System.Device.Location;
+using System.Windows;
+using System.Windows.Input;
 
 namespace RunupApp.ViewModels
 {
@@ -17,8 +19,9 @@ namespace RunupApp.ViewModels
     class RunningExerciseViewModel : ViewModelBase
     {
         // Members
-        private IExercise _exercise;
+        private IRoute _route;
         private TaskFactory _taskFactory;
+        private App application = Application.Current as App;
 
         // Properties
         // :Meta info
@@ -29,7 +32,7 @@ namespace RunupApp.ViewModels
         {
             get
             {
-                return (_exercise.ExerciseStart.ToString("H:mm:ss"));
+                return (_route.ExerciseStart.ToString("H:mm:ss"));
             }
         }
 
@@ -40,7 +43,7 @@ namespace RunupApp.ViewModels
         {
             get
             {
-                TimeSpan runningTime = _exercise.ExerciseEnd.Subtract(_exercise.ExerciseStart);
+                TimeSpan runningTime = _route.ExerciseEnd.Subtract(_route.ExerciseStart);
                 return (string.Format("{0:hh\\:mm\\:ss}", runningTime));
             }
         }
@@ -56,7 +59,7 @@ namespace RunupApp.ViewModels
             get
             {
                 // Format
-                string speed = string.Format("{0:0.00}", _exercise.RouteRun.NewestSpeed);
+                string speed = string.Format("{0:0.00}", _route.NewestSpeed);
                 return(speed);
             }
         }
@@ -71,7 +74,7 @@ namespace RunupApp.ViewModels
             get
             {
                 // Format
-                string speed = string.Format("{0:0.00}", _exercise.RouteRun.AverageSpeed);
+                string speed = string.Format("{0:0.00}", _route.AverageSpeed);
                 return (speed);
             }
         }
@@ -86,7 +89,7 @@ namespace RunupApp.ViewModels
             get
             {
                 // Format
-                string speed = string.Format("{0:0.00}", _exercise.RouteRun.DistanceRun);
+                string speed = string.Format("{0:0.00}", _route.DistanceRun);
                 return (speed);
             }
         }
@@ -95,7 +98,7 @@ namespace RunupApp.ViewModels
         public RunningExerciseViewModel(TaskFactory taskFactory)
         {
             // Setup
-            _exercise = new Exercise();
+            _route = new Route();
             _taskFactory = taskFactory;
         }
 
@@ -112,8 +115,8 @@ namespace RunupApp.ViewModels
         public void GPSLocationChanged(double latitude, double longitude, DateTime time, bool notify=true)
         {
             // Update route info
-            _exercise.RouteRun.AddPoint(latitude, longitude, time);
-            _exercise.ExerciseEnd = time;
+            _route.AddPoint(latitude, longitude, time);
+            _route.ExerciseEnd = time;
 
             // Notify properties
             if (notify)
@@ -134,12 +137,29 @@ namespace RunupApp.ViewModels
         /// </summary>
         public void UpdateRunningTime()
         {
-            _exercise.ExerciseEnd = DateTime.Now;
+            _route.ExerciseEnd = DateTime.Now;
             _taskFactory.StartNew(() =>
             {
                 NotifyPropertyChanged("RunningTime");
             }
             );
+        }
+
+        /// <summary>
+        /// For saving newest exercise.
+        /// </summary>
+        public ICommand SaveExercise
+        {
+            get
+            {
+                return new DelegateCommand(SaveData);
+            }
+        }
+        
+        private void SaveData()
+        {
+            ISyncService service = new SyncService();
+            service.SaveExercise(_route, application.User);
         }
     }
 }

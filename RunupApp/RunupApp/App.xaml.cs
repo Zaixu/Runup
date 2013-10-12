@@ -9,7 +9,7 @@ using Microsoft.Phone.Shell;
 using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Interfaces;
-using RunupApp.CloudService;
+using Domain.CloudService;
 using System.IO.IsolatedStorage;
 
 namespace RunupApp

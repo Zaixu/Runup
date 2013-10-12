@@ -46,6 +46,33 @@ namespace Domain.Interfaces
             get;
         }
 
+        /// <summary>
+        /// List of points in the route.
+        /// </summary>
+        List<IRoutePoint> Points
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// When the route began.
+        /// </summary>
+        DateTime ExerciseStart
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// When the route ended.
+        /// </summary>
+        DateTime ExerciseEnd
+        {
+            get;
+            set;
+        }
+
         // Functions
         void AddPoint(double latitude, double longitude, DateTime time);
     }

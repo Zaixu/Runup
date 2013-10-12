@@ -106,11 +106,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Service References\CloudService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
@@ -150,16 +145,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CloudService\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudService\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudService\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\CloudService\Service.wsdl" />
     <Content Include="logoEye2.png" />
     <Content Include="ServiceReferences.ClientConfig" />
   </ItemGroup>
@@ -183,13 +168,6 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Service References\CloudService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Service References\CloudService\configuration.svcinfo" />
-    <None Include="Service References\CloudService\configuration91.svcinfo" />
-    <None Include="Service References\CloudService\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
@@ -208,9 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\CloudService\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

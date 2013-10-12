@@ -14,19 +14,27 @@ namespace CloudService.Database
     using System.Runtime.Serialization;
     
     [DataContract(IsReference = true)]
-    public partial class Users
+    public partial class Routes
     {
-        public Users()
+        public Routes()
         {
-            this.Routes = new HashSet<Routes>();
+            this.RoutePoints = new HashSet<RoutePoints>();
         }
     
         [DataMember]
-        public string Email { get; set; }
+        public int idRoutes { get; set; }
         [DataMember]
-        public string Password { get; set; }
+        public int Exercises_idExercises { get; set; }
+        [DataMember]
+        public System.DateTime ExerciseStart { get; set; }
+        [DataMember]
+        public System.DateTime ExerciseEnd { get; set; }
+        [DataMember]
+        public string Users_Email { get; set; }
     
         [DataMember]
-        public virtual ICollection<Routes> Routes { get; set; }
+        public virtual ICollection<RoutePoints> RoutePoints { get; set; }
+        [DataMember]
+        public virtual Users Users { get; set; }
     }
 }

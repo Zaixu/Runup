@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RunupApp.ViewModels;
-using RunupApp.CloudService;
+using Domain.CloudService;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.Phone.Controls;
@@ -94,7 +94,7 @@ namespace RunupApp.ViewModels
             frame.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
         }
 
-        public void CloudService_RegisterCompleted(object sender, CloudService.RegisterCompletedEventArgs e)
+        public void CloudService_RegisterCompleted(object sender, Domain.CloudService.RegisterCompletedEventArgs e)
         {
             Progress = Visibility.Collapsed;
 

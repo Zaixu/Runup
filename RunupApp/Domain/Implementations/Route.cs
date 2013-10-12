@@ -16,7 +16,7 @@ namespace Domain.Implementations
 
         // Properties
         // :IRoute
-        private List<IRoutePoint> Points
+        public List<IRoutePoint> Points
         {
             get;
             set;
@@ -97,6 +97,18 @@ namespace Domain.Implementations
             }
         }
 
+        public DateTime ExerciseStart
+        {
+            get;
+            set;
+        }
+
+        public DateTime ExerciseEnd
+        {
+            get;
+            set;
+        }
+
         // Functions
         // :Constructors
         public Route()
@@ -104,6 +116,8 @@ namespace Domain.Implementations
             // Setup
             Points = new List<IRoutePoint>();
             _latestDistance = 0;
+            ExerciseStart = DateTime.Now;
+            ExerciseEnd = DateTime.Now;
         }
 
         // :IRoute

@@ -76,6 +76,7 @@
 				<Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
             <Button x:Name="btnStopExercise" Click="btnStopExercise_Click" Content="Stop Exercise"/>
+            <Button Command="{Binding SaveExercise}">Upload</Button>
         </StackPanel>
         <!-- Map -->
         <maps:Map x:Name="mapOfRunningRoute" Grid.Row="2" Center="57.74, 10.65" ColorMode="Dark">

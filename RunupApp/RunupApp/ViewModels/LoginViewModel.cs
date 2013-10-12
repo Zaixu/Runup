@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RunupApp.ViewModels;
-using RunupApp.CloudService;
+using Domain.CloudService;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.Phone.Controls;
@@ -100,7 +100,7 @@ namespace RunupApp.ViewModels
             application.CloudService.LoginAsync(user);
         }
 
-        public void CloudService_LoginCompleted(object sender, CloudService.LoginCompletedEventArgs e)
+        public void CloudService_LoginCompleted(object sender, Domain.CloudService.LoginCompletedEventArgs e)
         {
 
             Progress = Visibility.Collapsed;

@@ -38,6 +38,8 @@ namespace CloudService.Database
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<RoutePoints> RoutePoints { get; set; }
+        public DbSet<Routes> Routes { get; set; }
         public DbSet<Users> Users { get; set; }
     }
 }

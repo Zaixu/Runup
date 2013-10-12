@@ -24,5 +24,8 @@ namespace CloudService
 
         [OperationContract]
         bool LoadData(Users user);
+
+        [OperationContract]
+        bool SaveExercise(Users user, Routes route);
     }
 }

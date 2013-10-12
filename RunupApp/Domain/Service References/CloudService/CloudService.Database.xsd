@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/CloudService.Database" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/CloudService.Database" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Users">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Routes" nillable="true" type="tns:ArrayOfRoutes" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Users" nillable="true" type="tns:Users" />
+  <xs:complexType name="ArrayOfRoutes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Routes" nillable="true" type="tns:Routes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoutes" nillable="true" type="tns:ArrayOfRoutes" />
+  <xs:complexType name="Routes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ExerciseEnd" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ExerciseStart" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Exercises_idExercises" type="xs:int" />
+      <xs:element minOccurs="0" name="RoutePoints" nillable="true" type="tns:ArrayOfRoutePoints" />
+      <xs:element minOccurs="0" name="Users" nillable="true" type="tns:Users" />
+      <xs:element minOccurs="0" name="Users_Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idRoutes" type="xs:int" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="Routes" nillable="true" type="tns:Routes" />
+  <xs:complexType name="ArrayOfRoutePoints">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoutePoints" nillable="true" type="tns:RoutePoints" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoutePoints" nillable="true" type="tns:ArrayOfRoutePoints" />
+  <xs:complexType name="RoutePoints">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Latitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Longitude" type="xs:double" />
+      <xs:element minOccurs="0" name="Route_idRoute" type="xs:int" />
+      <xs:element minOccurs="0" name="Routes" nillable="true" type="tns:Routes" />
+      <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="idRoutePoints" type="xs:int" />
+    </xs:sequence>
+    <xs:attribute ref="ser:Id" />
+    <xs:attribute ref="ser:Ref" />
+  </xs:complexType>
+  <xs:element name="RoutePoints" nillable="true" type="tns:RoutePoints" />
+</xs:schema>
