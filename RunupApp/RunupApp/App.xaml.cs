@@ -41,7 +41,7 @@ namespace RunupApp
             bool Debug = false;
             if (!Debug)
             {
-                //CloudService = new ServiceClient();
+                CloudService = new ServiceClient();
             }
 
             // Global handler for uncaught exceptions.
