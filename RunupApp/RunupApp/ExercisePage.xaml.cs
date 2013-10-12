@@ -68,8 +68,7 @@ namespace RunupApp
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            // We don't want the page saved
-            NavigationService.RemoveBackEntry();
+            // Nothing
         }
 
         protected override void OnRemovedFromJournal(System.Windows.Navigation.JournalEntryRemovedEventArgs e)
@@ -148,7 +147,8 @@ namespace RunupApp
             _locationService.StopService();
 
             // Go to main page
-            NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            //NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+            NavigationService.GoBack();
         }
     }
 }

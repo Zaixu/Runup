@@ -38,7 +38,11 @@ namespace RunupApp
         public App()
         {
             // Couple on cloud
-            //CloudService = new ServiceClient();
+            bool Debug = false;
+            if (!Debug)
+            {
+                CloudService = new ServiceClient();
+            }
 
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
