@@ -25,6 +25,9 @@ namespace RunupApp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            if (NavigationService.CanGoBack)
+                NavigationService.RemoveBackEntry();
+
             application.CloudService.RegisterCompleted += viewModel.CloudService_RegisterCompleted;
         }
 

@@ -107,7 +107,7 @@ namespace RunupApp.ViewModels
 
             if (e.Result.ToString() == "Success")
             {
-                application.user = user;
+                application.User = user;
                 PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
                 frame.Navigate(new Uri("/MainPage", UriKind.Relative));
             }

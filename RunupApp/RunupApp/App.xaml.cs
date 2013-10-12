@@ -10,6 +10,7 @@ using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Interfaces;
 using RunupApp.CloudService;
+using System.IO.IsolatedStorage;
 
 namespace RunupApp
 {
@@ -20,7 +21,7 @@ namespace RunupApp
         /// <summary>
         /// Current user
         /// </summary>
-        public Users user = null;
+        public Users User = null;
 
         /// <summary>
         /// Connection to cloud
@@ -89,6 +90,13 @@ namespace RunupApp
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
+            
+            Users tempUser;
+            if(isolatedStore.Contains("User"))
+            {
+                tempUser = (Users)isolatedStore["User"];
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -108,6 +116,27 @@ namespace RunupApp
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            if (User != null)
+            {
+                IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
+                if (isolatedStore.Contains("User"))
+                {
+                    Users tempUser;
+                    tempUser = (Users)isolatedStore["User"];
+
+                    if (tempUser.Email == User.Email && tempUser.Password == User.Password)
+                        return;
+                    else
+                    {
+                        isolatedStore.Remove("User");
+                        isolatedStore.Add("User", User);
+                    }
+                }
+                else
+                {
+                    isolatedStore.Add("User", User);
+                }
+            }
         }
 
         // Code to execute if a navigation fails

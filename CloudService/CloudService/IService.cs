@@ -14,10 +14,10 @@ namespace CloudService
     public interface IService
     {
         [OperationContract]
-        bool Login(Users user);
+        string Login(Users user);
 
         [OperationContract]
-        bool Register(Users user);
+        string Register(Users user);
 
         [OperationContract]
         bool SaveData(Users user);

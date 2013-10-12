@@ -10,18 +10,18 @@ namespace CloudService
 {
     public class Service : IService
     {
-        public bool Login(Users user)
+        public string Login(Users user)
         {
             DatabaseEntities db = new DatabaseEntities();
             var existUser = db.Users.Find(user.Email);
 
             if (existUser != null && existUser.Password == user.Password)
-                return true;
+                return "Success";
             else
-                return false;
+                return "Error logging in";
         }
 
-        public bool Register(Users user)
+        public string Register(Users user)
         {
             DatabaseEntities db = new DatabaseEntities();
             var existUser = db.Users.Find(user.Email);
@@ -30,11 +30,11 @@ namespace CloudService
             {
                 db.Users.Add(user);
                 db.SaveChanges();
-                return true;
+                return "Success";
             }
             else
             {
-                return false;
+                return "Error registering";
             }
         }
 
