@@ -18,7 +18,13 @@ namespace Domain.Implementations
             Routes dbRoute = factory.CreateRoute(route);
 
             CloudService.ServiceClient client = new ServiceClient();
+            client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
             client.SaveExerciseAsync(user, dbRoute);
+        }
+
+        public void CloudService_SaveExerciseCompleted(object sender, Domain.CloudService.SaveExerciseCompletedEventArgs e)
+        {
+
         }
     }
 }
