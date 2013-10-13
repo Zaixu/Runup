@@ -311,7 +311,20 @@ namespace RunupApp
 
         private void AuthAppBarButton_Click(object sender, EventArgs e)
         {
-            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+            if (User != null)
+            {
+                MessageBoxResult res = MessageBox.Show(User.Email + ", your about to logout.\n\rDo you want to continue?", "Logout", MessageBoxButton.OKCancel);
+                if (res == MessageBoxResult.OK)
+                {
+                    User = null;
+                    (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+                    return;
+                }
+            }
+            else
+            {
+                (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+            }
         }
     }
 }
