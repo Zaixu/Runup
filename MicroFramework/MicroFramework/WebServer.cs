@@ -10,7 +10,7 @@ namespace MicroFramework
     /// <summary>
     /// Class to run a webserver through sockets.
     /// </summary>
-    class WebServer
+    public class WebServer
     {
         private Int32 endpointPort = 80;
         private Microsoft.SPOT.Net.NetworkInformation.NetworkInterface networkInterface = null;

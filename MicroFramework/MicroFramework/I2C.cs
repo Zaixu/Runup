@@ -4,7 +4,7 @@ using Microsoft.SPOT.Hardware;
 
 namespace MicroFramework
 {
-    class I2C
+    public class I2C
     {
         private I2CDevice device;
 

@@ -9,7 +9,7 @@ namespace MicroFramework
     /// <summary>
     /// Class to be run to handle every socket request
     /// </summary>
-    class WebServerClient
+    public class WebServerClient
     {
         private Socket clientSocket;
         private IController controller;
