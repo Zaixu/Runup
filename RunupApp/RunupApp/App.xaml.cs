@@ -19,8 +19,12 @@ namespace RunupApp
 {
     public partial class App : Application
     {
-        // Properties
+        
+        /// <summary>
+        /// 
+        /// </summary>
         private Users user = null;
+        
         /// <summary>
         /// Gets/Sets user of application, if its set, update the global app bar text to either login or logout
         /// </summary>
@@ -351,15 +355,18 @@ namespace RunupApp
         }
 
         /// <summary>
-        /// 
+        /// Click event from the global application bar on the Login/Logout button
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Sender Object</param>
+        /// <param name="e">Event Arguments</param>
         private void AuthAppBarButton_Click(object sender, EventArgs e)
         {
+            //If user aint null, show popup if he is sure that he wants to logout, if he is, reset logged in use. If user is null, just navigate to LoginView
             if (User != null)
             {
+                //Show "Are you sure" box to user
                 MessageBoxResult res = MessageBox.Show(User.Email + ", your about to logout.\n\rDo you want to continue?", "Logout", MessageBoxButton.OKCancel);
+                //If ok, reset logged in user
                 if (res == MessageBoxResult.OK)
                 {
                     User = null;
@@ -368,20 +375,28 @@ namespace RunupApp
             }
             else
             {
+                //Navigate to LoginView
                 (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
             }
         }
 
+        /// <summary>
+        /// Saves the user to IsolatedStorage, if the credentials are different. Else removes it if not logged in and is existing in IsolatedStorage
+        /// </summary>
         private void SaveUserToIsolatedStorage()
         {
+            //Get isolatedstorage
             IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
+            //If user isnt null, there might be something to change, else check if there is an existing in isolated storage, incase, delete as we are currently logged out.
             if (User != null)
             {
+                //If isolatedstorage have a User saved check it, else just add it
                 if (isolatedStore.Contains("User"))
                 {
                     Users tempUser;
                     tempUser = (Users)isolatedStore["User"];
 
+                    //Check if the user saved is different, if it is, remove the saved one and add the new one. If its not different, just return
                     if (tempUser.Email == User.Email && tempUser.Password == User.Password)
                         return;
                     else
@@ -404,11 +419,16 @@ namespace RunupApp
             }
         }
 
+        /// <summary>
+        /// Loads a user from IsolatedStorage and puts him as logged in with the application
+        /// </summary>
         private void LoadUserFromIsolatedStorage()
         {
+            //Get isolatedstorage
             IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
 
             Users tempUser;
+            //If isolatedstorage contains saved user, get it and apply it to application as logged in
             if (isolatedStore.Contains("User"))
             {
                 tempUser = (Users)isolatedStore["User"];
@@ -416,16 +436,27 @@ namespace RunupApp
             }
         }
 
+        /// <summary>
+        /// Saves a user to state object
+        /// </summary>
         private void SaveUserToStateObject()
         {
+            //Get stateobject
             IDictionary<string, object> stateStore = PhoneApplicationService.Current.State;
+            //Remove existing state if any
             stateStore.Remove("User");
+            //Add new user state
             stateStore.Add("User", User);
         }
 
+        /// <summary>
+        /// Loads a user from state object
+        /// </summary>
         private void LoadUserFromStateObject()
         {
-            IDictionary<string, object> stateStore = PhoneApplicationService.Current.State; 
+            //Get stateobject
+            IDictionary<string, object> stateStore = PhoneApplicationService.Current.State;
+            //If existing user in state, set application user to that
             if (stateStore.ContainsKey("User"))
                 User = (Users)stateStore["User"];
         }
