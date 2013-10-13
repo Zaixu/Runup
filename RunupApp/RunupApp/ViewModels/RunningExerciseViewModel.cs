@@ -8,6 +8,7 @@ using Domain.Implementations;
 using System.Device.Location;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Phone.Controls;
 
 namespace RunupApp.ViewModels
 {
@@ -21,7 +22,6 @@ namespace RunupApp.ViewModels
         // Members
         private IRoute _route;
         private TaskFactory _taskFactory;
-        private App application = Application.Current as App;
 
         // Properties
         // :Meta info
@@ -145,21 +145,26 @@ namespace RunupApp.ViewModels
             );
         }
 
-        /// <summary>
-        /// For saving newest exercise.
-        /// </summary>
-        public ICommand SaveExercise
+        public ICommand StopExercise
         {
-            get
-            {
-                return new DelegateCommand(SaveData);
-            }
+            get { return new DelegateCommand(_StopExercise); }
         }
-        
-        private void SaveData()
+
+        public void _StopExercise()
         {
-            ISyncService service = new SyncService();
-            service.SaveExercise(_route, application.User);
+            App.NewRoutesStack.Add(_route);
+            var app = Application.Current as App;
+
+            (app.RootVisual as PhoneApplicationFrame).GoBack();
+        }
+
+        // Functions
+        /// <summary>
+        /// Gets the underlying route.
+        /// </summary>
+        public IRoute GetRoute()
+        {
+            return _route;
         }
     }
 }

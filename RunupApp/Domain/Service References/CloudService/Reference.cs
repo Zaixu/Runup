@@ -84,8 +84,6 @@ namespace Domain.CloudService {
         
         private System.DateTime ExerciseStartField;
         
-        private int Exercises_idExercisesField;
-        
         private System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.RoutePoints> RoutePointsField;
         
         private Domain.CloudService.Users UsersField;
@@ -116,19 +114,6 @@ namespace Domain.CloudService {
                 if ((this.ExerciseStartField.Equals(value) != true)) {
                     this.ExerciseStartField = value;
                     this.RaisePropertyChanged("ExerciseStart");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Exercises_idExercises {
-            get {
-                return this.Exercises_idExercisesField;
-            }
-            set {
-                if ((this.Exercises_idExercisesField.Equals(value) != true)) {
-                    this.Exercises_idExercisesField = value;
-                    this.RaisePropertyChanged("Exercises_idExercises");
                 }
             }
         }
@@ -327,7 +312,7 @@ namespace Domain.CloudService {
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/SaveExercise", ReplyAction="http://tempuri.org/IService/SaveExerciseResponse")]
         System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Routes route, System.AsyncCallback callback, object asyncState);
         
-        bool EndSaveExercise(System.IAsyncResult result);
+        string EndSaveExercise(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -421,10 +406,10 @@ namespace Domain.CloudService {
             this.results = results;
         }
         
-        public bool Result {
+        public string Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
+                return ((string)(this.results[0]));
             }
         }
     }
@@ -720,7 +705,7 @@ namespace Domain.CloudService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        bool Domain.CloudService.IService.EndSaveExercise(System.IAsyncResult result) {
+        string Domain.CloudService.IService.EndSaveExercise(System.IAsyncResult result) {
             return base.Channel.EndSaveExercise(result);
         }
         
@@ -731,7 +716,7 @@ namespace Domain.CloudService {
         }
         
         private object[] OnEndSaveExercise(System.IAsyncResult result) {
-            bool retVal = ((Domain.CloudService.IService)(this)).EndSaveExercise(result);
+            string retVal = ((Domain.CloudService.IService)(this)).EndSaveExercise(result);
             return new object[] {
                     retVal};
         }
@@ -898,9 +883,9 @@ namespace Domain.CloudService {
                 return _result;
             }
             
-            public bool EndSaveExercise(System.IAsyncResult result) {
+            public string EndSaveExercise(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                bool _result = ((bool)(base.EndInvoke("SaveExercise", _args, result)));
+                string _result = ((string)(base.EndInvoke("SaveExercise", _args, result)));
                 return _result;
             }
         }
