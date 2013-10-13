@@ -34,6 +34,9 @@ namespace RunupApp.Views
             viewModel = ContentStackPanel.DataContext as LoginViewModel;
             //Get our current application instance
             application = Application.Current as App;
+
+            // If view is visible subscribe to CloudService LoginCompleted event
+            application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
         }
 
         /// <summary>
@@ -46,19 +49,18 @@ namespace RunupApp.Views
             var formerPage = NavigationService.BackStack.First();
             if(formerPage != null && formerPage.Source.ToString() == "/Views/RegisterView.xaml")
                 NavigationService.RemoveBackEntry();
-
-            // If view is visible subscribe to CloudService LoginCompleted event
-            application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
         }
 
         /// <summary>
         /// When page is navigated from, unsubscribe CloudService LoginCompleted event
         /// </summary>
-        /// <param name="e">Navigation Event Arguments</param>
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        /// <param name="e">Journal info.</param>
+        protected override void OnRemovedFromJournal(JournalEntryRemovedEventArgs e)
         {
+            base.OnRemovedFromJournal(e);
+
+            // Remove 
             application.CloudService.LoginCompleted -= viewModel.CloudService_LoginCompleted;
         }
-
     }
 }

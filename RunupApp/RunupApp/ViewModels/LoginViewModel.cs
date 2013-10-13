@@ -9,6 +9,7 @@ using Domain.CloudService;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace RunupApp.ViewModels
 {
@@ -167,11 +168,20 @@ namespace RunupApp.ViewModels
             if (e.Result.ToString() == "Success")
             {
                 application.User = user;
-                (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                if(!App.RunningInBackground)
+                    (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
             else
             {
                 Message = e.Result.ToString();
+            }
+
+            if (App.RunningInBackground)
+            {
+                ShellToast msg = new ShellToast();
+                msg.Title = "Login:";
+                msg.Content = e.Result.ToString();
+                msg.Show();
             }
         }
     }   
