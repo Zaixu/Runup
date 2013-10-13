@@ -39,6 +39,7 @@ namespace RunupApp.ViewModels
             set
             {
                 user.Email = value;
+                //Databind notify
                 NotifyPropertyChanged("Email");
             }
         }
@@ -55,6 +56,7 @@ namespace RunupApp.ViewModels
             set
             {
                 user.Password = value;
+                //Databind notify
                 NotifyPropertyChanged("Password");
             }
         }
@@ -76,6 +78,7 @@ namespace RunupApp.ViewModels
             set
             {
                 message = value;
+                //Databind notify
                 NotifyPropertyChanged("Message");
             }
         }
@@ -97,6 +100,7 @@ namespace RunupApp.ViewModels
             set
             {
                 progress = value;
+                //Databind notify
                 NotifyPropertyChanged("Progress");
             }
         }
@@ -108,6 +112,7 @@ namespace RunupApp.ViewModels
         {
             get
             {
+                //Return DelegateCommand to view, that uses the RegisterButton function
                 return new DelegateCommand(RegisterButton);
             }
         }
@@ -127,6 +132,7 @@ namespace RunupApp.ViewModels
         {
             get 
             {
+                // Return DelegateCommand to view, that uses the LoginButton function
                 return new DelegateCommand(LoginButton); 
             }
         }
@@ -137,8 +143,11 @@ namespace RunupApp.ViewModels
         /// </summary>
         private void LoginButton()
         {
+            //Show progress bar
             Progress = Visibility.Visible;
+            //Reset message
             Message = "";
+            //External async cloudservice login call
             application.CloudService.LoginAsync(user);
         }
 
@@ -147,13 +156,14 @@ namespace RunupApp.ViewModels
         /// checked one thats been sent to the cloudservice, then navigates to MainPage or if error on the check
         /// show the message on View
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Sender object</param>
+        /// <param name="e">Arguments that the CloudService Login function can return (Results, cancelled etc)</param>
         public void CloudService_LoginCompleted(object sender, Domain.CloudService.LoginCompletedEventArgs e)
         {
-
+            // Remove progress bar visibility
             Progress = Visibility.Collapsed;
-
+            
+            // If success, apply new user to whole program and navigate away, else output error to view
             if (e.Result.ToString() == "Success")
             {
                 application.User = user;

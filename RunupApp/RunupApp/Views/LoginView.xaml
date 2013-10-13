@@ -16,17 +16,18 @@
     
     
     
-    <!--LayoutRoot is the root grid where all page content is placed-->
+    <!--LayoutRoot-->
     <StackPanel>
 
-        <!--TitlePanel contains the name of the application and page title-->
+        <!--TitlePanel-->
         <StackPanel Margin="12,17,0,28">
             <TextBlock Text="{Binding LocalizedResources.ApplicationTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="Login" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
-        <!--ContentPanel - place additional content here-->
+        <!--ContentPanel-->
         <StackPanel x:Name="ContentStackPanel" Margin="12,0,12,0" >
+            <!--Create class for datacontext-->
             <StackPanel.DataContext>
                 <ViewModels:LoginViewModel/>
             </StackPanel.DataContext>
