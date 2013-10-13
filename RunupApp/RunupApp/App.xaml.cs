@@ -21,9 +21,13 @@ namespace RunupApp
 
 
         /// <summary>
-        /// Current user
+        /// Current user of app, if null, not logged in
         /// </summary>
         public Users user = null;
+
+        /// <summary>
+        /// Gets/Sets user of application, if its set, update the global app bar text to either login or logout
+        /// </summary>
         public Users User
         {
             get
@@ -33,7 +37,9 @@ namespace RunupApp
             set
             {
                 user = value;
+                //Get global app bar from xaml resources
                 var appBar = App.Current.Resources["AppBar"] as ApplicationBar;
+                //If user is logged in, set app bar button to Logout else login
                 if (value == null)
                 {
                     ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Login";
@@ -44,6 +50,7 @@ namespace RunupApp
                 }
             }
         }
+
         /// <summary>
         /// Connection to cloud
         /// </summary>
@@ -120,6 +127,7 @@ namespace RunupApp
         {
             RunningInBackground = false;
 
+            // If its being activated and no instance, its been tombstoned
             if (!e.IsApplicationInstancePreserved)
             {
                 // Been tombstoned, reload.
@@ -131,7 +139,9 @@ namespace RunupApp
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            //Save current user to isolated storage incase of program shutdown
             SaveUserToIsolatedStorage();
+            //Save current user to stateobject incase of tombstoning
             SaveUserToStateObject();
         }
 
@@ -139,6 +149,7 @@ namespace RunupApp
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            //General close, save user to isolated storage
             SaveUserToIsolatedStorage();
         }
 
@@ -155,9 +166,12 @@ namespace RunupApp
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            // If async exception of communication is thrown, handle it and show connection error box
             if (e.ExceptionObject is CommunicationException)
             {
+                //Show popup
                 MessageBox.Show("Communication problem, please check connection");
+                //Make exception handled, so program doesnt shut down
                 e.Handled = true;
                 return;
             }
@@ -298,11 +312,21 @@ namespace RunupApp
             }
         }
 
+        /// <summary>
+        /// Click event from the global application bar on the Sync button
+        /// </summary>
+        /// <param name="sender">Sender Object</param>
+        /// <param name="e">Event Arguments</param>
         private void SyncAppBarButton_Click(object sender, EventArgs e)
         {
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AuthAppBarButton_Click(object sender, EventArgs e)
         {
             if (User != null)

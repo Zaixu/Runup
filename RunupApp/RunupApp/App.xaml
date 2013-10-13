@@ -9,10 +9,14 @@
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:RunupApp" x:Key="LocalizedStrings"/>
      
+        <!--Define global app bar resource, to be used in whole application on all essential pages-->
         <shell:ApplicationBar x:Key="AppBar" IsVisible="True" IsMenuEnabled="True" Mode="Minimized" >
+            <!--Synchronize application data-->
             <shell:ApplicationBarIconButton x:Name="SyncAppBarButton" IconUri="/Assets/refresh.png" Text="Sync" Click="SyncAppBarButton_Click" />
+            <!--Access authorization part of app-->
             <shell:ApplicationBarIconButton x:Name="AuthAppBarButton" IconUri="/Assets/person.png" Text="Login" Click="AuthAppBarButton_Click" />
         </shell:ApplicationBar>
+        
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>
