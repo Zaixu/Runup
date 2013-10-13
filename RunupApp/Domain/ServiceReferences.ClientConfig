@@ -9,7 +9,7 @@
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://crynac.com:8733/CloudService/Service/"
+            <endpoint address="http://169.254.80.80:8733/CloudService/Service/"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IService"
                 contract="CloudService.IService" name="BasicHttpBinding_IService" />
         </client>
