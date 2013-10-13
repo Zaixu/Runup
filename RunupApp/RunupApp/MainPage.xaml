@@ -47,7 +47,7 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" VerticalAlignment="Bottom">
             <Image Source="/Assets/runner.png" />
             <Button x:Name="btnStartExercise" Click="btnStartExercise_Click">Start Exercise</Button>
         </StackPanel>
