@@ -22,8 +22,27 @@ namespace RunupApp
         /// <summary>
         /// Current user
         /// </summary>
-        public Users User = null;
-
+        public Users user = null;
+        public Users User
+        {
+            get
+            {
+                return user;
+            }
+            set
+            {
+                user = value;
+                var appBar = App.Current.Resources["AppBar"] as ApplicationBar;
+                if (value == null)
+                {
+                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Auth";
+                }
+                else
+                {
+                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Logout";
+                }
+            }
+        }
         /// <summary>
         /// Connection to cloud
         /// </summary>
