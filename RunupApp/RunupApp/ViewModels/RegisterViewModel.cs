@@ -8,6 +8,7 @@ using Domain.CloudService;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
 
 namespace RunupApp.ViewModels
 {
@@ -158,11 +159,20 @@ namespace RunupApp.ViewModels
             //If success, navigate to LoginView else output error to view
             if (e.Result.ToString() == "Success")
             {
-                (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+                if(!App.RunningInBackground)
+                    (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
             }
             else
             {
                 Message = e.Result.ToString();
+            }
+
+            if (App.RunningInBackground)
+            {
+                ShellToast msg = new ShellToast();
+                msg.Title = "Login:";
+                msg.Content = e.Result.ToString();
+                msg.Show();
             }
         }
     }
