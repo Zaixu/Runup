@@ -12,11 +12,24 @@ using Microsoft.Phone.Controls;
 
 namespace RunupApp.ViewModels
 {
+    /// <summary>
+    /// ViewModel to handle the LoginView
+    /// </summary>
     public class LoginViewModel : ViewModelBase
     {
+        /// <summary>
+        /// Currently user from email/password input - New empty one upon creation
+        /// </summary>
         private Users user = new Users();
+
+        /// <summary>
+        /// Current app instance for initiating code.
+        /// </summary>
         private App application = Application.Current as App;
 
+        /// <summary>
+        /// Current email from the user object
+        /// </summary>
         public string Email
         {
             get 
@@ -30,6 +43,9 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Current password from the user object
+        /// </summary>
         public string Password
         {
             get 
@@ -43,7 +59,14 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Current message being showed on screen
+        /// </summary>
         private string message;
+
+        /// <summary>
+        /// Get/Set current message being shown on screen, data binded with notifying
+        /// </summary>
         public string Message
         {
             get
@@ -57,7 +80,14 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Current status on the progress bar, whether its showing or not
+        /// </summary>
         private Visibility progress = Visibility.Collapsed;
+
+        /// <summary>
+        /// Get/Set progress bar visibility on view - data binded with notifying
+        /// </summary>
         public Visibility Progress
         {
             get 
@@ -71,6 +101,9 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Command from view to handle click on register button
+        /// </summary>
         public ICommand RegisterButtonCommand
         {
             get
@@ -79,11 +112,17 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// The actual action of the register button command - Navigate to RegisterView
+        /// </summary>
         private void RegisterButton()
         {
             (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/RegisterView.xaml", UriKind.Relative));
         }
 
+        /// <summary>
+        /// Command from view to handle push on login button
+        /// </summary>
         public ICommand LoginButtonCommand
         {
             get 
@@ -92,6 +131,10 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// The actual action of the login button command - Show progress bar, 
+        /// reset the message being shown and start call to login on cloud service with current input login data
+        /// </summary>
         private void LoginButton()
         {
             Progress = Visibility.Visible;
@@ -99,6 +142,13 @@ namespace RunupApp.ViewModels
             application.CloudService.LoginAsync(user);
         }
 
+        /// <summary>
+        /// Function to handle the callback from cloudservice - hides progress bar, sets logged in user to the
+        /// checked one thats been sent to the cloudservice, then navigates to MainPage or if error on the check
+        /// show the message on View
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void CloudService_LoginCompleted(object sender, Domain.CloudService.LoginCompletedEventArgs e)
         {
 
