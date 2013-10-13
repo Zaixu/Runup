@@ -21,6 +21,10 @@ namespace RunupApp
 {
     /// <summary>
     /// For information and operation for currently running exercise.
+    /// 
+    /// Main logic calls made on viewmodel.
+    /// The code here is for setup of things like service(Timer, GPSService) and drawing on view.
+    /// This is so the services are properly stopped when page is removed and so viewmodel doesn't need a direct reference back to the page.
     /// </summary>
     public partial class ExercisePage : PhoneApplicationPage
     {
@@ -49,6 +53,7 @@ namespace RunupApp
 
             // Add handlers
             _locationService.GPSLocationChanged += GPSLocationChanged;
+            _locationService.GPSLocationChanged += _viewModel.GPSLocationChanged;
 
             // Turn on GPS
             _locationService.StartService();
@@ -70,6 +75,7 @@ namespace RunupApp
 
             // Remove handlers
             _locationService.GPSLocationChanged -= GPSLocationChanged;
+            _locationService.GPSLocationChanged -= _viewModel.GPSLocationChanged;
             this.DataContext = null;
             _runUpdater.Tick -= _timerTick;
             _runUpdater.Stop();
@@ -78,8 +84,6 @@ namespace RunupApp
         // :GPS
         private void GPSLocationChanged(double latitude, double longitude, DateTime time)
         {
-            _viewModel.GPSLocationChanged(latitude, longitude, time);
-
             // Map
             // :Center
             if (!_hasCenteredMap)

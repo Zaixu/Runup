@@ -113,7 +113,6 @@ namespace RunupApp.ViewModels
         /// <param name="latitude">Latitude of current location.</param>
         /// <param name="longitude">Longitude of current location.</param>
         /// <param name="time">Current time.</param>
-        /// <param name="notify">Set true if want binded objects to get events.</param>
         public void GPSLocationChanged(double latitude, double longitude, DateTime time)
         {
             // Update route info
