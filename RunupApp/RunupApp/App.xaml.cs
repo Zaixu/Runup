@@ -12,6 +12,7 @@ using Domain.Interfaces;
 using Domain.CloudService;
 using System.IO.IsolatedStorage;
 using System.ServiceModel;
+using System.Collections.Generic;
 
 namespace RunupApp
 {
@@ -110,14 +111,7 @@ namespace RunupApp
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
-            
-            Users tempUser;
-            if(isolatedStore.Contains("User"))
-            {
-                tempUser = (Users)isolatedStore["User"];
-                User = tempUser;
-            }
+            LoadFromIsolatedStorage();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -125,46 +119,27 @@ namespace RunupApp
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
             RunningInBackground = false;
+
+            if (!e.IsApplicationInstancePreserved)
+            {
+                // Been tombstoned, reload.
+                LoadFromStateObject();
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            SaveToIsolatedStorage();
+            SaveToStateObject();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
-            if (User != null)
-            {
-                if (isolatedStore.Contains("User"))
-                {
-                    Users tempUser;
-                    tempUser = (Users)isolatedStore["User"];
-
-                    if (tempUser.Email == User.Email && tempUser.Password == User.Password)
-                        return;
-                    else
-                    {
-                        isolatedStore.Remove("User");
-                        isolatedStore.Add("User", User);
-                    }
-                }
-                else
-                {
-                    isolatedStore.Add("User", User);
-                }
-            }
-            else
-            {
-                if (isolatedStore.Contains("User"))
-                {
-                    isolatedStore.Remove("User");
-                }
-            }
+            SaveToIsolatedStorage();
         }
 
         // Code to execute if a navigation fails
@@ -343,6 +318,64 @@ namespace RunupApp
             {
                 (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
             }
+        }
+
+        private void SaveToIsolatedStorage()
+        {
+            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
+            if (User != null)
+            {
+                if (isolatedStore.Contains("User"))
+                {
+                    Users tempUser;
+                    tempUser = (Users)isolatedStore["User"];
+
+                    if (tempUser.Email == User.Email && tempUser.Password == User.Password)
+                        return;
+                    else
+                    {
+                        isolatedStore.Remove("User");
+                        isolatedStore.Add("User", User);
+                    }
+                }
+                else
+                {
+                    isolatedStore.Add("User", User);
+                }
+            }
+            else
+            {
+                if (isolatedStore.Contains("User"))
+                {
+                    isolatedStore.Remove("User");
+                }
+            }
+        }
+
+        private void LoadFromIsolatedStorage()
+        {
+            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
+
+            Users tempUser;
+            if (isolatedStore.Contains("User"))
+            {
+                tempUser = (Users)isolatedStore["User"];
+                User = tempUser;
+            }
+        }
+
+        private void SaveToStateObject()
+        {
+            IDictionary<string, object> stateStore = PhoneApplicationService.Current.State;
+            stateStore.Remove("User");
+            stateStore.Add("User", User);
+        }
+
+        private void LoadFromStateObject()
+        {
+            IDictionary<string, object> stateStore = PhoneApplicationService.Current.State; 
+            if (stateStore.ContainsKey("User"))
+                User = (Users)stateStore["User"];
         }
     }
 }
