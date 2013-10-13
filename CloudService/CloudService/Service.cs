@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using CloudService.Database;
+using System.Collections.ObjectModel;
 
 namespace CloudService
 {
@@ -51,9 +52,22 @@ namespace CloudService
         public bool SaveExercise(Users user, Routes route)
         {
             DatabaseEntities db = new DatabaseEntities();
-            Users dbUser = db.Users.Find(user.Email);
-            dbUser.Routes.Add(route);
-            db.SaveChanges();
+
+            //TEST
+            user = db.Users.Find("test@test.dk");
+            //\TEST
+            if (user != null)
+            {
+                if (db.Users.Find(user.Email) != null)
+                {
+                    Users dbUser = db.Users.Find(user.Email);
+                    dbUser.Routes.Add(route);
+
+                    db.SaveChanges();
+                   
+                    return true;
+                }
+            }
 
             return (false);
         }

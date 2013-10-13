@@ -19,6 +19,8 @@ namespace Domain.Implementations
             // Convert
             // :Route
             createdRoute.RoutePoints = new ObservableCollection<RoutePoints>();
+            createdRoute.ExerciseStart = route.ExerciseStart;
+            createdRoute.ExerciseEnd = route.ExerciseEnd;
 
             // :Points
             foreach (var point in route.Points)
