@@ -117,9 +117,9 @@ namespace RunupApp
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
             if (User != null)
             {
-                IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
                 if (isolatedStore.Contains("User"))
                 {
                     Users tempUser;
@@ -136,6 +136,13 @@ namespace RunupApp
                 else
                 {
                     isolatedStore.Add("User", User);
+                }
+            }
+            else
+            {
+                if (isolatedStore.Contains("User"))
+                {
+                    isolatedStore.Remove("User");
                 }
             }
         }
@@ -288,6 +295,16 @@ namespace RunupApp
 
                 throw;
             }
+        }
+
+        private void SyncAppBarButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AuthAppBarButton_Click(object sender, EventArgs e)
+        {
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
         }
     }
 }

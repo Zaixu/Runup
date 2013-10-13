@@ -81,8 +81,7 @@ namespace RunupApp.ViewModels
 
         private void RegisterButton()
         {
-            PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
-            frame.Navigate(new Uri("/Views/RegisterView.xaml", UriKind.Relative));
+            (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/RegisterView.xaml", UriKind.Relative));
         }
 
         public ICommand LoginButtonCommand
@@ -108,8 +107,7 @@ namespace RunupApp.ViewModels
             if (e.Result.ToString() == "Success")
             {
                 application.User = user;
-                PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
-                frame.Navigate(new Uri("/MainPage", UriKind.Relative));
+                (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
             else
             {

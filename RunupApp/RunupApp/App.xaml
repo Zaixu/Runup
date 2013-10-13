@@ -8,6 +8,11 @@
     <!--Application Resources-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:RunupApp" x:Key="LocalizedStrings"/>
+     
+        <shell:ApplicationBar x:Key="AppBar" IsVisible="True" IsMenuEnabled="True" Mode="Minimized" >
+            <shell:ApplicationBarIconButton x:Name="SyncAppBarButton" IconUri="/Assets/ApplicationIcon.png" Text="Sync" Click="SyncAppBarButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="AuthAppBarButton" IconUri="/Assets/ApplicationIcon.png" Text="Auth" Click="AuthAppBarButton_Click" />
+        </shell:ApplicationBar>
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

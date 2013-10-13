@@ -90,8 +90,7 @@ namespace RunupApp.ViewModels
 
         private void LoginButton()
         {
-            PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
-            frame.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+            (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
         }
 
         public void CloudService_RegisterCompleted(object sender, Domain.CloudService.RegisterCompletedEventArgs e)
@@ -100,8 +99,7 @@ namespace RunupApp.ViewModels
 
             if (e.Result.ToString() == "Success")
             {
-                PhoneApplicationFrame frame = application.RootVisual as PhoneApplicationFrame;
-                frame.Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
+                (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
             }
             else
             {
