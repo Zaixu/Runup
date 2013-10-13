@@ -5,9 +5,9 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2baad6a9dab1484c944c0a5f4a72e6a9" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="DatabaseModel.RoutePoints" Width="1.5" PointX="6.03192836513367" PointY="2.6232804966267573" />
-        <EntityTypeShape EntityType="DatabaseModel.Routes" Width="1.5" PointX="3.7090817129747391" PointY="17.037056886142611" />
-        <EntityTypeShape EntityType="DatabaseModel.Users" Width="1.5" PointX="2.353359540157653" PointY="12.024141689773716" />
+        <EntityTypeShape EntityType="DatabaseModel.RoutePoints" Width="1.5" PointX="10.686013284458785" PointY="16.265900038306555" />
+        <EntityTypeShape EntityType="DatabaseModel.Routes" Width="1.5" PointX="7.99330264888392" PointY="4.1440987159237723" />
+        <EntityTypeShape EntityType="DatabaseModel.Users" Width="1.5" PointX="0.51323243627009563" PointY="8.7686574946943" />
         <AssociationConnector Association="DatabaseModel.fk_RoutePoints_Route" />
         <AssociationConnector Association="DatabaseModel.fk_Routes_Users1" />
       </Diagram>

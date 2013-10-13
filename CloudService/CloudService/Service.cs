@@ -51,21 +51,19 @@ namespace CloudService
 
         public bool SaveExercise(Users user, Routes route)
         {
-            DatabaseEntities db = new DatabaseEntities();
-
-            //TEST
-            user = db.Users.Find("test@test.dk");
-            //\TEST
-            if (user != null)
+            if (user != null && route != null)
             {
-                if (db.Users.Find(user.Email) != null)
+                using (var dbC = new DatabaseEntities())
                 {
-                    Users dbUser = db.Users.Find(user.Email);
-                    dbUser.Routes.Add(route);
+                    if (dbC.Users.Find(user.Email) != null)
+                    {
+                        Users dbuser = dbC.Users.Find(user.Email);
+                        dbuser.Routes.Add(route);
 
-                    db.SaveChanges();
-                   
-                    return true;
+                        dbC.SaveChanges();
+                    }
+                    else
+                        return (false);
                 }
             }
 

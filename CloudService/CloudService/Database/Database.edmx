@@ -21,8 +21,9 @@
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
+            <PropertyRef Name="Route_idRoute" />
           </Key>
-          <Property Name="idRoutePoints" Type="int" Nullable="false" />
+          <Property Name="idRoutePoints" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Longitude" Type="double" Nullable="false" />
           <Property Name="Latitude" Type="double" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
@@ -32,8 +33,7 @@
           <Key>
             <PropertyRef Name="idRoutes" />
           </Key>
-          <Property Name="idRoutes" Type="int" Nullable="false" />
-          <Property Name="Exercises_idExercises" Type="int" Nullable="false" />
+          <Property Name="idRoutes" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ExerciseStart" Type="datetime" Nullable="false" />
           <Property Name="ExerciseEnd" Type="datetime" Nullable="false" />
           <Property Name="Users_Email" Type="varchar" Nullable="false" MaxLength="255" />
@@ -89,8 +89,9 @@
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
+            <PropertyRef Name="Route_idRoute" />
           </Key>
-          <Property Type="Int32" Name="idRoutePoints" Nullable="false" />
+          <Property Type="Int32" Name="idRoutePoints" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Double" Name="Longitude" Nullable="false" />
           <Property Type="Double" Name="Latitude" Nullable="false" />
           <Property Type="DateTime" Name="Time" Nullable="false" />
@@ -101,8 +102,7 @@
           <Key>
             <PropertyRef Name="idRoutes" />
           </Key>
-          <Property Type="Int32" Name="idRoutes" Nullable="false" />
-          <Property Type="Int32" Name="Exercises_idExercises" Nullable="false" />
+          <Property Type="Int32" Name="idRoutes" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="DateTime" Name="ExerciseStart" Nullable="false" />
           <Property Type="DateTime" Name="ExerciseEnd" Nullable="false" />
           <Property Type="String" Name="Users_Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
@@ -164,7 +164,6 @@
                 <ScalarProperty Name="Users_Email" ColumnName="Users_Email" />
                 <ScalarProperty Name="ExerciseEnd" ColumnName="ExerciseEnd" />
                 <ScalarProperty Name="ExerciseStart" ColumnName="ExerciseStart" />
-                <ScalarProperty Name="Exercises_idExercises" ColumnName="Exercises_idExercises" />
                 <ScalarProperty Name="idRoutes" ColumnName="idRoutes" />
               </MappingFragment>
             </EntityTypeMapping>
