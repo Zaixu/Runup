@@ -5,7 +5,10 @@ using System.Threading;
 
 namespace MicroFramework
 {
-    class LM75Driver : IDriver
+    /// <summary>
+    /// LM75 Temperature sensor driver
+    /// </summary>
+    public class LM75Driver : IDriver
     {
         private I2C i2c = I2C.Instance;
         private I2CDevice.Configuration config;
