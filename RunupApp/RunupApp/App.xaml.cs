@@ -11,6 +11,7 @@ using Windows.Devices.Geolocation;
 using Domain.Interfaces;
 using Domain.CloudService;
 using System.IO.IsolatedStorage;
+using System.ServiceModel;
 
 namespace RunupApp
 {
@@ -160,6 +161,12 @@ namespace RunupApp
         // Code to execute on Unhandled Exceptions
         private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
         {
+            if (e.ExceptionObject is CommunicationException)
+            {
+                MessageBox.Show("Communication problem, please check connection");
+                e.Handled = true;
+                return;
+            }
             if (Debugger.IsAttached)
             {
                 // An unhandled exception has occurred; break into the debugger
