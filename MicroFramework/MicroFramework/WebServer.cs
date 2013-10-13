@@ -7,6 +7,9 @@ using System.Threading;
 
 namespace MicroFramework
 {
+    /// <summary>
+    /// Class to run a webserver through sockets.
+    /// </summary>
     class WebServer
     {
         private Int32 endpointPort = 80;
