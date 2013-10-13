@@ -9,6 +9,7 @@ using System.Device.Location;
 using System.Windows;
 using System.Windows.Input;
 using Microsoft.Phone.Controls;
+using System.Windows.Threading;
 
 namespace RunupApp.ViewModels
 {
@@ -95,6 +96,7 @@ namespace RunupApp.ViewModels
         }
 
         // Functions
+        // :Constructors and deconstructors
         public RunningExerciseViewModel(TaskFactory taskFactory)
         {
             // Setup
@@ -112,14 +114,14 @@ namespace RunupApp.ViewModels
         /// <param name="longitude">Longitude of current location.</param>
         /// <param name="time">Current time.</param>
         /// <param name="notify">Set true if want binded objects to get events.</param>
-        public void GPSLocationChanged(double latitude, double longitude, DateTime time, bool notify=true)
+        public void GPSLocationChanged(double latitude, double longitude, DateTime time)
         {
             // Update route info
             _route.AddPoint(latitude, longitude, time);
             _route.ExerciseEnd = time;
 
             // Notify properties
-            if (notify)
+            if (!App.RunningInBackground)
             {
                 _taskFactory.StartNew(() =>
                     {
@@ -137,12 +139,15 @@ namespace RunupApp.ViewModels
         /// </summary>
         public void UpdateRunningTime()
         {
-            _route.ExerciseEnd = DateTime.Now;
-            _taskFactory.StartNew(() =>
+            if (!App.RunningInBackground)
             {
-                NotifyPropertyChanged("RunningTime");
+                _route.ExerciseEnd = DateTime.Now;
+                _taskFactory.StartNew(() =>
+                {
+                    NotifyPropertyChanged("RunningTime");
+                }
+                );
             }
-            );
         }
 
         public ICommand StopExercise

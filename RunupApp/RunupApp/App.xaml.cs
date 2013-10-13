@@ -22,16 +22,8 @@ namespace RunupApp
         // Properties
         private Users user = null;
         /// <summary>
-        /// Current user of app, if null, not logged in
-        /// </summary>
-<<<<<<< HEAD
-        public Users user = null;
-
-        /// <summary>
         /// Gets/Sets user of application, if its set, update the global app bar text to either login or logout
         /// </summary>
-=======
->>>>>>> 80e8af9ebcdd631e32bcc39e88a5060069227d7e
         public Users User
         {
             get

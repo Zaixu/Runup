@@ -1,0 +1,89 @@
+﻿<phone:PhoneApplicationPage
+        ApplicationBar="{StaticResource AppBar}"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="clr-namespace:RunupApp.ViewModels"
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    x:Class="RunupApp.ExercisePage"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+    <!-- Resources -->
+    <phone:PhoneApplicationPage.Resources>
+        <!-- Styles -->
+        <Style x:Key="PageHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="32" />
+        </Style>
+        <Style x:Key="PageInfo" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="22" />
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+
+    <phone:PhoneApplicationPage.FontFamily>
+        <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+    </phone:PhoneApplicationPage.FontFamily>
+    <phone:PhoneApplicationPage.FontSize>
+        <StaticResource ResourceKey="PhoneFontSizeNormal"/>
+    </phone:PhoneApplicationPage.FontSize>
+    <phone:PhoneApplicationPage.Foreground>
+        <StaticResource ResourceKey="PhoneForegroundBrush"/>
+    </phone:PhoneApplicationPage.Foreground>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel -->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock  Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding LocalizedResources.ApplicationTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+            <TextBlock Text="Exercise" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <!-- Meta info -->
+            <TextBlock Text="Meta:" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}" />
+            <TextBlock x:Name="textStartTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+				<Run Text="Start time: " />
+				<Run Text="{Binding StartTime}" />
+            </TextBlock>
+            <TextBlock x:Name="textRunningTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+				<Run Text="Running time: " />
+				<Run Text="{Binding RunningTime}" />
+            </TextBlock>
+
+            <!-- Statistics -->
+            <TextBlock Text="Statistics:" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}" />
+            <TextBlock x:Name="textCurrentSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+				<Run Text="Current speed: " />
+				<Run Text="{Binding CurrentSpeed}" />
+				<Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
+            <TextBlock x:Name="textAverageSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+				<Run Text="Average speed: " />
+				<Run Text="{Binding AverageSpeed}" />
+				<Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
+            <TextBlock x:Name="textCurrentDistance" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+				<Run Text="Current distance: " />
+				<Run Text="{Binding CurrentDistance}" />
+				<Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
+            <Button x:Name="btnStopExercise" Command="{Binding StopExercise}" Content="Stop Exercise"/>
+        </StackPanel>
+        <!-- Map -->
+        <maps:Map x:Name="mapOfRunningRoute" Grid.Row="2" Center="57.74, 10.65" ColorMode="Dark">
+            <maps:Map.ZoomLevel>
+                <System:Double>15</System:Double>
+            </maps:Map.ZoomLevel>
+        </maps:Map>
+    </Grid>
+
+</phone:PhoneApplicationPage>
