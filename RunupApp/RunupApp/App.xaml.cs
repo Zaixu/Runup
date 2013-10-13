@@ -111,7 +111,7 @@ namespace RunupApp
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
-            LoadFromIsolatedStorage();
+            LoadUserFromIsolatedStorage();
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -123,7 +123,7 @@ namespace RunupApp
             if (!e.IsApplicationInstancePreserved)
             {
                 // Been tombstoned, reload.
-                LoadFromStateObject();
+                LoadUserFromStateObject();
             }
         }
 
@@ -131,15 +131,15 @@ namespace RunupApp
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
-            SaveToIsolatedStorage();
-            SaveToStateObject();
+            SaveUserToIsolatedStorage();
+            SaveUserToStateObject();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
-            SaveToIsolatedStorage();
+            SaveUserToIsolatedStorage();
         }
 
         // Code to execute if a navigation fails
@@ -320,7 +320,7 @@ namespace RunupApp
             }
         }
 
-        private void SaveToIsolatedStorage()
+        private void SaveUserToIsolatedStorage()
         {
             IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
             if (User != null)
@@ -352,7 +352,7 @@ namespace RunupApp
             }
         }
 
-        private void LoadFromIsolatedStorage()
+        private void LoadUserFromIsolatedStorage()
         {
             IsolatedStorageSettings isolatedStore = IsolatedStorageSettings.ApplicationSettings;
 
@@ -364,14 +364,14 @@ namespace RunupApp
             }
         }
 
-        private void SaveToStateObject()
+        private void SaveUserToStateObject()
         {
             IDictionary<string, object> stateStore = PhoneApplicationService.Current.State;
             stateStore.Remove("User");
             stateStore.Add("User", User);
         }
 
-        private void LoadFromStateObject()
+        private void LoadUserFromStateObject()
         {
             IDictionary<string, object> stateStore = PhoneApplicationService.Current.State; 
             if (stateStore.ContainsKey("User"))
