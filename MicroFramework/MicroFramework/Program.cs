@@ -35,6 +35,7 @@ namespace MicroFramework
             // Device ready
             onboardLED.Write(true);
             
+            //Everything is handled in other threads, just stand by
             while (true)
             {
                 Thread.Sleep(500);
