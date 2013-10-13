@@ -24,7 +24,7 @@ namespace RunupApp.Views
         private App application;
 
         /// <summary>
-        /// Constructor - Make ViewModel/Application instance available for events to use
+        /// Constructor - Make ViewModel/Application instance available
         /// </summary>
         public LoginView()
         {
@@ -52,7 +52,7 @@ namespace RunupApp.Views
         }
 
         /// <summary>
-        /// Unsubscribe CloudService LoginCompleted event
+        /// When page is navigated from, unsubscribe CloudService LoginCompleted event
         /// </summary>
         /// <param name="e">Navigation Event Arguments</param>
         protected override void OnNavigatedFrom(NavigationEventArgs e)

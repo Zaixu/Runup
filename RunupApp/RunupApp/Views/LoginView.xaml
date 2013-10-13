@@ -16,7 +16,7 @@
     
     
     
-    <!--LayoutRoot is the root grid where all page content is placed-->
+    <!--LayoutRoot-->
     <StackPanel>
 
         <!--TitlePanel-->
