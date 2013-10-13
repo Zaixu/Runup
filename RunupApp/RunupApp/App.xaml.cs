@@ -350,8 +350,18 @@ namespace RunupApp
 
         private void syncallback(string status)
         {
-            // Can later be changed to data binding
-            MessageBox.Show("Sync: " + status);
+            if(!App.RunningInBackground)
+            {
+                // Can later be changed to data binding
+                MessageBox.Show("Sync: " + status);
+            }
+            else (App.RunningInBackground)// Gone away from app
+            {
+                ShellToast msg = new ShellToast();
+                msg.Title = "Login:";
+                msg.Content = e.Result.ToString();
+                msg.Show();
+            }
         }
 
         /// <summary>
