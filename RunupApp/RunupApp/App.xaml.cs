@@ -9,6 +9,7 @@ using Microsoft.Phone.Shell;
 using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Interfaces;
+using Domain.Implementations;
 using Domain.CloudService;
 using System.IO.IsolatedStorage;
 using System.ServiceModel;
@@ -18,16 +19,19 @@ namespace RunupApp
 {
     public partial class App : Application
     {
-
-
+        // Properties
+        private Users user = null;
         /// <summary>
         /// Current user of app, if null, not logged in
         /// </summary>
+<<<<<<< HEAD
         public Users user = null;
 
         /// <summary>
         /// Gets/Sets user of application, if its set, update the global app bar text to either login or logout
         /// </summary>
+=======
+>>>>>>> 80e8af9ebcdd631e32bcc39e88a5060069227d7e
         public Users User
         {
             get
@@ -66,6 +70,11 @@ namespace RunupApp
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
+
+        /// <summary>
+        /// Contains all routes not synced.
+        /// </summary>
+        public static List<IRoute> NewRoutesStack { get; set; }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -111,6 +120,8 @@ namespace RunupApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
+            // Set up route stack
+            NewRoutesStack = new List<IRoute>();
         }
 
         /// Event handlers
@@ -319,7 +330,32 @@ namespace RunupApp
         /// <param name="e">Event Arguments</param>
         private void SyncAppBarButton_Click(object sender, EventArgs e)
         {
+            // Get all new exercises
 
+            // Save all new exercises
+            if (User != null)
+            {
+                // :Go through each one
+                ISyncService syncservice = new SyncService(syncallback);
+                foreach (var exercise in NewRoutesStack)
+                {
+                    syncservice.SaveExercise(exercise, User);
+                }
+
+                // :Remove entries
+                NewRoutesStack.Clear();
+            }
+            else
+            {
+                // Can later be changed to data binding
+                MessageBox.Show("Not logged in");
+            }
+        }
+
+        private void syncallback(string status)
+        {
+            // Can later be changed to data binding
+            MessageBox.Show("Sync: " + status);
         }
 
         /// <summary>
