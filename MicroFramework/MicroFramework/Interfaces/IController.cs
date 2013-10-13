@@ -6,7 +6,7 @@ namespace MicroFramework
     /// <summary>
     /// Interface for controllers, that are using in the webserver
     /// </summary>
-    interface IController
+    public interface IController
     {
         /// <summary>
         /// Handler function for webserver to call

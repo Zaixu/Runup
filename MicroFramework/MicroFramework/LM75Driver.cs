@@ -16,34 +16,53 @@ namespace MicroFramework
         private Thread thread = null;
         private bool running = false;
 
+        /// <summary>
+        /// Constructor - Sets up configuration and starts thread
+        /// </summary>
+        /// <param name="address">I2C Address</param>
+        /// <param name="clockRateKhz">Clockrate</param>
         public LM75Driver(ushort address, int clockRateKhz)
         {
+            //Setup configuration
             config = new I2CDevice.Configuration(address, clockRateKhz);
-
             // Initial, not being used, but then thread wont be null used throughout to check status.
             thread = new Thread(Pull);
+            //Start driver
             Start();
         }
 
+        /// <summary>
+        /// Start driver class
+        /// </summary>
         public void Start()
         {
+            //Stop if running
             Stop();
+            //If thread is not running
             if (!thread.IsAlive)
             {
                 Debug.Print("Starting LM75Driver");
+                //Set volatile variable true so thread while loops
                 running = true;
+                //Create thread
                 thread = new Thread(Pull);
+                //Start thread
                 thread.Start();
             }
         }
 
+        /// <summary>
+        /// Stop driver class
+        /// </summary>
         public void Stop()
         {
+            //If thread is running
             if (thread.IsAlive)
             {
                 Debug.Print("Stopping LM75Driver");
+                //Set thread variable to false, so thread loop stops
                 running = false;
-
+                //Wait for thread to finish
                 while (thread.IsAlive)
                 {
                     Thread.Sleep(500);
@@ -51,13 +70,19 @@ namespace MicroFramework
             }
         }
 
+        /// <summary>
+        /// Function that thread runs - Pulls data every 5 secs and adds em to a managed number queue
+        /// </summary>
         private void Pull()
         {
+            //Run as long till stopped
             while (running)
             {
+                //Create write command
                 byte[] writeBuffer = new byte[1] { 0x00 };
                 i2c.Write(config, writeBuffer, 100);
 
+                //Create read buffer for temperature
                 byte[] readBuffer = new byte[2];
                 i2c.Read(config, readBuffer, 100);
 
@@ -80,14 +105,16 @@ namespace MicroFramework
                     temperature = ((float)con - 512) / 2;
                 else
                     temperature = (float)con / 2;*/
+
                 // 2's complement conversion
                 if ((readBuffer[0] & 0x80) > 0) // 8th bit set means negativ
                     temperature = -((float)(~con) + 1) / 2;
                 else
                     temperature = (float)con / 2;
-
+                
+                //Add data to queue
                 queue.Add(new QueueClass(temperature));
-
+                //Wait 5 seconds
                 Thread.Sleep(5000);
             }
         }

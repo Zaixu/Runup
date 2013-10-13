@@ -52,7 +52,7 @@ namespace MicroFramework
         {
             //Stop server before starting
             Stop();
-            //If the thread is alive, that its not been aborted.
+            //If the thread is not alive (Stopped).
             if (!thread.IsAlive)
             {
                 Debug.Print("Starting WebServer");
@@ -71,7 +71,7 @@ namespace MicroFramework
         /// </summary>
         public void Stop()
         {
-            //If thread hasnt been aborted
+            //If thread is running
             if (thread.IsAlive)
             {
                 Debug.Print("Stopping WebServer");

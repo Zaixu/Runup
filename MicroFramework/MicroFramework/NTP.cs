@@ -6,7 +6,10 @@ using System.Net.Sockets;
 
 namespace MicroFramework
 {
-    class NTP
+    /// <summary>
+    /// Network Time Protocol Class - Syncronizes time through internet
+    /// </summary>
+    public class NTP
     {
         private IPHostEntry ipHostPrimary = null;
         private IPHostEntry ipHostSecondary = null;

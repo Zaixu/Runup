@@ -6,7 +6,7 @@ namespace MicroFramework
     /// <summary>
     /// Driver interface, giving the function to be called to get data
     /// </summary>
-    interface IDriver
+    public interface IDriver
     {
         /// <summary>
         /// Get data from driver
