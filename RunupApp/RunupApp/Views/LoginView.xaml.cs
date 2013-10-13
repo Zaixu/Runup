@@ -25,7 +25,8 @@ namespace RunupApp.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if(NavigationService.CanGoBack)
+            var formerPage = NavigationService.BackStack.First();
+            if(formerPage != null && formerPage.Source.ToString() == "/Views/RegisterView.xaml")
                 NavigationService.RemoveBackEntry();
 
             application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
