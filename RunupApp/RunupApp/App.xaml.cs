@@ -336,7 +336,6 @@ namespace RunupApp
                 if (res == MessageBoxResult.OK)
                 {
                     User = null;
-                    (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
                     return;
                 }
             }
