@@ -358,8 +358,8 @@ namespace RunupApp
             else (App.RunningInBackground)// Gone away from app
             {
                 ShellToast msg = new ShellToast();
-                msg.Title = "Login:";
-                msg.Content = e.Result.ToString();
+                msg.Title = "Sync:";
+                msg.Content = status;
                 msg.Show();
             }
         }
