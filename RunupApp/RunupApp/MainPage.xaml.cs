@@ -60,10 +60,5 @@ namespace RunupApp
         {
             NavigationService.Navigate(new Uri("/ExercisePage.xaml", UriKind.Relative));
         }
-
-        private void btnlog_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new Uri("/Views/LoginView.xaml", UriKind.RelativeOrAbsolute));
-        }
     }
 }
