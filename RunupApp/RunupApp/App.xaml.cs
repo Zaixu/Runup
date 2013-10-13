@@ -35,7 +35,7 @@ namespace RunupApp
                 var appBar = App.Current.Resources["AppBar"] as ApplicationBar;
                 if (value == null)
                 {
-                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Auth";
+                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Login";
                 }
                 else
                 {
