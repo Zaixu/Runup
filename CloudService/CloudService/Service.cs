@@ -49,7 +49,7 @@ namespace CloudService
             throw new NotImplementedException();
         }
 
-        public bool SaveExercise(Users user, Routes route)
+        public string SaveExercise(Users user, Routes route)
         {
             if (user != null && route != null)
             {
@@ -61,13 +61,15 @@ namespace CloudService
                         dbuser.Routes.Add(route);
 
                         dbC.SaveChanges();
+
+                        return ("Success");
                     }
                     else
-                        return (false);
+                        return ("User not found");
                 }
             }
 
-            return (false);
+            return ("Missing values");
         }
     }
 }
