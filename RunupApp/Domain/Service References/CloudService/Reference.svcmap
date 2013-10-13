@@ -20,13 +20,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://169.254.80.80:8733/CloudService/Service/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://crynac.com:8733/CloudService/Service/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="b6c0f703-e4b1-417d-9a6e-a6ab1681380b" SourceId="1" SourceUrl="http://169.254.80.80:8733/CloudService/Service/mex" />
-    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="4aaa4daa-ca80-4576-8a83-0c8b5b3669e4" SourceId="1" SourceUrl="http://169.254.80.80:8733/CloudService/Service/mex" />
-    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="73b92abd-cbdf-4cb9-bae2-774b3e8a8fea" SourceId="1" SourceUrl="http://169.254.80.80:8733/CloudService/Service/mex" />
-    <MetadataFile FileName="CloudService.Database1.xsd" MetadataType="Schema" ID="ba5ee0d8-c28c-46d5-9dcd-818fd9b35773" SourceId="1" SourceUrl="http://169.254.80.80:8733/CloudService/Service/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="c0e3da99-78fa-4dd0-a504-b595105370c1" SourceId="1" SourceUrl="http://crynac.com:8733/CloudService/Service/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="b2c485ef-9f28-43d7-a55c-a93d0dcb9cc1" SourceId="1" SourceUrl="http://crynac.com:8733/CloudService/Service/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="b21e3b4f-e00f-41fb-9c23-50486e4d04c8" SourceId="1" SourceUrl="http://crynac.com:8733/CloudService/Service/mex" />
+    <MetadataFile FileName="CloudService.Database.xsd" MetadataType="Schema" ID="790c416a-cd6f-46c0-82cf-e240e6d86bf2" SourceId="1" SourceUrl="http://crynac.com:8733/CloudService/Service/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
