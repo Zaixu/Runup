@@ -145,6 +145,8 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Assets\person.png" />
+    <Content Include="Assets\refresh.png" />
     <Content Include="Assets\runner.png" />
     <Content Include="logoEye2.png" />
   </ItemGroup>
