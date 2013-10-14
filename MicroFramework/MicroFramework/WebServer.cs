@@ -119,7 +119,7 @@ namespace MicroFramework
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">Network Availability Event Arguments</param>
-        void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
+        private void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
         {
             //If its available, start webserver, if not, stop server
             if (e.IsAvailable)

@@ -78,7 +78,7 @@ namespace MicroFramework
             //Run as long till stopped
             while (running)
             {
-                //Create write command
+                //Create write command [Temperature Read 0b000]
                 byte[] writeBuffer = new byte[1] { 0x00 };
                 i2c.Write(config, writeBuffer, 100);
 

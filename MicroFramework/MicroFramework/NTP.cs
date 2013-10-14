@@ -45,7 +45,7 @@ namespace MicroFramework
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
+        private void NetworkChange_NetworkAvailabilityChanged(object sender, Microsoft.SPOT.Net.NetworkInformation.NetworkAvailabilityEventArgs e)
         {
             if (e.IsAvailable)
             {
@@ -125,7 +125,7 @@ namespace MicroFramework
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">TimeSyncFailedEvent Arguments</param>
-        void TimeService_TimeSyncFailed(object sender, TimeSyncFailedEventArgs e)
+        private void TimeService_TimeSyncFailed(object sender, TimeSyncFailedEventArgs e)
         {
             //Write out error
             Debug.Print(e.EventTime + " NTP Error: Error Syncronizing - " + e.ErrorCode);
@@ -136,7 +136,7 @@ namespace MicroFramework
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">SystemTimeChangedEvent Arguments</param>
-        void TimeService_SystemTimeChanged(object sender, SystemTimeChangedEventArgs e)
+        private void TimeService_SystemTimeChanged(object sender, SystemTimeChangedEventArgs e)
         {
             //Daylight savings are the last sunday of march and october
             DateTime march = new DateTime(DateTime.Now.Year, 3, 1);
