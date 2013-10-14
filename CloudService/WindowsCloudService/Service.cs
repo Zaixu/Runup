@@ -13,20 +13,26 @@ namespace WindowsCloudService
 {
     public partial class Service : ServiceBase
     {
-        ServiceHost sHost;
+        private ServiceHost sHost;
         public Service()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Start Service
+        /// </summary>
+        /// <param name="args">String array arguments</param>
         protected override void OnStart(string[] args)
         {
+            //Start sevice host of CloudService Service
             sHost = new ServiceHost(typeof(CloudService.Service));
             sHost.Open();
         }
 
         protected override void OnStop()
         {
+            //Stop service host
             sHost.Close();
         }
     }
