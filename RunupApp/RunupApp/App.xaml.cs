@@ -355,7 +355,7 @@ namespace RunupApp
                 // Can later be changed to data binding
                 MessageBox.Show("Sync: " + status);
             }
-            else (App.RunningInBackground)// Gone away from app
+            else // Gone away from app
             {
                 ShellToast msg = new ShellToast();
                 msg.Title = "Sync:";
