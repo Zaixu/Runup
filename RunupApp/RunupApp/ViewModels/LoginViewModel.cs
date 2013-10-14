@@ -29,6 +29,15 @@ namespace RunupApp.ViewModels
         private App application = Application.Current as App;
 
         /// <summary>
+        /// Constructor - Instantiate user class
+        /// </summary>
+        public LoginViewModel()
+        {
+            user.Email = "";
+            user.Password = "";
+        }
+
+        /// <summary>
         /// Current email from the user object
         /// </summary>
         public string Email
