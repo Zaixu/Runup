@@ -138,6 +138,6 @@
     <value>km</value>
   </data>
   <data name="SpeedUnit" xml:space="preserve">
-    <value>km/s</value>
+    <value>km/h</value>
   </data>
 </root>
