@@ -21,7 +21,7 @@ namespace RunupApp.ViewModels
     class RunningExerciseViewModel : ViewModelBase
     {
         // Members
-        private IRoute _route;
+        private IExercise _route;
         private TaskFactory _taskFactory;
 
         // Properties
@@ -100,7 +100,7 @@ namespace RunupApp.ViewModels
         public RunningExerciseViewModel(TaskFactory taskFactory)
         {
             // Setup
-            _route = new Route();
+            _route = new Exercise();
             _taskFactory = taskFactory;
         }
 
@@ -166,7 +166,7 @@ namespace RunupApp.ViewModels
         /// <summary>
         /// Gets the underlying route.
         /// </summary>
-        public IRoute GetRoute()
+        public IExercise GetRoute()
         {
             return _route;
         }

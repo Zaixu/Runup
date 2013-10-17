@@ -17,6 +17,6 @@ namespace Domain.Interfaces
         /// </summary>
         /// <param name="exercise">The exercise to save.</param>
         /// <param name="user">The user to save the exercise for.</param>
-        void SaveExercise(IRoute route, Users user);
+        void SaveExercise(IExercise exercise, Users user);
     }
 }

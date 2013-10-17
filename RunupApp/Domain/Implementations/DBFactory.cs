@@ -11,29 +11,29 @@ namespace Domain.Implementations
 {
     class DBFactory : IDBFactory
     {
-        public Routes CreateRoute(IRoute route)
+        public Exercises CreateExercise(IExercise exercise)
         {
             // Setup
-            Routes createdRoute = new Routes();
+            Exercises createdExercise = new Exercises();
 
             // Convert
-            // :Route
-            createdRoute.RoutePoints = new ObservableCollection<RoutePoints>();
-            createdRoute.ExerciseStart = route.ExerciseStart;
-            createdRoute.ExerciseEnd = route.ExerciseEnd;
+            // :Exercise
+            createdExercise.RoutePoints = new ObservableCollection<RoutePoints>();
+            createdExercise.ExerciseStart = exercise.ExerciseStart;
+            createdExercise.ExerciseEnd = exercise.ExerciseEnd;
 
             // :Points
-            foreach (var point in route.Points)
+            foreach (var point in exercise.Points)
             {
                 var createdPoint = new RoutePoints();
                 createdPoint.Latitude = point.Latitude;
                 createdPoint.Longitude = point.Longitude;
                 createdPoint.Time = point.Time;
 
-                createdRoute.RoutePoints.Add(createdPoint);
+                createdExercise.RoutePoints.Add(createdPoint);
             }
 
-            return(createdRoute);
+            return (createdExercise);
         }
     }
 }

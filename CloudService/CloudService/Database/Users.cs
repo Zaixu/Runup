@@ -18,7 +18,7 @@ namespace CloudService.Database
     {
         public Users()
         {
-            this.Routes = new HashSet<Routes>();
+            this.Exercises = new HashSet<Exercises>();
         }
     
         [DataMember]
@@ -27,6 +27,6 @@ namespace CloudService.Database
         public string Password { get; set; }
     
         [DataMember]
-        public virtual ICollection<Routes> Routes { get; set; }
+        public virtual ICollection<Exercises> Exercises { get; set; }
     }
 }

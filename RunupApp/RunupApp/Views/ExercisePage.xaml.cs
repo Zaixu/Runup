@@ -89,7 +89,7 @@ namespace RunupApp
             if (!_hasCenteredMap)
             {
                 _hasCenteredMap = true;
-                _taskFactory.StartNew(() => mapOfRunningRoute.Center = new GeoCoordinate(latitude, longitude));
+                _taskFactory.StartNew(() => MapOfRunningRoute.Center = new GeoCoordinate(latitude, longitude));
             }
 
             // :Draw point
@@ -114,7 +114,7 @@ namespace RunupApp
             MapLayer myLocationLayer = new MapLayer();
             myLocationLayer.Add(myLocationOverlay);
             
-            mapOfRunningRoute.Layers.Add(myLocationLayer);
+            MapOfRunningRoute.Layers.Add(myLocationLayer);
         }
     }
 }

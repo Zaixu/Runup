@@ -22,9 +22,9 @@ namespace Domain.CloudService {
         
         private string EmailField;
         
-        private string PasswordField;
+        private System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> ExercisesField;
         
-        private System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Routes> RoutesField;
+        private string PasswordField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Email {
@@ -35,6 +35,19 @@ namespace Domain.CloudService {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> Exercises {
+            get {
+                return this.ExercisesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExercisesField, value) != true)) {
+                    this.ExercisesField = value;
+                    this.RaisePropertyChanged("Exercises");
                 }
             }
         }
@@ -52,19 +65,6 @@ namespace Domain.CloudService {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Routes> Routes {
-            get {
-                return this.RoutesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RoutesField, value) != true)) {
-                    this.RoutesField = value;
-                    this.RaisePropertyChanged("Routes");
-                }
-            }
-        }
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -77,8 +77,8 @@ namespace Domain.CloudService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Routes", Namespace="http://schemas.datacontract.org/2004/07/CloudService.Database", IsReference=true)]
-    public partial class Routes : object, System.ComponentModel.INotifyPropertyChanged {
+    [System.Runtime.Serialization.DataContractAttribute(Name="Exercises", Namespace="http://schemas.datacontract.org/2004/07/CloudService.Database", IsReference=true)]
+    public partial class Exercises : object, System.ComponentModel.INotifyPropertyChanged {
         
         private System.DateTime ExerciseEndField;
         
@@ -90,7 +90,7 @@ namespace Domain.CloudService {
         
         private string Users_EmailField;
         
-        private int idRoutesField;
+        private int idExercisesField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public System.DateTime ExerciseEnd {
@@ -158,14 +158,14 @@ namespace Domain.CloudService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idRoutes {
+        public int idExercises {
             get {
-                return this.idRoutesField;
+                return this.idExercisesField;
             }
             set {
-                if ((this.idRoutesField.Equals(value) != true)) {
-                    this.idRoutesField = value;
-                    this.RaisePropertyChanged("idRoutes");
+                if ((this.idExercisesField.Equals(value) != true)) {
+                    this.idExercisesField = value;
+                    this.RaisePropertyChanged("idExercises");
                 }
             }
         }
@@ -185,17 +185,43 @@ namespace Domain.CloudService {
     [System.Runtime.Serialization.DataContractAttribute(Name="RoutePoints", Namespace="http://schemas.datacontract.org/2004/07/CloudService.Database", IsReference=true)]
     public partial class RoutePoints : object, System.ComponentModel.INotifyPropertyChanged {
         
+        private Domain.CloudService.Exercises ExercisesField;
+        
+        private int Exercises_idRouteField;
+        
         private double LatitudeField;
         
         private double LongitudeField;
         
-        private int Route_idRouteField;
-        
-        private Domain.CloudService.Routes RoutesField;
-        
         private System.DateTime TimeField;
         
         private int idRoutePointsField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Domain.CloudService.Exercises Exercises {
+            get {
+                return this.ExercisesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ExercisesField, value) != true)) {
+                    this.ExercisesField = value;
+                    this.RaisePropertyChanged("Exercises");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Exercises_idRoute {
+            get {
+                return this.Exercises_idRouteField;
+            }
+            set {
+                if ((this.Exercises_idRouteField.Equals(value) != true)) {
+                    this.Exercises_idRouteField = value;
+                    this.RaisePropertyChanged("Exercises_idRoute");
+                }
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public double Latitude {
@@ -219,32 +245,6 @@ namespace Domain.CloudService {
                 if ((this.LongitudeField.Equals(value) != true)) {
                     this.LongitudeField = value;
                     this.RaisePropertyChanged("Longitude");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Route_idRoute {
-            get {
-                return this.Route_idRouteField;
-            }
-            set {
-                if ((this.Route_idRouteField.Equals(value) != true)) {
-                    this.Route_idRouteField = value;
-                    this.RaisePropertyChanged("Route_idRoute");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Domain.CloudService.Routes Routes {
-            get {
-                return this.RoutesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.RoutesField, value) != true)) {
-                    this.RoutesField = value;
-                    this.RaisePropertyChanged("Routes");
                 }
             }
         }
@@ -299,18 +299,8 @@ namespace Domain.CloudService {
         
         string EndRegister(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/SaveData", ReplyAction="http://tempuri.org/IService/SaveDataResponse")]
-        System.IAsyncResult BeginSaveData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState);
-        
-        bool EndSaveData(System.IAsyncResult result);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/LoadData", ReplyAction="http://tempuri.org/IService/LoadDataResponse")]
-        System.IAsyncResult BeginLoadData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState);
-        
-        bool EndLoadData(System.IAsyncResult result);
-        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/SaveExercise", ReplyAction="http://tempuri.org/IService/SaveExerciseResponse")]
-        System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Routes route, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise, System.AsyncCallback callback, object asyncState);
         
         string EndSaveExercise(System.IAsyncResult result);
     }
@@ -359,44 +349,6 @@ namespace Domain.CloudService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class SaveDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public SaveDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public bool Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class LoadDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public LoadDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public bool Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((bool)(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SaveExerciseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -429,18 +381,6 @@ namespace Domain.CloudService {
         private EndOperationDelegate onEndRegisterDelegate;
         
         private System.Threading.SendOrPostCallback onRegisterCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginSaveDataDelegate;
-        
-        private EndOperationDelegate onEndSaveDataDelegate;
-        
-        private System.Threading.SendOrPostCallback onSaveDataCompletedDelegate;
-        
-        private BeginOperationDelegate onBeginLoadDataDelegate;
-        
-        private EndOperationDelegate onEndLoadDataDelegate;
-        
-        private System.Threading.SendOrPostCallback onLoadDataCompletedDelegate;
         
         private BeginOperationDelegate onBeginSaveExerciseDelegate;
         
@@ -504,10 +444,6 @@ namespace Domain.CloudService {
         public event System.EventHandler<LoginCompletedEventArgs> LoginCompleted;
         
         public event System.EventHandler<RegisterCompletedEventArgs> RegisterCompleted;
-        
-        public event System.EventHandler<SaveDataCompletedEventArgs> SaveDataCompleted;
-        
-        public event System.EventHandler<LoadDataCompletedEventArgs> LoadDataCompleted;
         
         public event System.EventHandler<SaveExerciseCompletedEventArgs> SaveExerciseCompleted;
         
@@ -608,100 +544,8 @@ namespace Domain.CloudService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Domain.CloudService.IService.BeginSaveData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginSaveData(user, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        bool Domain.CloudService.IService.EndSaveData(System.IAsyncResult result) {
-            return base.Channel.EndSaveData(result);
-        }
-        
-        private System.IAsyncResult OnBeginSaveData(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Domain.CloudService.Users user = ((Domain.CloudService.Users)(inValues[0]));
-            return ((Domain.CloudService.IService)(this)).BeginSaveData(user, callback, asyncState);
-        }
-        
-        private object[] OnEndSaveData(System.IAsyncResult result) {
-            bool retVal = ((Domain.CloudService.IService)(this)).EndSaveData(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnSaveDataCompleted(object state) {
-            if ((this.SaveDataCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.SaveDataCompleted(this, new SaveDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void SaveDataAsync(Domain.CloudService.Users user) {
-            this.SaveDataAsync(user, null);
-        }
-        
-        public void SaveDataAsync(Domain.CloudService.Users user, object userState) {
-            if ((this.onBeginSaveDataDelegate == null)) {
-                this.onBeginSaveDataDelegate = new BeginOperationDelegate(this.OnBeginSaveData);
-            }
-            if ((this.onEndSaveDataDelegate == null)) {
-                this.onEndSaveDataDelegate = new EndOperationDelegate(this.OnEndSaveData);
-            }
-            if ((this.onSaveDataCompletedDelegate == null)) {
-                this.onSaveDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnSaveDataCompleted);
-            }
-            base.InvokeAsync(this.onBeginSaveDataDelegate, new object[] {
-                        user}, this.onEndSaveDataDelegate, this.onSaveDataCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Domain.CloudService.IService.BeginLoadData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginLoadData(user, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        bool Domain.CloudService.IService.EndLoadData(System.IAsyncResult result) {
-            return base.Channel.EndLoadData(result);
-        }
-        
-        private System.IAsyncResult OnBeginLoadData(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Domain.CloudService.Users user = ((Domain.CloudService.Users)(inValues[0]));
-            return ((Domain.CloudService.IService)(this)).BeginLoadData(user, callback, asyncState);
-        }
-        
-        private object[] OnEndLoadData(System.IAsyncResult result) {
-            bool retVal = ((Domain.CloudService.IService)(this)).EndLoadData(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnLoadDataCompleted(object state) {
-            if ((this.LoadDataCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.LoadDataCompleted(this, new LoadDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void LoadDataAsync(Domain.CloudService.Users user) {
-            this.LoadDataAsync(user, null);
-        }
-        
-        public void LoadDataAsync(Domain.CloudService.Users user, object userState) {
-            if ((this.onBeginLoadDataDelegate == null)) {
-                this.onBeginLoadDataDelegate = new BeginOperationDelegate(this.OnBeginLoadData);
-            }
-            if ((this.onEndLoadDataDelegate == null)) {
-                this.onEndLoadDataDelegate = new EndOperationDelegate(this.OnEndLoadData);
-            }
-            if ((this.onLoadDataCompletedDelegate == null)) {
-                this.onLoadDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnLoadDataCompleted);
-            }
-            base.InvokeAsync(this.onBeginLoadDataDelegate, new object[] {
-                        user}, this.onEndLoadDataDelegate, this.onLoadDataCompletedDelegate, userState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult Domain.CloudService.IService.BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Routes route, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginSaveExercise(user, route, callback, asyncState);
+        System.IAsyncResult Domain.CloudService.IService.BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginSaveExercise(user, exercise, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -711,8 +555,8 @@ namespace Domain.CloudService {
         
         private System.IAsyncResult OnBeginSaveExercise(object[] inValues, System.AsyncCallback callback, object asyncState) {
             Domain.CloudService.Users user = ((Domain.CloudService.Users)(inValues[0]));
-            Domain.CloudService.Routes route = ((Domain.CloudService.Routes)(inValues[1]));
-            return ((Domain.CloudService.IService)(this)).BeginSaveExercise(user, route, callback, asyncState);
+            Domain.CloudService.Exercises exercise = ((Domain.CloudService.Exercises)(inValues[1]));
+            return ((Domain.CloudService.IService)(this)).BeginSaveExercise(user, exercise, callback, asyncState);
         }
         
         private object[] OnEndSaveExercise(System.IAsyncResult result) {
@@ -728,11 +572,11 @@ namespace Domain.CloudService {
             }
         }
         
-        public void SaveExerciseAsync(Domain.CloudService.Users user, Domain.CloudService.Routes route) {
-            this.SaveExerciseAsync(user, route, null);
+        public void SaveExerciseAsync(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise) {
+            this.SaveExerciseAsync(user, exercise, null);
         }
         
-        public void SaveExerciseAsync(Domain.CloudService.Users user, Domain.CloudService.Routes route, object userState) {
+        public void SaveExerciseAsync(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise, object userState) {
             if ((this.onBeginSaveExerciseDelegate == null)) {
                 this.onBeginSaveExerciseDelegate = new BeginOperationDelegate(this.OnBeginSaveExercise);
             }
@@ -744,7 +588,7 @@ namespace Domain.CloudService {
             }
             base.InvokeAsync(this.onBeginSaveExerciseDelegate, new object[] {
                         user,
-                        route}, this.onEndSaveExerciseDelegate, this.onSaveExerciseCompletedDelegate, userState);
+                        exercise}, this.onEndSaveExerciseDelegate, this.onSaveExerciseCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -849,36 +693,10 @@ namespace Domain.CloudService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginSaveData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = user;
-                System.IAsyncResult _result = base.BeginInvoke("SaveData", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public bool EndSaveData(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                bool _result = ((bool)(base.EndInvoke("SaveData", _args, result)));
-                return _result;
-            }
-            
-            public System.IAsyncResult BeginLoadData(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
-                _args[0] = user;
-                System.IAsyncResult _result = base.BeginInvoke("LoadData", _args, callback, asyncState);
-                return _result;
-            }
-            
-            public bool EndLoadData(System.IAsyncResult result) {
-                object[] _args = new object[0];
-                bool _result = ((bool)(base.EndInvoke("LoadData", _args, result)));
-                return _result;
-            }
-            
-            public System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Routes route, System.AsyncCallback callback, object asyncState) {
+            public System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[2];
                 _args[0] = user;
-                _args[1] = route;
+                _args[1] = exercise;
                 System.IAsyncResult _result = base.BeginInvoke("SaveExercise", _args, callback, asyncState);
                 return _result;
             }

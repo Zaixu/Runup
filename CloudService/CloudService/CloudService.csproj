@@ -75,10 +75,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Database\RoutePoints.cs">
+    <Compile Include="Database\Exercises.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="Database\Routes.cs">
+    <Compile Include="Database\RoutePoints.cs">
       <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Database\Users.cs">

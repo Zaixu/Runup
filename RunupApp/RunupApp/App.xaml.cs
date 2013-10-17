@@ -66,7 +66,7 @@ namespace RunupApp
         /// <summary>
         /// Contains all routes not synced.
         /// </summary>
-        public static List<IRoute> NewRoutesStack { get; set; }
+        public static List<IExercise> NewRoutesStack { get; set; }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -113,7 +113,7 @@ namespace RunupApp
             }
 
             // Set up route stack
-            NewRoutesStack = new List<IRoute>();
+            NewRoutesStack = new List<IExercise>();
         }
 
         /// Event handlers
@@ -316,10 +316,10 @@ namespace RunupApp
         }
 
         /// <summary>
-        /// Click event from the global application bar on the Sync button
+        /// Click event from the global application bar on the Sync button.
         /// </summary>
-        /// <param name="sender">Sender Object</param>
-        /// <param name="e">Event Arguments</param>
+        /// <param name="sender">Sender Object.</param>
+        /// <param name="e">Event Arguments.</param>
         private void SyncAppBarButton_Click(object sender, EventArgs e)
         {
             // Get all new exercises
@@ -344,6 +344,7 @@ namespace RunupApp
             }
         }
 
+        // Description: Callback when sync is completed.
         private void syncallback(string status)
         {
             if(!App.RunningInBackground)
@@ -361,18 +362,29 @@ namespace RunupApp
         }
 
         /// <summary>
-        /// Click event from the global application bar on the Login/Logout button
+        /// Go to exercise listing page.
         /// </summary>
-        /// <param name="sender">Sender Object</param>
-        /// <param name="e">Event Arguments</param>
+        /// <param name="sender">Sender object.</param>
+        /// <param name="e">Event arguments.</param>
+        private void ExerciseListingAppBarButton_Click(object sender, EventArgs e)
+        {
+            // Navigate to ExeriseList
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseList.xaml", UriKind.Relative));
+        }
+
+        /// <summary>
+        /// Click event from the global application bar on the Login/Logout button.
+        /// </summary>
+        /// <param name="sender">Sender Object.</param>
+        /// <param name="e">Event Arguments.</param>
         private void AuthAppBarButton_Click(object sender, EventArgs e)
         {
-            //If user aint null, show popup if he is sure that he wants to logout, if he is, reset logged in use. If user is null, just navigate to LoginView
+            // If user aint null, show popup if he is sure that he wants to logout, if he is, reset logged in use. If user is null, just navigate to LoginView
             if (User != null)
             {
-                //Show "Are you sure" box to user
+                // Show "Are you sure" box to user
                 MessageBoxResult res = MessageBox.Show(User.Email + ", your about to logout.\n\rDo you want to continue?", "Logout", MessageBoxButton.OKCancel);
-                //If ok, reset logged in user
+                // If ok, reset logged in user
                 if (res == MessageBoxResult.OK)
                 {
                     User = null;
@@ -381,7 +393,7 @@ namespace RunupApp
             }
             else
             {
-                //Navigate to LoginView
+                // Navigate to LoginView
                 (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/LoginView.xaml", UriKind.Relative));
             }
         }

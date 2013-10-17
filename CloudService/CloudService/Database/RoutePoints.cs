@@ -25,9 +25,9 @@ namespace CloudService.Database
         [DataMember]
         public System.DateTime Time { get; set; }
         [DataMember]
-        public int Route_idRoute { get; set; }
+        public int Exercises_idRoute { get; set; }
     
         [DataMember]
-        public virtual Routes Routes { get; set; }
+        public virtual Exercises Exercises { get; set; }
     }
 }

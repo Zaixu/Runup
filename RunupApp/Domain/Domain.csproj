@@ -85,12 +85,12 @@
   <ItemGroup>
     <Compile Include="Implementations\DBFactory.cs" />
     <Compile Include="Implementations\GPSService.cs" />
-    <Compile Include="Implementations\Route.cs" />
+    <Compile Include="Implementations\Exercise.cs" />
     <Compile Include="Implementations\RoutePoint.cs" />
     <Compile Include="Implementations\SyncService.cs" />
     <Compile Include="Interfaces\IDBFactory.cs" />
     <Compile Include="Interfaces\IGPSService.cs" />
-    <Compile Include="Interfaces\IRoute.cs" />
+    <Compile Include="Interfaces\IExercise.cs" />
     <Compile Include="Interfaces\IRoutePoint.cs" />
     <Compile Include="Interfaces\ISyncService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,15 +112,15 @@
     <WCFMetadataStorage Include="Service References\CloudService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CloudService\CloudService.Database.xsd">
+    <None Include="Service References\CloudService\CloudService.Database1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\CloudService\configuration91.svcinfo" />
-    <None Include="Service References\CloudService\service.wsdl" />
-    <None Include="Service References\CloudService\service.xsd">
+    <None Include="Service References\CloudService\service1.wsdl" />
+    <None Include="Service References\CloudService\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CloudService\service1.xsd">
+    <None Include="Service References\CloudService\service21.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

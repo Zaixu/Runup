@@ -6,37 +6,37 @@
     <edmx:StorageModels>
     <Schema Namespace="DatabaseModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Exercises" EntityType="DatabaseModel.Store.Exercises" store:Type="Tables" Schema="runup" />
           <EntitySet Name="RoutePoints" EntityType="DatabaseModel.Store.RoutePoints" store:Type="Tables" Schema="runup" />
-          <EntitySet Name="Routes" EntityType="DatabaseModel.Store.Routes" store:Type="Tables" Schema="runup" />
           <EntitySet Name="Users" EntityType="DatabaseModel.Store.Users" store:Type="Tables" Schema="runup" />
           <AssociationSet Name="fk_RoutePoints_Route" Association="DatabaseModel.Store.fk_RoutePoints_Route">
-            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Exercises" EntitySet="Exercises" />
             <End Role="RoutePoints" EntitySet="RoutePoints" />
           </AssociationSet>
           <AssociationSet Name="fk_Routes_Users1" Association="DatabaseModel.Store.fk_Routes_Users1">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Exercises" EntitySet="Exercises" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Exercises">
+          <Key>
+            <PropertyRef Name="idExercises" />
+          </Key>
+          <Property Name="idExercises" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ExerciseStart" Type="datetime" Nullable="false" />
+          <Property Name="ExerciseEnd" Type="datetime" Nullable="false" />
+          <Property Name="Users_Email" Type="varchar" Nullable="false" MaxLength="255" />
+        </EntityType>
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
-            <PropertyRef Name="Route_idRoute" />
+            <PropertyRef Name="Exercises_idRoute" />
           </Key>
           <Property Name="idRoutePoints" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Longitude" Type="double" Nullable="false" />
           <Property Name="Latitude" Type="double" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
-          <Property Name="Route_idRoute" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Routes">
-          <Key>
-            <PropertyRef Name="idRoutes" />
-          </Key>
-          <Property Name="idRoutes" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ExerciseStart" Type="datetime" Nullable="false" />
-          <Property Name="ExerciseEnd" Type="datetime" Nullable="false" />
-          <Property Name="Users_Email" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="Exercises_idRoute" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -46,25 +46,25 @@
           <Property Name="Password" Type="varchar" Nullable="false" MaxLength="255" />
         </EntityType>
         <Association Name="fk_RoutePoints_Route">
-          <End Role="Routes" Type="DatabaseModel.Store.Routes" Multiplicity="1" />
+          <End Role="Exercises" Type="DatabaseModel.Store.Exercises" Multiplicity="1" />
           <End Role="RoutePoints" Type="DatabaseModel.Store.RoutePoints" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Routes">
-              <PropertyRef Name="idRoutes" />
+            <Principal Role="Exercises">
+              <PropertyRef Name="idExercises" />
             </Principal>
             <Dependent Role="RoutePoints">
-              <PropertyRef Name="Route_idRoute" />
+              <PropertyRef Name="Exercises_idRoute" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Routes_Users1">
           <End Role="Users" Type="DatabaseModel.Store.Users" Multiplicity="1" />
-          <End Role="Routes" Type="DatabaseModel.Store.Routes" Multiplicity="*" />
+          <End Role="Exercises" Type="DatabaseModel.Store.Exercises" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Email" />
             </Principal>
-            <Dependent Role="Routes">
+            <Dependent Role="Exercises">
               <PropertyRef Name="Users_Email" />
             </Dependent>
           </ReferentialConstraint>
@@ -74,40 +74,40 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DatabaseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="DatabaseEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Exercises" EntityType="DatabaseModel.Exercises" />
           <EntitySet Name="RoutePoints" EntityType="DatabaseModel.RoutePoints" />
-          <EntitySet Name="Routes" EntityType="DatabaseModel.Routes" />
           <EntitySet Name="Users" EntityType="DatabaseModel.Users" />
           <AssociationSet Name="fk_RoutePoints_Route" Association="DatabaseModel.fk_RoutePoints_Route">
-            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Exercises" EntitySet="Exercises" />
             <End Role="RoutePoints" EntitySet="RoutePoints" />
           </AssociationSet>
           <AssociationSet Name="fk_Routes_Users1" Association="DatabaseModel.fk_Routes_Users1">
             <End Role="Users" EntitySet="Users" />
-            <End Role="Routes" EntitySet="Routes" />
+            <End Role="Exercises" EntitySet="Exercises" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Exercises">
+          <Key>
+            <PropertyRef Name="idExercises" />
+          </Key>
+          <Property Type="Int32" Name="idExercises" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="ExerciseStart" Nullable="false" />
+          <Property Type="DateTime" Name="ExerciseEnd" Nullable="false" />
+          <Property Type="String" Name="Users_Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="RoutePoints" Relationship="DatabaseModel.fk_RoutePoints_Route" FromRole="Exercises" ToRole="RoutePoints" />
+          <NavigationProperty Name="Users" Relationship="DatabaseModel.fk_Routes_Users1" FromRole="Exercises" ToRole="Users" />
+        </EntityType>
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
-            <PropertyRef Name="Route_idRoute" />
+            <PropertyRef Name="Exercises_idRoute" />
           </Key>
           <Property Type="Int32" Name="idRoutePoints" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Double" Name="Longitude" Nullable="false" />
           <Property Type="Double" Name="Latitude" Nullable="false" />
           <Property Type="DateTime" Name="Time" Nullable="false" />
-          <Property Type="Int32" Name="Route_idRoute" Nullable="false" />
-          <NavigationProperty Name="Routes" Relationship="DatabaseModel.fk_RoutePoints_Route" FromRole="RoutePoints" ToRole="Routes" />
-        </EntityType>
-        <EntityType Name="Routes">
-          <Key>
-            <PropertyRef Name="idRoutes" />
-          </Key>
-          <Property Type="Int32" Name="idRoutes" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="DateTime" Name="ExerciseStart" Nullable="false" />
-          <Property Type="DateTime" Name="ExerciseEnd" Nullable="false" />
-          <Property Type="String" Name="Users_Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="RoutePoints" Relationship="DatabaseModel.fk_RoutePoints_Route" FromRole="Routes" ToRole="RoutePoints" />
-          <NavigationProperty Name="Users" Relationship="DatabaseModel.fk_Routes_Users1" FromRole="Routes" ToRole="Users" />
+          <Property Type="Int32" Name="Exercises_idRoute" Nullable="false" />
+          <NavigationProperty Name="Exercises" Relationship="DatabaseModel.fk_RoutePoints_Route" FromRole="RoutePoints" ToRole="Exercises" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -115,28 +115,28 @@
           </Key>
           <Property Type="String" Name="Email" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Password" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Routes" Relationship="DatabaseModel.fk_Routes_Users1" FromRole="Users" ToRole="Routes" />
+          <NavigationProperty Name="Exercises" Relationship="DatabaseModel.fk_Routes_Users1" FromRole="Users" ToRole="Exercises" />
         </EntityType>
         <Association Name="fk_RoutePoints_Route">
-          <End Type="DatabaseModel.Routes" Role="Routes" Multiplicity="1" />
+          <End Type="DatabaseModel.Exercises" Role="Exercises" Multiplicity="1" />
           <End Type="DatabaseModel.RoutePoints" Role="RoutePoints" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Routes">
-              <PropertyRef Name="idRoutes" />
+            <Principal Role="Exercises">
+              <PropertyRef Name="idExercises" />
             </Principal>
             <Dependent Role="RoutePoints">
-              <PropertyRef Name="Route_idRoute" />
+              <PropertyRef Name="Exercises_idRoute" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_Routes_Users1">
           <End Type="DatabaseModel.Users" Role="Users" Multiplicity="1" />
-          <End Type="DatabaseModel.Routes" Role="Routes" Multiplicity="*" />
+          <End Type="DatabaseModel.Exercises" Role="Exercises" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="Email" />
             </Principal>
-            <Dependent Role="Routes">
+            <Dependent Role="Exercises">
               <PropertyRef Name="Users_Email" />
             </Dependent>
           </ReferentialConstraint>
@@ -147,24 +147,24 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Exercises">
+            <EntityTypeMapping TypeName="DatabaseModel.Exercises">
+              <MappingFragment StoreEntitySet="Exercises">
+                <ScalarProperty Name="Users_Email" ColumnName="Users_Email" />
+                <ScalarProperty Name="ExerciseEnd" ColumnName="ExerciseEnd" />
+                <ScalarProperty Name="ExerciseStart" ColumnName="ExerciseStart" />
+                <ScalarProperty Name="idExercises" ColumnName="idExercises" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="RoutePoints">
             <EntityTypeMapping TypeName="DatabaseModel.RoutePoints">
               <MappingFragment StoreEntitySet="RoutePoints">
-                <ScalarProperty Name="Route_idRoute" ColumnName="Route_idRoute" />
+                <ScalarProperty Name="Exercises_idRoute" ColumnName="Exercises_idRoute" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
                 <ScalarProperty Name="idRoutePoints" ColumnName="idRoutePoints" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Routes">
-            <EntityTypeMapping TypeName="DatabaseModel.Routes">
-              <MappingFragment StoreEntitySet="Routes">
-                <ScalarProperty Name="Users_Email" ColumnName="Users_Email" />
-                <ScalarProperty Name="ExerciseEnd" ColumnName="ExerciseEnd" />
-                <ScalarProperty Name="ExerciseStart" ColumnName="ExerciseStart" />
-                <ScalarProperty Name="idRoutes" ColumnName="idRoutes" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

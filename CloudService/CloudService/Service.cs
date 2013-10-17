@@ -89,26 +89,22 @@ namespace CloudService
             }
         }
 
-        public bool SaveData(Users user)
+        /// <summary>
+        /// Saves a new exercise for a user.
+        /// </summary>
+        /// <param name="user">The user that has done the exercise.</param>
+        /// <param name="exercise">The exercise to be saved.</param>
+        /// <returns></returns>
+        public string SaveExercise(Users user, Exercises exercise)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool LoadData(Users user)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string SaveExercise(Users user, Routes route)
-        {
-            if (user != null && route != null)
+            if (user != null && exercise != null)
             {
                 using (var dbC = new DatabaseEntities())
                 {
                     if (dbC.Users.Find(user.Email) != null)
                     {
                         Users dbuser = dbC.Users.Find(user.Email);
-                        dbuser.Routes.Add(route);
+                        dbuser.Exercises.Add(exercise);
 
                         dbC.SaveChanges();
 

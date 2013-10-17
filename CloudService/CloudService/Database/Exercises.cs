@@ -14,15 +14,15 @@ namespace CloudService.Database
     using System.Runtime.Serialization;
     
     [DataContract(IsReference = true)]
-    public partial class Routes
+    public partial class Exercises
     {
-        public Routes()
+        public Exercises()
         {
             this.RoutePoints = new HashSet<RoutePoints>();
         }
     
         [DataMember]
-        public int idRoutes { get; set; }
+        public int idExercises { get; set; }
         [DataMember]
         public System.DateTime ExerciseStart { get; set; }
         [DataMember]

@@ -13,12 +13,12 @@ namespace Domain.Interfaces
     interface IDBFactory
     {
         /// <summary>
-        /// Creates DB route from domain route.
+        /// Creates DB exercise from domain xercise.
         /// 
         /// All underlying types are converted too.
         /// </summary>
-        /// <param name="exercise">The route to be converted.</param>
+        /// <param name="exercise">The exercise to be converted.</param>
         /// <returns></returns>
-        Routes CreateRoute(IRoute route);
+        Exercises CreateExercise(IExercise exercise);
     }
 }

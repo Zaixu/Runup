@@ -25,14 +25,14 @@ namespace Domain.Implementations
         }
 
         // :ISyncService
-        public void SaveExercise(IRoute route, Users user)
+        public void SaveExercise(IExercise exercise, Users user)
         {
             IDBFactory factory = new DBFactory();
-            Routes dbRoute = factory.CreateRoute(route);
+            Exercises dbExercise = factory.CreateExercise(exercise);
 
             CloudService.ServiceClient client = new ServiceClient();
             client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
-            client.SaveExerciseAsync(user, dbRoute);
+            client.SaveExerciseAsync(user, dbExercise);
         }
 
         public void CloudService_SaveExerciseCompleted(object sender, Domain.CloudService.SaveExerciseCompletedEventArgs e)

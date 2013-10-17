@@ -32,13 +32,13 @@ namespace CloudService
         [OperationContract]
         string Register(Users user);
 
+        /// <summary>
+        /// Saves a new exercise for a user.
+        /// </summary>
+        /// <param name="user">The user that has done the exercise.</param>
+        /// <param name="exercise">The exercise to be saved.</param>
+        /// <returns></returns>
         [OperationContract]
-        bool SaveData(Users user);
-
-        [OperationContract]
-        bool LoadData(Users user);
-
-        [OperationContract]
-        string SaveExercise(Users user, Routes route);
+        string SaveExercise(Users user, Exercises exercise);
     }
 }

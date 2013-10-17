@@ -8,14 +8,14 @@ using Domain.Interfaces;
 
 namespace Domain.Implementations
 {
-    public class Route : IRoute
+    public class Exercise : IExercise
     {
         // Members
         private double _latestDistance;
         private int _latestIndex = 0; // For not updating _latestDistance twice
 
         // Properties
-        // :IRoute
+        // :IExercise
         public List<IRoutePoint> Points
         {
             get;
@@ -111,7 +111,7 @@ namespace Domain.Implementations
 
         // Functions
         // :Constructors
-        public Route()
+        public Exercise()
         {
             // Setup
             Points = new List<IRoutePoint>();
@@ -120,7 +120,7 @@ namespace Domain.Implementations
             ExerciseEnd = DateTime.Now;
         }
 
-        // :IRoute
+        // :IExercise
         public void AddPoint(double latitude, double longitude, DateTime time)
         {
             IRoutePoint point = new RoutePoint();

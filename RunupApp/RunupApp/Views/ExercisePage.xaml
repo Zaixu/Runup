@@ -42,43 +42,45 @@
 
         <!--TitlePanel -->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock  Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding LocalizedResources.ApplicationTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
+            <TextBlock Style="{StaticResource PhoneTextNormalStyle}" Text="{Binding LocalizedResources.ApplicationTitle, Mode=OneWay, Source={StaticResource LocalizedStrings}}"/>
             <TextBlock Text="Exercise" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
-        <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <!-- Exercise info -->
+        <StackPanel x:Name="ExercisePanel" Grid.Row="1" Margin="12,0,12,0">
             <!-- Meta info -->
             <TextBlock Text="Meta:" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}" />
-            <TextBlock x:Name="textStartTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+            <TextBlock x:Name="TextStartTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
 				<Run Text="Start time: " />
 				<Run Text="{Binding StartTime}" />
             </TextBlock>
-            <TextBlock x:Name="textRunningTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+            <TextBlock x:Name="TextRunningTime" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
 				<Run Text="Running time: " />
 				<Run Text="{Binding RunningTime}" />
             </TextBlock>
 
             <!-- Statistics -->
             <TextBlock Text="Statistics:" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}" />
-            <TextBlock x:Name="textCurrentSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+            <TextBlock x:Name="TextCurrentSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
 				<Run Text="Current speed: " />
 				<Run Text="{Binding CurrentSpeed}" />
 				<Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <TextBlock x:Name="textAverageSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+            <TextBlock x:Name="TextAverageSpeed" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
 				<Run Text="Average speed: " />
 				<Run Text="{Binding AverageSpeed}" />
 				<Run Text="{Binding LocalizedResources.SpeedUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <TextBlock x:Name="textCurrentDistance" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+            <TextBlock x:Name="TextCurrentDistance" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
 				<Run Text="Current distance: " />
 				<Run Text="{Binding CurrentDistance}" />
 				<Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
-            <Button x:Name="btnStopExercise" Command="{Binding StopExercise}" Content="Stop Exercise"/>
+            <Button x:Name="BtnStopExercise" Command="{Binding StopExercise}" Content="Stop Exercise"/>
         </StackPanel>
+        
         <!-- Map -->
-        <maps:Map x:Name="mapOfRunningRoute" Grid.Row="2" Center="57.74, 10.65" ColorMode="Dark">
+        <maps:Map x:Name="MapOfRunningRoute" Grid.Row="2" Center="57.74, 10.65" ColorMode="Dark">
             <maps:Map.ZoomLevel>
                 <System:Double>15</System:Double>
             </maps:Map.ZoomLevel>

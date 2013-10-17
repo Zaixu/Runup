@@ -24,7 +24,7 @@ namespace RunupApp.Views
         // Events
         private void btnStartExercise_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/RunningExercise.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Views/ExercisePage.xaml", UriKind.Relative));
         }
     }
 }

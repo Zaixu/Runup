@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Domain.Interfaces
 {
     /// <summary>
-    /// Route which contains information about a running/walking route.
+    /// Exercise which contains information about a running/walking route.
     /// </summary>
-    public interface IRoute
+    public interface IExercise
     {
         /// <summary>
         /// How far was the route.
@@ -47,7 +47,7 @@ namespace Domain.Interfaces
         }
 
         /// <summary>
-        /// List of points in the route.
+        /// List of points in the exercise.
         /// </summary>
         List<IRoutePoint> Points
         {
@@ -56,7 +56,7 @@ namespace Domain.Interfaces
         }
 
         /// <summary>
-        /// When the route began.
+        /// When the exercise began.
         /// </summary>
         DateTime ExerciseStart
         {
@@ -65,7 +65,7 @@ namespace Domain.Interfaces
         }
 
         /// <summary>
-        /// When the route ended.
+        /// When the exercise ended.
         /// </summary>
         DateTime ExerciseEnd
         {

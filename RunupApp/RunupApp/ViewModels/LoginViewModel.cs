@@ -178,7 +178,7 @@ namespace RunupApp.ViewModels
             {
                 application.User = user;
                 if(!App.RunningInBackground)
-                    (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
+                    (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
             }
             else
             {
