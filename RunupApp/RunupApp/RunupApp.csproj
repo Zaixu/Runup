@@ -93,8 +93,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExercisePage.xaml.cs">
-      <DependentUpon>ExercisePage.xaml</DependentUpon>
+    <Compile Include="Views\RunningExercisePage.xaml.cs">
+      <DependentUpon>RunningExercisePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
@@ -123,7 +123,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="Views\ExercisePage.xaml">
+    <Page Include="Views\RunningExercisePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

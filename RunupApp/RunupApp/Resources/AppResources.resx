@@ -140,4 +140,7 @@
   <data name="SpeedUnit" xml:space="preserve">
     <value>km/h</value>
   </data>
+  <data name="CalorieUnit" xml:space="preserve">
+    <value>cal/h</value>
+  </data>
 </root>
