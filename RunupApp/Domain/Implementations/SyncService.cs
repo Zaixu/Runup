@@ -38,6 +38,7 @@ namespace Domain.Implementations
 
         public ICollection<IExercise> GetExercisesLight(Users user)
         {
+            
             return null;
         }
 

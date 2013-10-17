@@ -14,7 +14,7 @@
             <!-- Synchronize application data -->
             <shell:ApplicationBarIconButton x:Name="SyncAppBarButton" IconUri="/Assets/refresh.png" Text="Sync" Click="SyncAppBarButton_Click" />
             <!-- View exercises -->
-            <shell:ApplicationBarIconButton x:Name="ExerciseListingAppBarButton" IconUri="/Assets/refresh.png" Text="Exercises" Click="ExerciseListingAppBarButton_Click" />
+            <shell:ApplicationBarIconButton x:Name="ExerciseListingAppBarButton" IconUri="/Assets/checklist.png" Text="Exercises" Click="ExerciseListingAppBarButton_Click" />
             <!-- Access authorization part of app -->
             <shell:ApplicationBarIconButton x:Name="AuthAppBarButton" IconUri="/Assets/person.png" Text="Login" Click="AuthAppBarButton_Click" />
         </shell:ApplicationBar>
