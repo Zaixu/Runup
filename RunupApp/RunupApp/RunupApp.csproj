@@ -94,8 +94,8 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ExerciseListViewModel.cs" />
-    <Compile Include="Views\ExerciseList.xaml.cs">
-      <DependentUpon>ExerciseList.xaml</DependentUpon>
+    <Compile Include="Views\ExerciseListView.xaml.cs">
+      <DependentUpon>ExerciseListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RunningExerciseView.xaml.cs">
       <DependentUpon>RunningExerciseView.xaml</DependentUpon>
@@ -127,7 +127,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="Views\ExerciseList.xaml">
+    <Page Include="Views\ExerciseListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
