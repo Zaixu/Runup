@@ -95,6 +95,20 @@ namespace RunupApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// Current calories burnt
+        /// </summary>
+        public string CurrentCalories
+        {
+            get
+            {
+                TimeSpan runningTime = _route.ExerciseEnd.Subtract(_route.ExerciseStart);
+                double caloriesDouble = ((double)872 / 3600) * runningTime.TotalSeconds;
+                string calories = string.Format("{0:0.00}", caloriesDouble);
+                return (calories);
+            }
+        }
+
         // Functions
         // :Constructors and deconstructors
         public RunningExerciseViewModel(TaskFactory taskFactory)
@@ -128,6 +142,7 @@ namespace RunupApp.ViewModels
                         NotifyPropertyChanged("AverageSpeed");
                         NotifyPropertyChanged("CurrentDistance");
                         NotifyPropertyChanged("RunningTime");
+                        NotifyPropertyChanged("CurrentCalories");
                     }
                     );
             }

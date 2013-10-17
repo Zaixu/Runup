@@ -97,8 +97,8 @@
     <Compile Include="Views\ExerciseList.xaml.cs">
       <DependentUpon>ExerciseList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExercisePage.xaml.cs">
-      <DependentUpon>ExercisePage.xaml</DependentUpon>
+    <Compile Include="Views\RunningExerciseView.xaml.cs">
+      <DependentUpon>RunningExerciseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
@@ -127,11 +127,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+<<<<<<< HEAD
     <Page Include="Views\ExerciseList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ExercisePage.xaml">
+=======
+    <Page Include="Views\RunningExerciseView.xaml">
+>>>>>>> 578401587467c26f1d4eff20f5c78fc8a12d40d8
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

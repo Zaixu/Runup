@@ -77,6 +77,11 @@
 				<Run Text="{Binding LocalizedResources.DistanceUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
             </TextBlock>
             <Button x:Name="BtnStopExercise" Command="{Binding StopExercise}" Content="Stop Exercise"/>
+            <TextBlock x:Name="textCaloriesBurnt" Style="{Binding Mode=OneWay, Source={StaticResource PageInfo}}">
+                <Run Text="Current burnt calories: " />
+                <Run Text="{Binding CurrentCalories}" />
+                <Run Text="{Binding LocalizedResources.CalorieUnit, Mode=OneWay, Source={StaticResource LocalizedStrings}}" />
+            </TextBlock>
         </StackPanel>
         
         <!-- Map -->

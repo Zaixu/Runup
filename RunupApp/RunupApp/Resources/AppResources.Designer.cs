@@ -88,6 +88,15 @@ namespace RunupApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to cal.
+        /// </summary>
+        public static string CalorieUnit {
+            get {
+                return ResourceManager.GetString("CalorieUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
         public static string DistanceUnit {
