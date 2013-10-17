@@ -141,6 +141,6 @@
     <value>km/h</value>
   </data>
   <data name="CalorieUnit" xml:space="preserve">
-    <value>cal/h</value>
+    <value>cal</value>
   </data>
 </root>

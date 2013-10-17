@@ -88,7 +88,7 @@ namespace RunupApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to cal/h.
+        ///   Looks up a localized string similar to cal.
         /// </summary>
         public static string CalorieUnit {
             get {
