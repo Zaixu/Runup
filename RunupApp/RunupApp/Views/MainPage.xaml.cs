@@ -11,7 +11,7 @@ using RunupApp.Resources;
 using Windows.Devices.Geolocation;
 using Domain.Implementations;
 
-namespace RunupApp
+namespace RunupApp.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
@@ -24,7 +24,7 @@ namespace RunupApp
         // Events
         private void btnStartExercise_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("/Views/ExercisePage.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/Views/RunningExercise.xaml", UriKind.Relative));
         }
     }
 }
