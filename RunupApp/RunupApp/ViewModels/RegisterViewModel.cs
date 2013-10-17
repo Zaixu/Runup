@@ -156,7 +156,7 @@ namespace RunupApp.ViewModels
 
         /// <summary>
         /// Function to handle the callback from cloudservice - hides progress bar, if its been a success, 
-        /// navigates to LoginView else output error to view
+        /// navigates to LoginView else output error to view (Or toast if its dormant)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -176,10 +176,11 @@ namespace RunupApp.ViewModels
                 Message = e.Result.ToString();
             }
 
+            //If app is dormant write message to toast for user
             if (App.RunningInBackground)
             {
                 ShellToast msg = new ShellToast();
-                msg.Title = "Login:";
+                msg.Title = "Register:";
                 msg.Content = e.Result.ToString();
                 msg.Show();
             }

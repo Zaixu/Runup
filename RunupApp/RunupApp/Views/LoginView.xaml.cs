@@ -8,6 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using RunupApp.ViewModels;
+using System.Diagnostics;
 
 namespace RunupApp.Views
 {
@@ -45,22 +46,34 @@ namespace RunupApp.Views
         /// <param name="e">Navigation Event Arguments</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //If the former page is RegisterView, delete it from stack - Do not wanna have a history of Login/Register/Login etc to go back on
-            var formerPage = NavigationService.BackStack.First();
-            if(formerPage != null && formerPage.Source.ToString() == "/Views/RegisterView.xaml")
-                NavigationService.RemoveBackEntry();
+            base.OnNavigatedTo(e);
+
+            if (e.IsNavigationInitiator)
+            {
+                //Subscribe to login completed event
+                application.CloudService.LoginCompleted += viewModel.CloudService_LoginCompleted;
+
+                //If the former page is RegisterView, delete it from stack - Do not wanna have a history of Login/Register/Login etc to go back on
+                var formerPage = NavigationService.BackStack.First();
+                if (formerPage != null && formerPage.Source.ToString() == "/Views/RegisterView.xaml")
+                    NavigationService.RemoveBackEntry();
+            }
         }
 
         /// <summary>
-        /// When page is navigated from, unsubscribe CloudService LoginCompleted event
+        /// When navigating from view
         /// </summary>
-        /// <param name="e">Journal info.</param>
-        protected override void OnRemovedFromJournal(JournalEntryRemovedEventArgs e)
+        /// <param name="e">NavigationEvent Arguments</param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnRemovedFromJournal(e);
+            base.OnNavigatedFrom(e);
 
-            // Remove 
-            application.CloudService.LoginCompleted -= viewModel.CloudService_LoginCompleted;
+            //If its being a navigate within the app, remove event subcribtion
+            if (e.IsNavigationInitiator)
+            {
+                // Remove event
+                application.CloudService.LoginCompleted -= viewModel.CloudService_LoginCompleted;
+            }
         }
     }
 }

@@ -45,22 +45,34 @@ namespace RunupApp.Views
         /// <param name="e">Navigation Event Arguments</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //If the former page is LoginView, delete it from stack - Do not wanna have a history of Login/Register/Login etc to go back on
-            var formerPage = NavigationService.BackStack.First();
-            if (formerPage != null && formerPage.Source.ToString() == "/Views/LoginView.xaml")
-                NavigationService.RemoveBackEntry();
+            base.OnNavigatedTo(e);
+
+            if (e.IsNavigationInitiator)
+            {
+                // Subscribe to CloudService RegisterCompleted event
+                application.CloudService.RegisterCompleted += viewModel.CloudService_RegisterCompleted;
+
+                //If the former page is LoginView, delete it from stack - Do not wanna have a history of Login/Register/Login etc to go back on
+                var formerPage = NavigationService.BackStack.First();
+                if (formerPage != null && formerPage.Source.ToString() == "/Views/LoginView.xaml")
+                    NavigationService.RemoveBackEntry();
+            }
         }
 
         /// <summary>
-        /// When page is navigated from, unsubscribe CloudService RegisterCompleted event
+        /// When navigating from view
         /// </summary>
-        /// <param name="e">Journal info.</param>
-        protected override void OnRemovedFromJournal(JournalEntryRemovedEventArgs e)
+        /// <param name="e">NavigationEvent Arguments</param>
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            base.OnRemovedFromJournal(e);
+            base.OnNavigatedFrom(e);
 
-            // Remove 
-            application.CloudService.RegisterCompleted -= viewModel.CloudService_RegisterCompleted;
+            //If its being a navigate within the app, remove event subcribtion
+            if (e.IsNavigationInitiator)
+            {
+                // Remove event
+                application.CloudService.RegisterCompleted -= viewModel.CloudService_RegisterCompleted;
+            }
         }
     }
 }

@@ -163,8 +163,7 @@ namespace RunupApp.ViewModels
 
         /// <summary>
         /// Function to handle the callback from cloudservice - hides progress bar, sets logged in user to the
-        /// checked one thats been sent to the cloudservice, then navigates to MainPage or if error on the check
-        /// show the message on View
+        /// checked one thats been sent to the cloudservice, then navigates 1 back in stack (Or toast if its dormant)
         /// </summary>
         /// <param name="sender">Sender object</param>
         /// <param name="e">Arguments that the CloudService Login function can return (Results, cancelled etc)</param>
@@ -178,13 +177,14 @@ namespace RunupApp.ViewModels
             {
                 application.User = user;
                 if(!App.RunningInBackground)
-                    (application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+                    (application.RootVisual as PhoneApplicationFrame).GoBack();
             }
             else
             {
                 Message = e.Result.ToString();
             }
 
+            //If app is dormant write message to toast for user
             if (App.RunningInBackground)
             {
                 ShellToast msg = new ShellToast();
