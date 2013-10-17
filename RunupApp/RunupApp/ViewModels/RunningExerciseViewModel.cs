@@ -169,7 +169,7 @@ namespace RunupApp.ViewModels
             get { return new DelegateCommand(_StopExercise); }
         }
 
-        public void _StopExercise()
+        private void _StopExercise()
         {
             App.NewRoutesStack.Add(_route);
             var app = Application.Current as App;

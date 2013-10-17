@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="ViewModels\DateTimeConverter.cs" />
     <Compile Include="ViewModels\ExerciseListViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="Views\ExerciseListView.xaml.cs">
       <DependentUpon>ExerciseListView.xaml</DependentUpon>
     </Compile>

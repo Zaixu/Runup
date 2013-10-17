@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using Domain.Interfaces;
 using Domain.Implementations;
+using System.Windows.Input;
 
 namespace RunupApp.ViewModels
 {
-    class ExerciseListViewModel : ViewModelBase
+    public class ExerciseListViewModel : ViewModelBase
     {
         // Members
 
@@ -20,14 +21,33 @@ namespace RunupApp.ViewModels
             set;
         }
 
+        public ICommand ShowExercise
+        {
+            get
+            {
+                return new RelayCommand<DateTime>(_ShowExercise);
+            }
+        }
+
         // Functions
+        // :Constructors
         public ExerciseListViewModel()
         {
             // Setup
             ExercisesSynced = new ObservableCollection<IExercise>();
             // TEST
             ExercisesSynced.Add(new Exercise() { ExerciseStart = DateTime.Now });
+            NotifyPropertyChanged("ExercisesSynced");
             // \TEST
+        }
+
+        // :Commands
+        /// <summary>
+        /// 
+        /// </summary>
+        private void _ShowExercise(DateTime startTime)
+        {
+
         }
     }
 }

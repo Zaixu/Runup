@@ -13,16 +13,10 @@ namespace RunupApp.Views
 {
     public partial class ExerciseList : PhoneApplicationPage
     {
-        // Members
-        private ExerciseListViewModel _viewModel;
-
         public ExerciseList()
         {
             // Setup
             InitializeComponent();
-
-            _viewModel = new ExerciseListViewModel();
-            this.DataContext = _viewModel;
         }
     }
 }

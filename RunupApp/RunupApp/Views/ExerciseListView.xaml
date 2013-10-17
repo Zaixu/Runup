@@ -15,6 +15,9 @@
     shell:SystemTray.IsVisible="True">
     <!-- Resources -->
     <phone:PhoneApplicationPage.Resources>
+        <!-- Viewmodel -->
+        <ViewModels:ExerciseListViewModel x:Key="ViewData" />
+        
         <!-- Converters -->
         <ViewModels:DateTimeConverter x:Key="DateConverter" />
         
@@ -25,11 +28,6 @@
         <Style x:Key="PageInfo" TargetType="TextBlock">
             <Setter Property="FontSize" Value="22" />
         </Style>
-        
-        <!-- Templates -->
-        <DataTemplate x:Key="ExerciseTemplate">
-            <TextBlock Text="{Binding ExerciseStart, Converter={StaticResource DateConverter}}" />
-        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -60,12 +58,18 @@
 
         <!-- Server exercises -->
         <ScrollViewer Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="12,0,12,0">
-            <StackPanel x:Name="SyncesExercisesListing" Orientation="Vertical">
+            <StackPanel x:Name="SyncesExercisesListing" Orientation="Vertical" DataContext="{StaticResource ViewData}">
                 <TextBlock x:Name="TextSyncedExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
 				    Synced:
                 </TextBlock>
-                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced}" ItemTemplate="{StaticResource ExerciseTemplate}">
-                    
+                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
+                                    Command="{Binding ShowExercise, Mode=OneWay, Source={StaticResource ViewData}}"
+                                    CommandParameter="{Binding ExerciseStart}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </StackPanel>
         </ScrollViewer>
