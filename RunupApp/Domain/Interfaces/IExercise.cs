@@ -12,6 +12,16 @@ namespace Domain.Interfaces
     /// </summary>
     public interface IExercise
     {
+        // Properties
+        /// <summary>
+        /// Unique identifier for the exercise.
+        /// </summary>
+        int ID
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// How far was the route.
         /// </summary>

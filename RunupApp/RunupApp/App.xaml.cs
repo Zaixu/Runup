@@ -331,7 +331,7 @@ namespace RunupApp
                 ISyncService syncservice = new SyncService(syncallback);
                 foreach (var exercise in NewRoutesStack)
                 {
-                    syncservice.SaveExercise(exercise, User);
+                    syncservice.SaveExercise(User, exercise);
                 }
 
                 // :Remove entries

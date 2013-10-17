@@ -303,6 +303,16 @@ namespace Domain.CloudService {
         System.IAsyncResult BeginSaveExercise(Domain.CloudService.Users user, Domain.CloudService.Exercises exercise, System.AsyncCallback callback, object asyncState);
         
         string EndSaveExercise(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/GetExercisesLight", ReplyAction="http://tempuri.org/IService/GetExercisesLightResponse")]
+        System.IAsyncResult BeginGetExercisesLight(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState);
+        
+        System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> EndGetExercisesLight(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IService/GetFullExercise", ReplyAction="http://tempuri.org/IService/GetFullExerciseResponse")]
+        System.IAsyncResult BeginGetFullExercise(Domain.CloudService.Users user, int exerciseID, System.AsyncCallback callback, object asyncState);
+        
+        Domain.CloudService.Exercises EndGetFullExercise(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -368,6 +378,44 @@ namespace Domain.CloudService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetExercisesLightCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetExercisesLightCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises>)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFullExerciseCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFullExerciseCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Domain.CloudService.Exercises Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Domain.CloudService.Exercises)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ServiceClient : System.ServiceModel.ClientBase<Domain.CloudService.IService>, Domain.CloudService.IService {
         
         private BeginOperationDelegate onBeginLoginDelegate;
@@ -387,6 +435,18 @@ namespace Domain.CloudService {
         private EndOperationDelegate onEndSaveExerciseDelegate;
         
         private System.Threading.SendOrPostCallback onSaveExerciseCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetExercisesLightDelegate;
+        
+        private EndOperationDelegate onEndGetExercisesLightDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetExercisesLightCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetFullExerciseDelegate;
+        
+        private EndOperationDelegate onEndGetFullExerciseDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFullExerciseCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -446,6 +506,10 @@ namespace Domain.CloudService {
         public event System.EventHandler<RegisterCompletedEventArgs> RegisterCompleted;
         
         public event System.EventHandler<SaveExerciseCompletedEventArgs> SaveExerciseCompleted;
+        
+        public event System.EventHandler<GetExercisesLightCompletedEventArgs> GetExercisesLightCompleted;
+        
+        public event System.EventHandler<GetFullExerciseCompletedEventArgs> GetFullExerciseCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -591,6 +655,100 @@ namespace Domain.CloudService {
                         exercise}, this.onEndSaveExerciseDelegate, this.onSaveExerciseCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Domain.CloudService.IService.BeginGetExercisesLight(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetExercisesLight(user, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> Domain.CloudService.IService.EndGetExercisesLight(System.IAsyncResult result) {
+            return base.Channel.EndGetExercisesLight(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetExercisesLight(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Domain.CloudService.Users user = ((Domain.CloudService.Users)(inValues[0]));
+            return ((Domain.CloudService.IService)(this)).BeginGetExercisesLight(user, callback, asyncState);
+        }
+        
+        private object[] OnEndGetExercisesLight(System.IAsyncResult result) {
+            System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> retVal = ((Domain.CloudService.IService)(this)).EndGetExercisesLight(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetExercisesLightCompleted(object state) {
+            if ((this.GetExercisesLightCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetExercisesLightCompleted(this, new GetExercisesLightCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetExercisesLightAsync(Domain.CloudService.Users user) {
+            this.GetExercisesLightAsync(user, null);
+        }
+        
+        public void GetExercisesLightAsync(Domain.CloudService.Users user, object userState) {
+            if ((this.onBeginGetExercisesLightDelegate == null)) {
+                this.onBeginGetExercisesLightDelegate = new BeginOperationDelegate(this.OnBeginGetExercisesLight);
+            }
+            if ((this.onEndGetExercisesLightDelegate == null)) {
+                this.onEndGetExercisesLightDelegate = new EndOperationDelegate(this.OnEndGetExercisesLight);
+            }
+            if ((this.onGetExercisesLightCompletedDelegate == null)) {
+                this.onGetExercisesLightCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetExercisesLightCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetExercisesLightDelegate, new object[] {
+                        user}, this.onEndGetExercisesLightDelegate, this.onGetExercisesLightCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult Domain.CloudService.IService.BeginGetFullExercise(Domain.CloudService.Users user, int exerciseID, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFullExercise(user, exerciseID, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Domain.CloudService.Exercises Domain.CloudService.IService.EndGetFullExercise(System.IAsyncResult result) {
+            return base.Channel.EndGetFullExercise(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFullExercise(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Domain.CloudService.Users user = ((Domain.CloudService.Users)(inValues[0]));
+            int exerciseID = ((int)(inValues[1]));
+            return ((Domain.CloudService.IService)(this)).BeginGetFullExercise(user, exerciseID, callback, asyncState);
+        }
+        
+        private object[] OnEndGetFullExercise(System.IAsyncResult result) {
+            Domain.CloudService.Exercises retVal = ((Domain.CloudService.IService)(this)).EndGetFullExercise(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFullExerciseCompleted(object state) {
+            if ((this.GetFullExerciseCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFullExerciseCompleted(this, new GetFullExerciseCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFullExerciseAsync(Domain.CloudService.Users user, int exerciseID) {
+            this.GetFullExerciseAsync(user, exerciseID, null);
+        }
+        
+        public void GetFullExerciseAsync(Domain.CloudService.Users user, int exerciseID, object userState) {
+            if ((this.onBeginGetFullExerciseDelegate == null)) {
+                this.onBeginGetFullExerciseDelegate = new BeginOperationDelegate(this.OnBeginGetFullExercise);
+            }
+            if ((this.onEndGetFullExerciseDelegate == null)) {
+                this.onEndGetFullExerciseDelegate = new EndOperationDelegate(this.OnEndGetFullExercise);
+            }
+            if ((this.onGetFullExerciseCompletedDelegate == null)) {
+                this.onGetFullExerciseCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFullExerciseCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFullExerciseDelegate, new object[] {
+                        user,
+                        exerciseID}, this.onEndGetFullExerciseDelegate, this.onGetFullExerciseCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -704,6 +862,33 @@ namespace Domain.CloudService {
             public string EndSaveExercise(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 string _result = ((string)(base.EndInvoke("SaveExercise", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetExercisesLight(Domain.CloudService.Users user, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = user;
+                System.IAsyncResult _result = base.BeginInvoke("GetExercisesLight", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> EndGetExercisesLight(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises> _result = ((System.Collections.ObjectModel.ObservableCollection<Domain.CloudService.Exercises>)(base.EndInvoke("GetExercisesLight", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginGetFullExercise(Domain.CloudService.Users user, int exerciseID, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = user;
+                _args[1] = exerciseID;
+                System.IAsyncResult _result = base.BeginInvoke("GetFullExercise", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public Domain.CloudService.Exercises EndGetFullExercise(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                Domain.CloudService.Exercises _result = ((Domain.CloudService.Exercises)(base.EndInvoke("GetFullExercise", _args, result)));
                 return _result;
             }
         }

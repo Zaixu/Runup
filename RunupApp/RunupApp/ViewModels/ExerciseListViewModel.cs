@@ -25,7 +25,7 @@ namespace RunupApp.ViewModels
         {
             get
             {
-                return new RelayCommand<DateTime>(_ShowExercise);
+                return new RelayCommand<int>(_ShowExercise);
             }
         }
 
@@ -36,7 +36,7 @@ namespace RunupApp.ViewModels
             // Setup
             ExercisesSynced = new ObservableCollection<IExercise>();
             // TEST
-            ExercisesSynced.Add(new Exercise() { ExerciseStart = DateTime.Now });
+            ExercisesSynced.Add(new Exercise() { ExerciseStart = DateTime.Now, ID = 1});
             NotifyPropertyChanged("ExercisesSynced");
             // \TEST
         }
@@ -45,7 +45,7 @@ namespace RunupApp.ViewModels
         /// <summary>
         /// 
         /// </summary>
-        private void _ShowExercise(DateTime startTime)
+        private void _ShowExercise(int ID)
         {
 
         }

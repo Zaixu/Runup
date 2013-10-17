@@ -16,6 +16,12 @@ namespace Domain.Implementations
 
         // Properties
         // :IExercise
+        public int ID
+        {
+            get;
+            set;
+        }
+
         public List<IRoutePoint> Points
         {
             get;

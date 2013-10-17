@@ -15,8 +15,26 @@ namespace Domain.Interfaces
         /// <summary>
         /// Saves a new exercise for the user.
         /// </summary>
-        /// <param name="exercise">The exercise to save.</param>
         /// <param name="user">The user to save the exercise for.</param>
-        void SaveExercise(IExercise exercise, Users user);
+        /// <param name="exercise">The exercise to save.</param>
+        void SaveExercise(Users user, IExercise exercise);
+
+        /// <summary>
+        /// Get all exercises the user has.
+        /// 
+        /// Only 'lightweight' so doesn't return information about the route run.
+        /// A call to 'GetFullExercise' have to be made for that.
+        /// </summary>
+        /// <param name="user">The user to receive for.</param>
+        /// <returns></returns>
+        ICollection<IExercise> GetExercisesLight(Users user);
+
+        /// <summary>
+        /// Gets all information about an exercise with the supplied id.
+        /// </summary>
+        /// <param name="user">The user with the exercise.</param>
+        /// <param name="exerciseID">ID of the exercise</param>
+        /// <returns></returns>
+        IExercise GetFullExercise(Users user, int exerciseID);
     }
 }

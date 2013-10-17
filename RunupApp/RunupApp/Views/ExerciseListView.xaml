@@ -67,7 +67,7 @@
                         <DataTemplate>
                             <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
                                     Command="{Binding ShowExercise, Mode=OneWay, Source={StaticResource ViewData}}"
-                                    CommandParameter="{Binding ExerciseStart}"/>
+                                    CommandParameter="{Binding ID}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                     <ListBox.ItemContainerStyle>

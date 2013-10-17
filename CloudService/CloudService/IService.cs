@@ -40,5 +40,24 @@ namespace CloudService
         /// <returns></returns>
         [OperationContract]
         string SaveExercise(Users user, Exercises exercise);
+
+        /// <summary>
+        /// Returns all exercises for the user.
+        /// 
+        /// 'Lightweight' so doesn't returns RoutePoints.
+        /// </summary>
+        /// <param name="user">The user the receive exercises from.</param>
+        /// <returns></returns>
+        [OperationContract]
+        ICollection<Exercises> GetExercisesLight(Users user);
+
+        /// <summary>
+        /// Gets information about the exercise with the provided ID.
+        /// </summary>
+        /// <param name="user">The user with the exercise.</param>
+        /// <param name="exerciseID">ID of the exercise.</param>
+        /// <returns></returns>
+        [OperationContract]
+        Exercises GetFullExercise(Users user, int exerciseID);
     }
 }

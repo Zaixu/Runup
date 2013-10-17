@@ -12,6 +12,7 @@ namespace Domain.Implementations
     {
         // Members
         private SyncCallback _callback;
+        private ServiceClient _client;
 
         // Functions
         // :Constructors
@@ -22,19 +23,30 @@ namespace Domain.Implementations
         public SyncService(SyncCallback callback)
         {
             _callback = callback;
+            _client = new ServiceClient();
         }
 
         // :ISyncService
-        public void SaveExercise(IExercise exercise, Users user)
+        public void SaveExercise(Users user, IExercise exercise)
         {
             IDBFactory factory = new DBFactory();
             Exercises dbExercise = factory.CreateExercise(exercise);
-
-            CloudService.ServiceClient client = new ServiceClient();
-            client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
-            client.SaveExerciseAsync(user, dbExercise);
+            
+            _client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
+            _client.SaveExerciseAsync(user, dbExercise);
         }
 
+        public ICollection<IExercise> GetExercisesLight(Users user)
+        {
+            return null;
+        }
+
+        public IExercise GetFullExercise(Users user, int exerciseID)
+        {
+            return null;
+        }
+
+        // :Helper functions
         public void CloudService_SaveExerciseCompleted(object sender, Domain.CloudService.SaveExerciseCompletedEventArgs e)
         {
             _callback(e.Result);

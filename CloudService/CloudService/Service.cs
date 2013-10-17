@@ -21,25 +21,29 @@ namespace CloudService
         /// <returns>String with text according to status</returns>
         public string Login(Users user)
         {
-            //Check the object given
-            string response = Validate(user);
-            //If errors return
-            if (response.Length > 0)
-                return response;
+            if (user != null)
+            {
+                //Check the object given
+                string response = Validate(user);
+                //If errors return
+                if (response.Length > 0)
+                    return response;
 
-            //Find user email in database
-            DatabaseEntities db = new DatabaseEntities();
-            var existUser = db.Users.Find(user.Email);
+                //Find user email in database
+                DatabaseEntities db = new DatabaseEntities();
+                var existUser = db.Users.Find(user.Email);
 
-            //If it exists and password is correct, success else return error
-            if (existUser != null && existUser.Password == user.Password)
-                return "Success";
-            else
-                return "User does not exist or wrong info";
+                //If it exists and password is correct, success else return error
+                if (existUser != null && existUser.Password == user.Password)
+                    return "Success";
+                else
+                    return "User does not exist or wrong info";
+            }
+            return "No user given";
         }
 
         /// <summary>
-        /// Validation of parameter user fields
+        /// Validation of user fields
         /// </summary>
         /// <param name="user">User class to be checked</param>
         /// <returns>String with checks that dint go through</returns>
@@ -66,27 +70,32 @@ namespace CloudService
         /// <returns>Returns a string with error or if succeeded</returns>
         public string Register(Users user)
         {
-            //Check the object given for errors
-            string response = Validate(user);
-            //If errors return
-            if (response.Length > 0)
-                return response;
-
-            //Find user in database from given user data
-            DatabaseEntities db = new DatabaseEntities();
-            var existUser = db.Users.Find(user.Email);
-
-            //If he doesnt exist, add new user to database, else return error string
-            if(existUser == null)
+            if (user != null)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return "Success";
+                //Check the object given for errors
+                string response = Validate(user);
+                //If errors return
+                if (response.Length > 0)
+                    return response;
+
+                //Find user in database from given user data
+                DatabaseEntities db = new DatabaseEntities();
+                var existUser = db.Users.Find(user.Email);
+
+                //If he doesnt exist, add new user to database, else return error string
+                if (existUser == null)
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return "Success";
+                }
+                else
+                {
+                    return "Error already exists";
+                }
             }
             else
-            {
-                return "Error already exists";
-            }
+                return "No user given";
         }
 
         /// <summary>
@@ -99,23 +108,65 @@ namespace CloudService
         {
             if (user != null && exercise != null)
             {
-                using (var dbC = new DatabaseEntities())
+                if(Login(user) == "Success")
                 {
-                    if (dbC.Users.Find(user.Email) != null)
+                    using (var dbC = new DatabaseEntities())
                     {
-                        Users dbuser = dbC.Users.Find(user.Email);
-                        dbuser.Exercises.Add(exercise);
+                    
+                            Users dbuser = dbC.Users.Find(user.Email);
+                            dbuser.Exercises.Add(exercise);
 
-                        dbC.SaveChanges();
+                            dbC.SaveChanges();
 
-                        return ("Success");
+                            return ("Success");
+                    
                     }
-                    else
-                        return ("User not found");
                 }
+                else
+                    return ("User not found");
             }
 
-            return ("Missing values");
+            return ("Invalid values");
+        }
+
+        public ICollection<Exercises> GetExercisesLight(Users user)
+        {
+            if (user != null)
+            {
+                if (Login(user) == "Success")
+                {
+                    using (var dbC = new DatabaseEntities())
+                    {
+                        ICollection<Exercises> exercises = dbC.Exercises.ToList();
+
+                        return exercises;
+                    }
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+        public Exercises GetFullExercise(Users user, int exerciseID)
+        {
+            if (user != null && exerciseID != null)
+            {
+                if (Login(user) == "Success")
+                {
+                    using (var dbC = new DatabaseEntities())
+                    {
+                        Exercises exercise = dbC.Exercises.Include("RoutePoints").Where(x => x.idExercises == exerciseID).FirstOrDefault();
+
+                        return exercise;
+                    }
+                }
+                else
+                    return null;
+            }
+            else
+                return null;
         }
     }
 }
