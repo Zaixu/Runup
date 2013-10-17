@@ -97,6 +97,15 @@ namespace RunupApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to MMM dd. yyyy.
+        /// </summary>
+        public static string DateTimeFriendlyFormat {
+            get {
+                return ResourceManager.GetString("DateTimeFriendlyFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km.
         /// </summary>
         public static string DistanceUnit {
