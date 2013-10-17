@@ -14,7 +14,7 @@ namespace RunupApp.ViewModels
         // Members
 
         // Properties
-        public ObservableCollection<IExercise> Exercises
+        public ObservableCollection<IExercise> ExercisesSynced
         {
             get;
             set;
@@ -24,7 +24,10 @@ namespace RunupApp.ViewModels
         public ExerciseListViewModel()
         {
             // Setup
-            Exercises = new ObservableCollection<IExercise>();
+            ExercisesSynced = new ObservableCollection<IExercise>();
+            // TEST
+            ExercisesSynced.Add(new Exercise() { ExerciseStart = DateTime.Now });
+            // \TEST
         }
     }
 }

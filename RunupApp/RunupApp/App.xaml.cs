@@ -38,11 +38,11 @@ namespace RunupApp
                 //If user is logged in, set app bar button to Logout else login
                 if (value == null)
                 {
-                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Login";
+                    ((ApplicationBarIconButton)appBar.Buttons[2]).Text = "Login";
                 }
                 else
                 {
-                    ((ApplicationBarIconButton)appBar.Buttons[1]).Text = "Logout";
+                    ((ApplicationBarIconButton)appBar.Buttons[2]).Text = "Logout";
                 }
             }
         }
@@ -369,7 +369,7 @@ namespace RunupApp
         private void ExerciseListingAppBarButton_Click(object sender, EventArgs e)
         {
             // Navigate to ExeriseList
-            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseList.xaml", UriKind.Relative));
+            (Application.Current.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseListView.xaml", UriKind.Relative));
         }
 
         /// <summary>

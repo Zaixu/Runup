@@ -93,6 +93,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\DateTimeConverter.cs" />
     <Compile Include="ViewModels\ExerciseListViewModel.cs" />
     <Compile Include="Views\ExerciseListView.xaml.cs">
       <DependentUpon>ExerciseListView.xaml</DependentUpon>

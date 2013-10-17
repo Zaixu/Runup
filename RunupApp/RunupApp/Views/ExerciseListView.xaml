@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModels="clr-namespace:RunupApp.ViewModels"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -14,6 +15,9 @@
     shell:SystemTray.IsVisible="True">
     <!-- Resources -->
     <phone:PhoneApplicationPage.Resources>
+        <!-- Converters -->
+        <ViewModels:DateTimeConverter x:Key="DateConverter" />
+        
         <!-- Styles -->
         <Style x:Key="PageHeader" TargetType="TextBlock">
             <Setter Property="FontSize" Value="32" />
@@ -21,6 +25,11 @@
         <Style x:Key="PageInfo" TargetType="TextBlock">
             <Setter Property="FontSize" Value="22" />
         </Style>
+        
+        <!-- Templates -->
+        <DataTemplate x:Key="ExerciseTemplate">
+            <TextBlock Text="{Binding ExerciseStart, Converter={StaticResource DateConverter}}" />
+        </DataTemplate>
     </phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -44,7 +53,7 @@
 				    New:
                 </TextBlock>
                 <ListBox x:Name="ListNewExercises">
-                    
+                    <TextBlock>Not bound</TextBlock>
                 </ListBox>
             </StackPanel>
         </ScrollViewer>
@@ -55,8 +64,8 @@
                 <TextBlock x:Name="TextSyncedExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
 				    Synced:
                 </TextBlock>
-                <ListBox x:Name="ListSyncedExercises">
-
+                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced}" ItemTemplate="{StaticResource ExerciseTemplate}">
+                    
                 </ListBox>
             </StackPanel>
         </ScrollViewer>
