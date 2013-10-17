@@ -127,15 +127,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-<<<<<<< HEAD
     <Page Include="Views\ExerciseList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ExercisePage.xaml">
-=======
     <Page Include="Views\RunningExerciseView.xaml">
->>>>>>> 578401587467c26f1d4eff20f5c78fc8a12d40d8
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
