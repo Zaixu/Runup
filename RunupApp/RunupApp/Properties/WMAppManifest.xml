@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{3e174034-45b1-4b0f-975c-c5601eedb705}" Title="RunupApp" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Crynac" Description="Sample description" Publisher="RunupApp" PublisherID="{8a430af9-75ef-4a48-9fda-9210c60d6251}">
+  <App xmlns="" ProductID="{3e174034-45b1-4b0f-975c-c5601eedb705}" Title="RunupApp" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Crynac" Description="Application for tracking running exercises." Publisher="RunupApp" PublisherID="{8a430af9-75ef-4a48-9fda-9210c60d6251}">
     <IconPath IsRelative="true" IsResource="false">logoEye2.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -14,7 +14,7 @@
     </Capabilities>
     <Tasks>
       <!--<DefaultTask Name="_default" NavigationPage="MainPage.xaml" />-->
-      <DefaultTask Name="_default" NavigationPage="MainPage.xaml">
+      <DefaultTask Name="_default" NavigationPage="Views/MainPage.xaml">
         <BackgroundExecution>
           <ExecutionType Name="LocationTracking" />
         </BackgroundExecution>

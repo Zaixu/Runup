@@ -19,10 +19,6 @@ namespace RunupApp
 {
     public partial class App : Application
     {
-        
-        /// <summary>
-        /// 
-        /// </summary>
         private Users user = null;
         
         /// <summary>
