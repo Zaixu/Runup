@@ -7,25 +7,64 @@ using System.Collections.ObjectModel;
 using Domain.Interfaces;
 using Domain.Implementations;
 using System.Windows.Input;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System.Windows;
 
 namespace RunupApp.ViewModels
 {
     public class ExerciseListViewModel : ViewModelBase
     {
         // Members
+        /// <summary>
+        /// Current running app.
+        /// </summary>
+        private App _application = Application.Current as App;
 
         // Properties
+        /// <summary>
+        /// New exercises which have not been synced.
+        /// </summary>
+        public ObservableCollection<IExercise> ExercisesNew
+        {
+            get
+            {
+                return (App.NewExercisesStack);
+            }
+            private set
+            {
+                // Nothing
+            }
+        }
+
+        /// <summary>
+        /// Exercises which have been synced. 
+        /// </summary>
         public ObservableCollection<IExercise> ExercisesSynced
         {
             get;
             set;
         }
 
-        public ICommand ShowExercise
+        /// <summary>
+        /// Show exercise in detailed view.
+        /// </summary>
+        public ICommand ShowNonSyncedExercise
         {
             get
             {
-                return new RelayCommand<int>(_ShowExercise);
+                return new RelayCommand<DateTime>(_ShowNonSyncedExercise);
+            }
+        }
+
+        /// <summary>
+        /// Show exercise in detailed view.
+        /// </summary>
+        public ICommand ShowSyncedExercise
+        {
+            get
+            {
+                return new RelayCommand<int>(_ShowSyncedExercise);
             }
         }
 
@@ -35,17 +74,23 @@ namespace RunupApp.ViewModels
         {
             // Setup
             ExercisesSynced = new ObservableCollection<IExercise>();
-            // TEST
-            ExercisesSynced.Add(new Exercise() { ExerciseStart = DateTime.Now, ID = 1});
-            NotifyPropertyChanged("ExercisesSynced");
-            // \TEST
         }
 
         // :Commands
         /// <summary>
-        /// 
+        /// Show exercise in detailed vied.
         /// </summary>
-        private void _ShowExercise(int ID)
+        private void _ShowNonSyncedExercise(DateTime startTime)
+        {
+            // Setup
+            IExercise exercise = App.NewExercisesStack.Where(x => x.ExerciseStart == startTime).FirstOrDefault();
+            App.SelectedExercise = exercise;
+
+            // Navigate
+            (_application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseDetailedView.xaml", UriKind.Relative));
+        }
+
+        private void _ShowSyncedExercise(int ID)
         {
 
         }

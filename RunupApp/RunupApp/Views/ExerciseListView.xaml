@@ -46,12 +46,23 @@
 
         <!-- New exercises -->
         <ScrollViewer  Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="12,0,12,0">
-            <StackPanel x:Name="NewExercisesListing" Orientation="Vertical">
+            <StackPanel x:Name="NewExercisesListing" Orientation="Vertical" DataContext="{StaticResource ViewData}">
                 <TextBlock x:Name="TextNewExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
 				    New:
                 </TextBlock>
-                <ListBox x:Name="ListNewExercises">
-                    <TextBlock>Not bound</TextBlock>
+                <ListBox x:Name="ListNewExercises" ItemsSource="{Binding ExercisesNew}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
+                                    Command="{Binding ShowNonSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
+                                    CommandParameter="{Binding ExerciseStart}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                 </ListBox>
             </StackPanel>
         </ScrollViewer>
@@ -62,11 +73,11 @@
                 <TextBlock x:Name="TextSyncedExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
 				    Synced:
                 </TextBlock>
-                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced}">
+                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced, Mode=OneWay}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
-                                    Command="{Binding ShowExercise, Mode=OneWay, Source={StaticResource ViewData}}"
+                                    Command="{Binding ShowSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
                                     CommandParameter="{Binding ID}"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

@@ -97,7 +97,7 @@ namespace RunupApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MMM dd. yyyy.
+        ///   Looks up a localized string similar to MMM dd. yyyy hh:mm:ss.
         /// </summary>
         public static string DateTimeFriendlyFormat {
             get {

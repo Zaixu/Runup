@@ -144,6 +144,6 @@
     <value>cal</value>
   </data>
   <data name="DateTimeFriendlyFormat" xml:space="preserve">
-    <value>MMM dd. yyyy</value>
+    <value>MMM dd. yyyy hh:mm:ss</value>
   </data>
 </root>

@@ -9,9 +9,11 @@ using System.Collections.ObjectModel;
 
 namespace Domain.Implementations
 {
-    class DBFactory : IDBFactory
+    class ExerciseFactory : IExerciseFactory
     {
-        public Exercises CreateExercise(IExercise exercise)
+        // Functions
+        // :IExerciseFactory
+        public Exercises CreateDBExercise(IExercise exercise)
         {
             // Setup
             Exercises createdExercise = new Exercises();
@@ -34,6 +36,26 @@ namespace Domain.Implementations
             }
 
             return (createdExercise);
+        }
+
+        public IExercise CreateDomainExercise(Exercises exercise)
+        {
+            // Setup
+            IExercise dExercise = new Exercise();
+
+            // Convert
+            // :Exercise
+            dExercise.ID = exercise.idExercises;
+            dExercise.ExerciseStart = exercise.ExerciseStart;
+            dExercise.ExerciseEnd = exercise.ExerciseEnd;
+
+            // :Points
+            foreach (var point in exercise.RoutePoints)
+            {
+                dExercise.AddPoint(point.Latitude, point.Longitude, point.Time);
+            }
+
+            return dExercise;
         }
     }
 }

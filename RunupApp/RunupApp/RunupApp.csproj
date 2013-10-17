@@ -94,8 +94,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\DateTimeConverter.cs" />
+    <Compile Include="ViewModels\ExerciseDetailedViewModel.cs" />
     <Compile Include="ViewModels\ExerciseListViewModel.cs" />
     <Compile Include="ViewModels\RelayCommand.cs" />
+    <Compile Include="Views\ExerciseDetailedView.xaml.cs">
+      <DependentUpon>ExerciseDetailedView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExerciseListView.xaml.cs">
       <DependentUpon>ExerciseListView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +133,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Views\ExerciseDetailedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ExerciseListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

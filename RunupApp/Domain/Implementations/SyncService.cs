@@ -11,53 +11,81 @@ namespace Domain.Implementations
     public class SyncService : ISyncService
     {
         // Members
-        private SyncCallback _callback;
         private ServiceClient _client;
+        private SyncCallbackSaveExercise _callBackSaveExercise = null;
+        private SyncCallbackGetExercisesLight _callBackGetExercisesLight = null;
+        private SyncCallbackGetFullExercise _callBackGetFullExercise = null;
+        private IExerciseFactory _factory;
 
         // Functions
         // :Constructors
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// <param name="callback">Called when feedback from server.</param>
-        public SyncService(SyncCallback callback)
+        public SyncService()
         {
-            _callback = callback;
+            // Setup
             _client = new ServiceClient();
+            _client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
+            _client.GetExercisesLightCompleted += new EventHandler<GetExercisesLightCompletedEventArgs>(CloudService_GetExercisesLightCompleted);
+            _client.GetFullExerciseCompleted += new EventHandler<GetFullExerciseCompletedEventArgs>(CloudService_GetFullExercise);
+            _factory = new ExerciseFactory();
         }
 
         // :ISyncService
-        public void SaveExercise(Users user, IExercise exercise)
+        public void SaveExercise(Users user, IExercise exercise, SyncCallbackSaveExercise callback)
         {
-            IDBFactory factory = new DBFactory();
-            Exercises dbExercise = factory.CreateExercise(exercise);
+            // Setup
+            Exercises dbExercise = _factory.CreateDBExercise(exercise);
+            _callBackSaveExercise = callback;
             
-            _client.SaveExerciseCompleted += new EventHandler<SaveExerciseCompletedEventArgs>(CloudService_SaveExerciseCompleted);
+            // Call
             _client.SaveExerciseAsync(user, dbExercise);
         }
 
-        public ICollection<IExercise> GetExercisesLight(Users user)
+        public void GetExercisesLight(Users user, SyncCallbackGetExercisesLight callback)
         {
-            
-            return null;
+            // Setup
+            _client.GetExercisesLightCompleted += new EventHandler<GetExercisesLightCompletedEventArgs>(CloudService_GetExercisesLightCompleted);
+            _callBackGetExercisesLight = callback;
+
+            // Call
+            _client.GetExercisesLightAsync(user);
         }
 
-        public IExercise GetFullExercise(Users user, int exerciseID)
+        public void GetFullExercise(Users user, int exerciseID, SyncCallbackGetFullExercise callback)
         {
-            return null;
+            // Setup
+
+            // Call
         }
 
         // :Helper functions
         public void CloudService_SaveExerciseCompleted(object sender, Domain.CloudService.SaveExerciseCompletedEventArgs e)
         {
-            _callback(e.Result);
+            _callBackSaveExercise(e.Result);
+        }
+
+        public void CloudService_GetExercisesLightCompleted(object sender, Domain.CloudService.GetExercisesLightCompletedEventArgs e)
+        {
+            // Convert
+            ICollection<IExercise> exercises = new List<IExercise>();
+            foreach (var exercise in e.Result)
+            {
+                exercises.Add(_factory.CreateDomainExercise(exercise));
+            }
+
+            // Call
+            _callBackGetExercisesLight(exercises);
+        }
+
+        public void CloudService_GetFullExercise(object sender, Domain.CloudService.GetFullExerciseCompletedEventArgs e)
+        {
+            // Convert
+            IExercise exercise = _factory.CreateDomainExercise(e.Result);
+
+            // Call
+            _callBackGetFullExercise(exercise);
         }
     }
-
-    // Helper types
-    /// <summary>
-    /// For server callback.
-    /// </summary>
-    /// <param name="status">Success or not.</param>
-    public delegate void SyncCallback(string status);
 }

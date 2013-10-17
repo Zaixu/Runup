@@ -14,6 +14,7 @@ using Domain.CloudService;
 using System.IO.IsolatedStorage;
 using System.ServiceModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace RunupApp
 {
@@ -64,9 +65,14 @@ namespace RunupApp
         public static PhoneApplicationFrame RootFrame { get; private set; }
 
         /// <summary>
-        /// Contains all routes not synced.
+        /// Contains all exercises not synced.
         /// </summary>
-        public static List<IExercise> NewRoutesStack { get; set; }
+        public static ObservableCollection<IExercise> NewExercisesStack { get; set; }
+
+        /// <summary>
+        /// Exercise selected in Exercise list.
+        /// </summary>
+        public static IExercise SelectedExercise { get; set; }
 
         /// <summary>
         /// Constructor for the Application object.
@@ -113,7 +119,7 @@ namespace RunupApp
             }
 
             // Set up route stack
-            NewRoutesStack = new List<IExercise>();
+            NewExercisesStack = new ObservableCollection<IExercise>();
         }
 
         /// Event handlers
@@ -328,14 +334,14 @@ namespace RunupApp
             if (User != null)
             {
                 // :Go through each one
-                ISyncService syncservice = new SyncService(syncallback);
-                foreach (var exercise in NewRoutesStack)
+                ISyncService syncservice = new SyncService();
+                foreach (var exercise in NewExercisesStack)
                 {
-                    syncservice.SaveExercise(User, exercise);
+                    syncservice.SaveExercise(User, exercise, syncallback);
                 }
 
                 // :Remove entries
-                NewRoutesStack.Clear();
+                NewExercisesStack.Clear();
             }
             else
             {

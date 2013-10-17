@@ -83,12 +83,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Implementations\DBFactory.cs" />
+    <Compile Include="Implementations\ExerciseFactory.cs" />
     <Compile Include="Implementations\GPSService.cs" />
     <Compile Include="Implementations\Exercise.cs" />
     <Compile Include="Implementations\RoutePoint.cs" />
     <Compile Include="Implementations\SyncService.cs" />
-    <Compile Include="Interfaces\IDBFactory.cs" />
+    <Compile Include="Interfaces\IExerciseFactory.cs" />
     <Compile Include="Interfaces\IGPSService.cs" />
     <Compile Include="Interfaces\IExercise.cs" />
     <Compile Include="Interfaces\IRoutePoint.cs" />
