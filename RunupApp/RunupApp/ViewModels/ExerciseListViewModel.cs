@@ -14,7 +14,7 @@ namespace RunupApp.ViewModels
         // Members
 
         // Properties
-        public ObservableCollection<IExercise> Routes
+        public ObservableCollection<IExercise> Exercises
         {
             get;
             set;
@@ -24,7 +24,7 @@ namespace RunupApp.ViewModels
         public ExerciseListViewModel()
         {
             // Setup
-            Routes = new ObservableCollection<IExercise>();
+            Exercises = new ObservableCollection<IExercise>();
         }
     }
 }
