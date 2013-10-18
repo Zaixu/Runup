@@ -75,6 +75,11 @@ namespace RunupApp
         public static ObservableCollection<IExercise> ExercisesSynced { get; set; }
 
         /// <summary>
+        /// To keep track of all exercises synced.
+        /// </summary>
+        private static int ExercisesToSync { get; set; }
+
+        /// <summary>
         /// Exercise selected in Exercise list.
         /// </summary>
         public static IExercise SelectedExercise { get; set; }
@@ -338,40 +343,63 @@ namespace RunupApp
             ISyncService syncservice = new SyncService();
 
             // Save all new exercises
-            if (User != null)
+            if (NewExercisesStack.Count > 0)
             {
-                // :Go through each one
-                foreach (var exercise in NewExercisesStack)
+                if (User != null)
                 {
-                    syncservice.SaveExercise(User, exercise, syncCallbackSave);
+                    // :Go through each one
+                    ExercisesToSync = NewExercisesStack.Count;
+                    foreach (var exercise in NewExercisesStack)
+                    {
+                        syncservice.SaveExercise(User, exercise, syncCallbackSave);
+                    }
+
+                    // :Remove entries
+                    NewExercisesStack.Clear();
                 }
-
-                // :Remove entries
-                NewExercisesStack.Clear();
+                else
+                {
+                    // Can later be changed to data binding
+                    MessageBox.Show("Not logged in");
+                }
             }
-            else
+            else // Just get
             {
-                // Can later be changed to data binding
-                MessageBox.Show("Not logged in");
-            }
-
-            // Get exercises synced
-            if (User != null)
-            {
-                // :Call service
-                syncservice.GetExercisesLight(User, syncCallbackGet);
-            }
-            else
-            {
-                // Can later be changed to data binding
-                MessageBox.Show("Not logged in");
+                // Get exercises synced
+                if (User != null)
+                {
+                    // :Call service
+                    syncservice.GetExercisesLight(User, syncCallbackGet);
+                }
+                else
+                {
+                    // Can later be changed to data binding
+                    MessageBox.Show("Not logged in");
+                }
             }
         }
 
         // Description: Callback when sync save part is completed.
         private void syncCallbackSave(string status)
         {
-            // Nothing
+            // Setup
+            ISyncService syncservice = new SyncService();
+            ExercisesToSync--;
+
+            if (ExercisesToSync == 0)
+            {
+                // Get exercises synced
+                if (User != null)
+                {
+                    // :Call service
+                    syncservice.GetExercisesLight(User, syncCallbackGet);
+                }
+                else
+                {
+                    // Can later be changed to data binding
+                    MessageBox.Show("Not logged in");
+                }
+            }
         }
 
         // Description: Callback when sync getting exercise list is completed.
