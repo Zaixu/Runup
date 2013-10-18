@@ -30,13 +30,13 @@
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
-            <PropertyRef Name="Exercises_idRoute" />
+            <PropertyRef Name="Exercises_idExercises" />
           </Key>
           <Property Name="idRoutePoints" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Longitude" Type="double" Nullable="false" />
           <Property Name="Latitude" Type="double" Nullable="false" />
           <Property Name="Time" Type="datetime" Nullable="false" />
-          <Property Name="Exercises_idRoute" Type="int" Nullable="false" />
+          <Property Name="Exercises_idExercises" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -53,7 +53,7 @@
               <PropertyRef Name="idExercises" />
             </Principal>
             <Dependent Role="RoutePoints">
-              <PropertyRef Name="Exercises_idRoute" />
+              <PropertyRef Name="Exercises_idExercises" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -100,13 +100,13 @@
         <EntityType Name="RoutePoints">
           <Key>
             <PropertyRef Name="idRoutePoints" />
-            <PropertyRef Name="Exercises_idRoute" />
+            <PropertyRef Name="Exercises_idExercises" />
           </Key>
           <Property Type="Int32" Name="idRoutePoints" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Double" Name="Longitude" Nullable="false" />
           <Property Type="Double" Name="Latitude" Nullable="false" />
           <Property Type="DateTime" Name="Time" Nullable="false" />
-          <Property Type="Int32" Name="Exercises_idRoute" Nullable="false" />
+          <Property Type="Int32" Name="Exercises_idExercises" Nullable="false" />
           <NavigationProperty Name="Exercises" Relationship="DatabaseModel.fk_RoutePoints_Route" FromRole="RoutePoints" ToRole="Exercises" />
         </EntityType>
         <EntityType Name="Users">
@@ -125,7 +125,7 @@
               <PropertyRef Name="idExercises" />
             </Principal>
             <Dependent Role="RoutePoints">
-              <PropertyRef Name="Exercises_idRoute" />
+              <PropertyRef Name="Exercises_idExercises" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,7 +160,7 @@
           <EntitySetMapping Name="RoutePoints">
             <EntityTypeMapping TypeName="DatabaseModel.RoutePoints">
               <MappingFragment StoreEntitySet="RoutePoints">
-                <ScalarProperty Name="Exercises_idRoute" ColumnName="Exercises_idRoute" />
+                <ScalarProperty Name="Exercises_idExercises" ColumnName="Exercises_idExercises" />
                 <ScalarProperty Name="Time" ColumnName="Time" />
                 <ScalarProperty Name="Latitude" ColumnName="Latitude" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />

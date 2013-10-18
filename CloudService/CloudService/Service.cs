@@ -157,7 +157,11 @@ namespace CloudService
                 {
                     using (var dbC = new DatabaseEntities())
                     {
-                        Exercises exercise = dbC.Exercises.Include("RoutePoints").Where(x => x.idExercises == exerciseID).FirstOrDefault();
+                        Exercises exercise = dbC.Exercises.Find(exerciseID);
+                        if(dbC.RoutePoints.Any(x => x.Exercises_idExercises == exerciseID))
+                        {
+                            exercise.RoutePoints = dbC.RoutePoints.Where(x => x.Exercises_idExercises == exerciseID).OrderBy(x => x.idRoutePoints).ToList();
+                        }
 
                         return exercise;
                     }

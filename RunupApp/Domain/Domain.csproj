@@ -112,18 +112,18 @@
     <WCFMetadataStorage Include="Service References\CloudService\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\CloudService\CloudService.Database.xsd">
+    <None Include="Service References\CloudService\CloudService.Database1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\CloudService\configuration91.svcinfo" />
     <None Include="Service References\CloudService\Domain.CloudService.Exercises.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\CloudService\service.wsdl" />
-    <None Include="Service References\CloudService\service.xsd">
+    <None Include="Service References\CloudService\service1.wsdl" />
+    <None Include="Service References\CloudService\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\CloudService\service1.xsd">
+    <None Include="Service References\CloudService\service21.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>

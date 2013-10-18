@@ -354,13 +354,6 @@ namespace RunupApp
                 // Can later be changed to data binding
                 MessageBox.Show("Not logged in");
             }
-        }
-
-        // Description: Callback when sync save part is completed.
-        private void syncCallbackSave(string status)
-        {
-            // Setup
-            ISyncService syncservice = new SyncService();
 
             // Get exercises synced
             if (User != null)
@@ -373,6 +366,12 @@ namespace RunupApp
                 // Can later be changed to data binding
                 MessageBox.Show("Not logged in");
             }
+        }
+
+        // Description: Callback when sync save part is completed.
+        private void syncCallbackSave(string status)
+        {
+            // Nothing
         }
 
         // Description: Callback when sync getting exercise list is completed.
