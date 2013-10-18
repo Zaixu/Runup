@@ -8,7 +8,7 @@ using Domain.Implementations;
 
 namespace RunupApp.ViewModels
 {
-    class ExerciseDetailedViewModel
+    class ExerciseDetailedViewModel : ViewModelBase
     {
         // Members
         IExercise _exercise;
