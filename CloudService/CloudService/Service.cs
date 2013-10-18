@@ -137,8 +137,9 @@ namespace CloudService
                 {
                     using (var dbC = new DatabaseEntities())
                     {
-                        ICollection<Exercises> exercises = dbC.Exercises.ToList();
+                        ICollection<Exercises> exercises = dbC.Exercises.Where(x => x.Users_Email == user.Email).ToList();
 
+                        
                         return exercises;
                     }
                 }
