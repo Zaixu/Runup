@@ -144,10 +144,10 @@ namespace CloudService
                     }
                 }
                 else
-                    return null;
+                    return new List<Exercises>();
             }
             else
-                return null;
+                return new List<Exercises>();
         }
 
         public Exercises GetFullExercise(Users user, int exerciseID)
@@ -158,7 +158,10 @@ namespace CloudService
                 {
                     using (var dbC = new DatabaseEntities())
                     {
-                        Exercises exercise = dbC.Exercises.Find(exerciseID);
+                        Exercises exercise = dbC.Exercises.Where(x => x.idExercises == exerciseID && x.Users_Email == user.Email).FirstOrDefault();
+                        if (exercise == null)
+                            return null;
+
                         if(dbC.RoutePoints.Any(x => x.Exercises_idExercises == exerciseID))
                         {
                             exercise.RoutePoints = dbC.RoutePoints.Where(x => x.Exercises_idExercises == exerciseID).OrderBy(x => x.idRoutePoints).ToList();

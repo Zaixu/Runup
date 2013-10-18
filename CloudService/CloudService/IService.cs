@@ -47,7 +47,7 @@ namespace CloudService
         /// 'Lightweight' so doesn't returns RoutePoints.
         /// </summary>
         /// <param name="user">The user the receive exercises from.</param>
-        /// <returns></returns>
+        /// <returns>List of exercises for the user. If invalid user it returns an empty list.</returns>
         [OperationContract]
         ICollection<Exercises> GetExercisesLight(Users user);
 
@@ -56,7 +56,7 @@ namespace CloudService
         /// </summary>
         /// <param name="user">The user with the exercise.</param>
         /// <param name="exerciseID">ID of the exercise.</param>
-        /// <returns></returns>
+        /// <returns>Gets the exercise with the ID. Returns null if no exercise found with the ID.</returns>
         [OperationContract]
         Exercises GetFullExercise(Users user, int exerciseID);
     }
