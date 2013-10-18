@@ -42,8 +42,14 @@ namespace RunupApp.ViewModels
         /// </summary>
         public ObservableCollection<IExercise> ExercisesSynced
         {
-            get;
-            set;
+            get
+            {
+                return (App.ExercisesSynced);
+            }
+            private set
+            {
+
+            }
         }
 
         /// <summary>
@@ -87,12 +93,26 @@ namespace RunupApp.ViewModels
             App.SelectedExercise = exercise;
 
             // Navigate
-            (_application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseDetailedView.xaml", UriKind.Relative));
+            if(!App.RunningInBackground)
+                (_application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseDetailedView.xaml", UriKind.Relative));
         }
 
         private void _ShowSyncedExercise(int ID)
         {
+            // Setup
+            ISyncService service = new SyncService();
+            service.GetFullExercise(_application.User, ID, _FullExerciseRetrieved);
+        }
 
+        // :Helper functions
+        private void _FullExerciseRetrieved(IExercise exercise)
+        {
+            // Setup
+            App.SelectedExercise = exercise;
+
+            // Navigate
+            if(!App.RunningInBackground)
+                (_application.RootVisual as PhoneApplicationFrame).Navigate(new Uri("/Views/ExerciseDetailedView.xaml", UriKind.Relative));
         }
     }
 }

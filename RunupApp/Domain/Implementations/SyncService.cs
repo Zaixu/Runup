@@ -46,7 +46,6 @@ namespace Domain.Implementations
         public void GetExercisesLight(Users user, SyncCallbackGetExercisesLight callback)
         {
             // Setup
-            _client.GetExercisesLightCompleted += new EventHandler<GetExercisesLightCompletedEventArgs>(CloudService_GetExercisesLightCompleted);
             _callBackGetExercisesLight = callback;
 
             // Call
@@ -56,8 +55,10 @@ namespace Domain.Implementations
         public void GetFullExercise(Users user, int exerciseID, SyncCallbackGetFullExercise callback)
         {
             // Setup
+            _callBackGetFullExercise = callback;
 
             // Call
+            _client.GetFullExerciseAsync(user, exerciseID);
         }
 
         // :Helper functions

@@ -70,6 +70,11 @@ namespace RunupApp
         public static ObservableCollection<IExercise> NewExercisesStack { get; set; }
 
         /// <summary>
+        /// Contains all exercises synced.
+        /// </summary>
+        public static ObservableCollection<IExercise> ExercisesSynced { get; set; }
+
+        /// <summary>
         /// Exercise selected in Exercise list.
         /// </summary>
         public static IExercise SelectedExercise { get; set; }
@@ -118,8 +123,9 @@ namespace RunupApp
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            // Set up route stack
+            // Set up exercise lists
             NewExercisesStack = new ObservableCollection<IExercise>();
+            ExercisesSynced = new ObservableCollection<IExercise>();
         }
 
         /// Event handlers
@@ -328,16 +334,16 @@ namespace RunupApp
         /// <param name="e">Event Arguments.</param>
         private void SyncAppBarButton_Click(object sender, EventArgs e)
         {
-            // Get all new exercises
+            // Setup
+            ISyncService syncservice = new SyncService();
 
             // Save all new exercises
             if (User != null)
             {
                 // :Go through each one
-                ISyncService syncservice = new SyncService();
                 foreach (var exercise in NewExercisesStack)
                 {
-                    syncservice.SaveExercise(User, exercise, syncallback);
+                    syncservice.SaveExercise(User, exercise, syncCallbackSave);
                 }
 
                 // :Remove entries
@@ -348,14 +354,25 @@ namespace RunupApp
                 // Can later be changed to data binding
                 MessageBox.Show("Not logged in");
             }
+
+            // Get exercises synced
+            if (User != null)
+            {
+                // :Call service
+                syncservice.GetExercisesLight(User, syncCallbackGet);
+            }
+            else
+            {
+                // Can later be changed to data binding
+                MessageBox.Show("Not logged in");
+            }
         }
 
-        // Description: Callback when sync is completed.
-        private void syncallback(string status)
+        // Description: Callback when sync save part is completed.
+        private void syncCallbackSave(string status)
         {
             if(!App.RunningInBackground)
             {
-                // Can later be changed to data binding
                 MessageBox.Show("Sync: " + status);
             }
             else // Gone away from app
@@ -363,6 +380,25 @@ namespace RunupApp
                 ShellToast msg = new ShellToast();
                 msg.Title = "Sync:";
                 msg.Content = status;
+                msg.Show();
+            }
+        }
+
+        // Description: Callback when sync getting exercise list is completed.
+        private void syncCallbackGet(ICollection<IExercise> exercises)
+        {
+            if (!App.RunningInBackground)
+            {
+                ExercisesSynced.Clear();
+                foreach (var exercise in exercises)
+                    ExercisesSynced.Add(exercise);
+                MessageBox.Show("Sync: Retrieved list");
+            }
+            else // Gone away from app
+            {
+                ShellToast msg = new ShellToast();
+                msg.Title = "Sync:";
+                msg.Content = "Retrieved list";
                 msg.Show();
             }
         }
