@@ -24,6 +24,7 @@
         <!-- Styles -->
         <Style x:Key="PageHeader" TargetType="TextBlock">
             <Setter Property="FontSize" Value="32" />
+            <Setter Property="Margin" Value="12, 12, 12, 0" />
         </Style>
         <Style x:Key="PageInfo" TargetType="TextBlock">
             <Setter Property="FontSize" Value="22" />
@@ -34,8 +35,10 @@
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="200"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
         <!--TitlePanel contains the name of the application and page title-->
@@ -45,50 +48,42 @@
         </StackPanel>
 
         <!-- New exercises -->
-        <ScrollViewer  Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="12,0,12,0">
-            <StackPanel x:Name="NewExercisesListing" Orientation="Vertical" DataContext="{StaticResource ViewData}">
-                <TextBlock x:Name="TextNewExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
-				    New:
-                </TextBlock>
-                <ListBox x:Name="ListNewExercises" ItemsSource="{Binding ExercisesNew}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
-                                    Command="{Binding ShowNonSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
-                                    CommandParameter="{Binding ExerciseStart}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-            </StackPanel>
-        </ScrollViewer>
+        <TextBlock Grid.Row="1" x:Name="TextNewExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
+		New:
+        </TextBlock>
+        <ListBox Grid.Row="2" x:Name="ListNewExercises" ItemsSource="{Binding ExercisesNew}" DataContext="{StaticResource ViewData}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
+                            Command="{Binding ShowNonSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
+                            CommandParameter="{Binding ExerciseStart}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+        </ListBox>
 
         <!-- Server exercises -->
-        <ScrollViewer Grid.Row="2" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="12,0,12,0">
-            <StackPanel x:Name="SyncesExercisesListing" Orientation="Vertical" DataContext="{StaticResource ViewData}">
-                <TextBlock x:Name="TextSyncedExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
+        <TextBlock Grid.Row="3" x:Name="TextSyncedExercises" Style="{Binding Mode=OneWay, Source={StaticResource PageHeader}}">
 				    Synced:
-                </TextBlock>
-                <ListBox x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced, Mode=OneWay}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
-                                    Command="{Binding ShowSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
-                                    CommandParameter="{Binding ID}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                </ListBox>
-            </StackPanel>
-        </ScrollViewer>
+        </TextBlock>
+        <ListBox Grid.Row="4" x:Name="ListSyncedExercises" ItemsSource="{Binding ExercisesSynced, Mode=OneWay}" DataContext="{StaticResource ViewData}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding ExerciseStart, Converter={StaticResource DateConverter}}"
+                            Command="{Binding ShowSyncedExercise, Mode=OneWay, Source={StaticResource ViewData}}"
+                            CommandParameter="{Binding ID}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+        </ListBox>
     </Grid>
 
 </phone:PhoneApplicationPage>

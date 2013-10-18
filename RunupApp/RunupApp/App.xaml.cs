@@ -354,6 +354,13 @@ namespace RunupApp
                 // Can later be changed to data binding
                 MessageBox.Show("Not logged in");
             }
+        }
+
+        // Description: Callback when sync save part is completed.
+        private void syncCallbackSave(string status)
+        {
+            // Setup
+            ISyncService syncservice = new SyncService();
 
             // Get exercises synced
             if (User != null)
@@ -368,22 +375,6 @@ namespace RunupApp
             }
         }
 
-        // Description: Callback when sync save part is completed.
-        private void syncCallbackSave(string status)
-        {
-            if(!App.RunningInBackground)
-            {
-                MessageBox.Show("Sync: " + status);
-            }
-            else // Gone away from app
-            {
-                ShellToast msg = new ShellToast();
-                msg.Title = "Sync:";
-                msg.Content = status;
-                msg.Show();
-            }
-        }
-
         // Description: Callback when sync getting exercise list is completed.
         private void syncCallbackGet(ICollection<IExercise> exercises)
         {
@@ -392,13 +383,13 @@ namespace RunupApp
                 ExercisesSynced.Clear();
                 foreach (var exercise in exercises)
                     ExercisesSynced.Add(exercise);
-                MessageBox.Show("Sync: Retrieved list");
+                MessageBox.Show("Sync: Completed");
             }
             else // Gone away from app
             {
                 ShellToast msg = new ShellToast();
                 msg.Title = "Sync:";
-                msg.Content = "Retrieved list";
+                msg.Content = "Completed";
                 msg.Show();
             }
         }
